@@ -19,7 +19,7 @@ class CreateAllTransactionsTable extends Migration
             $table->enum('transaction_type',['IN', 'OUT']);
             $table->enum('source_type',['Opening', 'Add', 'Withdraw', 'Return', 'Transfer', 'Recover'])->nullable();
             $table->double('amount')->default(0);
-            $table->enum('payment_method',['Cash', 'Card', 'Cheque', 'Bank Transfer', 'Other',  'Supplier Account', 'Custom Payment'])->default('Cash');
+            $table->enum('payment_method',['Cash', 'Card', 'Cheque', 'Bank Transfer', 'Other', 'Customer Account', 'Supplier Account', 'Custom Payment'])->default('Cash');
             $table->string('card_number',100)->nullable();
             $table->string('card_holder_name',100)->nullable();
             $table->string('card_transaction_no',100)->nullable();

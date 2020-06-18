@@ -1,5 +1,4 @@
 @extends('layouts.master')
-@extends('box.welcome')
 
 @section('title')
     Purchase List

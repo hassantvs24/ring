@@ -50,7 +50,7 @@ class AgentTransaction extends Model
     /**
      * @var array
      */
-    protected $fillable = ['agents_id', 'warehouses_id', 'account_books_id', 'business_id', 'users_id', 'code', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['agents_id', 'sell_invoices_id', 'warehouses_id', 'account_books_id', 'business_id', 'users_id', 'transaction_point', 'transaction_type', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -220,26 +220,13 @@
 
         });
 
-        function item_shape(datas){
-            return  datas.map(data => {
-                return {id: data.products_id,  name: data.name, sku: data.sku, qty: data.quantity, price: data.amount, prid: data.id};
-            });
-        }
-
-        function pay_shape(datas){
-            return  datas.map(data => {
-                return {accounts: data.account_books_id,  name: data.account_book.name, payment: data.amount, methods: data.payment_method, cheque: data.cheque_number, bank: data.bank_account_no, transaction: data.transaction_no, description: data.description, prid: data.id};
-            });
-        }
+        var all_items = item_shape(<?= $items ?>);
+        var all_payment = pay_shape(<?= $payments ?>);
 
         $(function () {
 
-            var all_items = item_shape(<?= $items ?>);
-            var all_payment = pay_shape(<?= $payments ?>);
-
             render_item();
             render_payment();
-
 
             $('.products').change(function () {
                 var products = $(this).val();
@@ -303,8 +290,6 @@
                     alert('Please input valid amount.');
                 }
 
-                //console.log(all_payment);
-
             });
 
             $('.discount, .vat_tax').change(function () {
@@ -353,11 +338,50 @@
             });
 
 
-            function render_item() {
-                var tbl_item = '';
-                var total_price = 0;
-                $.each(all_items, function( index, value ) {
-                    tbl_item += `<tr>
+            $('.supplier, .status, .warehouses, .vat_tax, .discount, .shipment, .products, .accounts, .payment_method').select2();
+
+            $('.date_pic').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
+        });
+
+        /**
+         * Item Data Shape
+         */
+        function item_shape(datas){
+            return  datas.map(data => {
+                return {id: data.products_id,  name: data.name, sku: data.sku, qty: data.quantity, price: data.amount, prid: data.id};
+            });
+        }
+        /**
+         * /Item Data Shape
+         */
+
+        /**
+         * Payment Data Shape
+         */
+        function pay_shape(datas){
+            return  datas.map(data => {
+                return {accounts: data.account_books_id,  name: data.account_book.name, payment: data.amount, methods: data.payment_method, cheque: data.cheque_number, bank: data.bank_account_no, transaction: data.transaction_no, description: data.description, prid: data.id};
+            });
+        }
+        /**
+         * /Payment Data Shape
+         */
+
+
+
+        /**
+         * Render Item Table
+         */
+        function render_item() {
+            var tbl_item = '';
+            var total_price = 0;
+            $.each(all_items, function( index, value ) {
+                tbl_item += `<tr>
                         <td>${value.sku}</td>
                         <td>${value.name}</td>
                         <td><input name="qty[${value.id}]" value="${value.qty}" class="form-control qtyItem" data-id="${value.id}" type="number" step="any" min="0.01" placeholder="Quantity" /></td>
@@ -367,24 +391,31 @@
                         <input type="hidden" name="item_id[${value.id}]" value="${value.prid}" />
                     </tr>`;
 
-                    total_price += Number(value.price * value.qty);
-                });
-                $('.item_list').html(tbl_item);
-                $('.total_price').html(total_price.toFixed(2));
-                $('.total_price').attr('data-prices', total_price);
-                //console.log(total_price);
-                del_item();
-                update_item();
-                final_change();
-            }
+                total_price += Number(value.price * value.qty);
+            });
+            $('.item_list').html(tbl_item);
+            $('.total_price').html(total_price.toFixed(2));
+            $('.total_price').attr('data-prices', total_price);
+            //console.log(total_price);
+            del_item();
+            update_item();
+            final_change();
+            handle_submit_btn();//Disable Enable Submit Button
+        }
+        /**
+         * /Render Item Table
+         */
 
 
-            function render_payment() {
-                var tbl_pay = '';
-                var input_add = '';
-                var total_amount = 0;
-                $.each(all_payment, function( index, value ) {
-                    tbl_pay += `<tr>
+        /**
+         * Render Payment Table
+         */
+        function render_payment() {
+            var tbl_pay = '';
+            var input_add = '';
+            var total_amount = 0;
+            $.each(all_payment, function( index, value ) {
+                tbl_pay += `<tr>
                         <td>${value.name}</td>
                         <td>${value.methods}</td>
                         <td>${value.cheque}</td>
@@ -395,7 +426,7 @@
                         <td class="text-right"><button type="button" class="btn btn-danger btn-xs delete_payment" value="${index}"><i class="icon-bin"></i></button></td>
                     </tr>`;
 
-                    input_add += `<input type="hidden" name="amount[]" value="${value.payment}" />
+                input_add += `<input type="hidden" name="amount[]" value="${value.payment}" />
                                 <input type="hidden" name="payment_method[]" value="${value.methods}" />
                                 <input type="hidden" name="cheque_number[]" value="${value.cheque}" />
                                 <input type="hidden" name="bank_account_no[]" value="${value.bank}" />
@@ -404,106 +435,145 @@
                                 <input type="hidden" name="account_books_id[]" value="${value.accounts}" />
                                 <input type="hidden" name="payment_id[]" value="${value.prid}" />`;
 
-                    total_amount += Number(value.payment);
-                });
-
-                $('.payment_list').html(tbl_pay);
-                $('.total_pay_amount').html(total_amount.toFixed(2));
-                $('.pay_input_list').html(input_add);
-                $('.total_pay_amount').attr('data-amount',total_amount);
-                $('.all_pay_total').val(total_amount);
-
-                del_payment();
-                final_change();
-            }
-
-            function del_item(){
-                $('.delete_item').click(function () {
-                    var id = $(this).val();
-                    all_items = all_items.filter(all_item => all_item.id != id);
-                    render_item();
-                });
-            }
-
-            function del_payment() {
-                $('.delete_payment').click(function () {
-                    var id = $(this).val();
-                    all_payment = all_payment.filter((all_pay, index) => index != id);
-                    render_payment();
-                });
-            }
-
-            function update_item(){
-                $('.qtyItem').change(function () {
-                    var id = $(this).data('id');
-                    var cu_val = $(this).val();
-                    var objIndex = all_items.findIndex((obj => obj.id == id));
-                    all_items[objIndex].qty = cu_val;
-                    render_item();
-                });
-
-                $('.priceItem').change(function () {
-                    var id = $(this).data('id');
-                    var cu_val = $(this).val();
-                    var objIndex = all_items.findIndex((obj => obj.id == id));
-                    all_items[objIndex].price = cu_val;
-                    render_item();
-                });
-            }
-
-            function handle_vat_discount() {
-                var total_price = Number($('.total_price').attr('data-prices'));
-                var discount = Number($('.discount').find('option:selected').data('amount'));
-                var vat_tax = Number($('.vat_tax').find('option:selected').data('amount'));
-                var distype = $('.discount').find('option:selected').data('distype');
-                var show_discount = 0;
-                if(distype == 'Fixed'){
-                    show_discount = discount;
-                }else{
-                    show_discount = Number((total_price * discount)/100);
-                }
-                var show_vat = Number((total_price * vat_tax)/100);
-
-                $('.vet_texes_amount').val(show_vat);
-                $('.discount_amount').val(show_discount);
-            }
-
-
-            function final_change(){
-                var additional_charges = Number($('.additional_charges').val());
-                var paid = Number($('.all_pay_total').val());
-                var total_price = Number($('.total_price').attr('data-prices'));
-                var show_vat = $('.vet_texes_amount').val()
-                var show_discount = $('.discount_amount').val()
-
-                var total_show = Number(total_price) + Number(show_vat) + Number(additional_charges) - Number(show_discount);
-
-                var due_show = Number(total_show - paid);
-
-                $('.discount_show').html(parseFloat(show_discount).toFixed(2));
-                $('.vat_show').html(parseFloat(show_vat).toFixed(2));
-                $('.labour_show').html(parseFloat(additional_charges).toFixed(2));
-                $('.total_show').html(total_show.toFixed(2));
-                $('.paid_show').html(parseFloat(paid).toFixed(2));
-                $('.due_show').html(due_show.toFixed(2));
-                $('.due_show').attr('data-due', due_show);
-                $('.total_show').attr('data-total', total_show);
-
-                if(due_show < 0){
-                    $('#submitBtn').prop('disabled', true);
-                }else{
-                    $('#submitBtn').prop('disabled', false);
-                }
-            }
-
-            $('.supplier, .status, .warehouses, .vat_tax, .discount, .shipment, .products, .accounts, .payment_method').select2();
-
-            $('.date_pic').daterangepicker({
-                singleDatePicker: true,
-                locale: {
-                    format: 'DD/MM/YYYY'
-                }
+                total_amount += Number(value.payment);
             });
-        });
+
+            $('.payment_list').html(tbl_pay);
+            $('.total_pay_amount').html(total_amount.toFixed(2));
+            $('.pay_input_list').html(input_add);
+            $('.total_pay_amount').attr('data-amount',total_amount);
+            $('.all_pay_total').val(total_amount);
+
+            del_payment();
+            final_change();
+        }
+        /**
+         * /Render Payment Table
+         */
+
+
+        /**
+         * Delete Item
+         */
+        function del_item(){
+            $('.delete_item').click(function () {
+                var id = $(this).val();
+                all_items = all_items.filter(all_item => all_item.id != id);
+                render_item();
+            });
+        }
+        /**
+         * /Delete Item
+         */
+
+        /**
+         * Delete payment
+         */
+        function del_payment() {
+            $('.delete_payment').click(function () {
+                var id = $(this).val();
+                all_payment = all_payment.filter((all_pay, index) => index != id);
+                render_payment();
+            });
+        }
+        /**
+         * /Delete payment
+         */
+
+
+        /**
+         * Handle Item Information
+         */
+        function update_item(){
+            $('.qtyItem').change(function () {
+                var id = $(this).data('id');
+                var cu_val = $(this).val();
+                var objIndex = all_items.findIndex((obj => obj.id == id));
+                all_items[objIndex].qty = cu_val;
+                render_item();
+            });
+
+            $('.priceItem').change(function () {
+                var id = $(this).data('id');
+                var cu_val = $(this).val();
+                var objIndex = all_items.findIndex((obj => obj.id == id));
+                all_items[objIndex].price = cu_val;
+                render_item();
+            });
+        }
+        /**
+         * /Handle Item Information
+         */
+
+
+        /**
+         * Handle Vat Tax & Discount Input
+         */
+        function handle_vat_discount() {
+            var total_price = Number($('.total_price').attr('data-prices'));
+            var discount = Number($('.discount').find('option:selected').data('amount'));
+            var vat_tax = Number($('.vat_tax').find('option:selected').data('amount'));
+            var distype = $('.discount').find('option:selected').data('distype');
+            var show_discount = 0;
+            if(distype == 'Fixed'){
+                show_discount = discount;
+            }else{
+                show_discount = Number((total_price * discount)/100);
+            }
+            var show_vat = Number((total_price * vat_tax)/100);
+
+            $('.vet_texes_amount').val(show_vat);
+            $('.discount_amount').val(show_discount);
+        }
+        /**
+         * /Handle Vat Tax & Discount Input
+         */
+
+        /**
+         * Form Input Change
+         */
+        function final_change(){
+            var additional_charges = Number($('.additional_charges').val());
+            var paid = Number($('.all_pay_total').val());
+            var total_price = Number($('.total_price').attr('data-prices'));
+            var show_vat = $('.vet_texes_amount').val()
+            var show_discount = $('.discount_amount').val()
+
+            var total_show = Number(total_price) + Number(show_vat) + Number(additional_charges) - Number(show_discount);
+
+            var due_show = Number(total_show - paid);
+
+            $('.discount_show').html(parseFloat(show_discount).toFixed(2));
+            $('.vat_show').html(parseFloat(show_vat).toFixed(2));
+            $('.labour_show').html(parseFloat(additional_charges).toFixed(2));
+            $('.total_show').html(total_show.toFixed(2));
+            $('.paid_show').html(parseFloat(paid).toFixed(2));
+            $('.due_show').html(due_show.toFixed(2));
+            $('.due_show').attr('data-due', due_show);
+            $('.total_show').attr('data-total', total_show);
+
+            handle_submit_btn();//Disable Enable Submit Button
+        }
+        /**
+         * /Form Input Change
+         */
+
+
+        /**
+         * Disable submit btn when 0 item and invalid payment
+         */
+        function handle_submit_btn() {
+            var due = Number($('.due_show').attr('data-due'));
+
+            if(all_items.length > 0 && due >= 0){
+                $('#submitBtn').prop('disabled', false);
+            }else{
+                $('#submitBtn').prop('disabled', true);
+            }
+        }
+        /**
+         * /Disable submit btn when 0 item and invalid payment
+         */
+
     </script>
 @endsection

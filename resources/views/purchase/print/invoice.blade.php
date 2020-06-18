@@ -5,7 +5,7 @@
 @endsection
 
 @section('footer')
-    <x-signature left="Authorize Signature" right="Customer Signature" />
+    <x-signature left="Authorize Signature" right="Supplier Signature" />
     <x-print-footer>Infinity Flame Soft Rongmohol Tower, Bondor Bazar 3100 Sylhet Tel: +880 1675 870047 Email: contact@website.com Web: www.website.com</x-print-footer>
 @endsection
 

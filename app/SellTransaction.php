@@ -120,6 +120,11 @@ class SellTransaction extends Model
         return $this->hasMany('App\CustomerTransaction', 'sell_transactions_id');
     }
 
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
     protected static function boot()
     {
         parent::boot();

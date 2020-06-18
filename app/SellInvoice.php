@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property integer $id
@@ -165,4 +166,29 @@ class SellInvoice extends Model
     {
         return $this->hasMany('App\SellTransaction', 'sell_invoices_id');
     }
+
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
+    public function invoice_total(){
+        $total = $this->invoiceItems()->sum(DB::raw('quantity * amount'));
+        return $total;
+    }
+
+    public function invoice_paid(){
+        $total = $this->sellTransactions()->sum('amount');
+        return $total;
+    }
+
+    public function invoice_sub_total(){
+        $total = $this->invoice_total();
+        return $total + $this->additional_charges + $this->vet_texes_amount - $this->discount_amount;
+    }
+
+    public function invoice_due(){
+        return $this->invoice_sub_total() - $this->invoice_paid();
+    }
+
 }

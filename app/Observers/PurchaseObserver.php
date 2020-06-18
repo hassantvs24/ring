@@ -50,8 +50,8 @@ class PurchaseObserver
      */
     public function restored(PurchaseInvoice $purchaseInvoice)
     {
-        PurchaseItem::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->delete();
-        PurchaseTransaction::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->delete();
+        PurchaseItem::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->restore();
+        PurchaseTransaction::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->restore();
     }
 
     /**

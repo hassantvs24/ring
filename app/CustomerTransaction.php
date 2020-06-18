@@ -121,6 +121,11 @@ class CustomerTransaction extends Model
         return $this->hasMany('App\AllTransaction', 'customer_transactions_id');
     }
 
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
     protected static function boot()
     {
         parent::boot();

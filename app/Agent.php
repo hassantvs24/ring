@@ -36,7 +36,7 @@ class Agent extends Model
     /**
      * @var array
      */
-    protected $fillable = ['warehouses_id', 'business_id', 'users_id', 'name', 'email', 'contact', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['warehouses_id', 'business_id', 'users_id', 'name', 'email', 'contact', 'amount', 'commission_type', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

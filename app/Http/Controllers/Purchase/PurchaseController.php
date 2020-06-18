@@ -14,6 +14,7 @@ use App\Supplier;
 use App\VetTex;
 use App\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PurchaseController extends Controller
@@ -35,7 +36,6 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|min:4|max:191|unique:purchase_invoices,code',
             'status' => 'required|string|max:10',
@@ -53,6 +53,8 @@ class PurchaseController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        DB::beginTransaction();
 
         try{
 
@@ -127,7 +129,9 @@ class PurchaseController extends Controller
                 }
             }
 
+            DB::commit();
         }catch (\Exception $ex) {
+            DB::rollback();
             return redirect()->back()->with(config('naz.error'));
         }
 
@@ -191,6 +195,8 @@ class PurchaseController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        DB::beginTransaction();
+
         try{
 
             $supplier = Supplier::find($request->suppliers_id);
@@ -221,21 +227,21 @@ class PurchaseController extends Controller
 
             PurchaseItem::where('purchase_invoices_id', $invoice_id)->delete(); //Delete Purchase Item
 
-            foreach ($qtys as $id => $qty){
+            foreach ($qtys as $pid => $qty){
 
                 if($qty > 0){
-                    $product = Product::find($id);
+                    $product = Product::find($pid);
 
                     PurchaseItem::updateOrCreate(
-                        ['id' => $item_id[$id]],
+                        ['id' => $item_id[$pid]],
                         [
                             'name' => $product->name,
                             'sku' => $product->sku,
                             'batch_no' => $request->code,
                             'quantity' => $qty,
-                            'amount' => $price[$id],
+                            'amount' => $price[$pid],
                             'unit' => $product->unit['name'],
-                            'products_id' => $id,
+                            'products_id' => $pid,
                             'warehouses_id' => $request->warehouses_id,
                             'purchase_invoices_id' => $invoice_id,
                             'created_at' => $request->created_at
@@ -277,8 +283,9 @@ class PurchaseController extends Controller
                     );
                 }
             }
-
+            DB::commit();
         }catch (\Exception $ex) {
+            DB::rollback();
             return redirect()->back()->with(config('naz.error'));
         }
 

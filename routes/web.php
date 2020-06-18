@@ -25,7 +25,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/list',  'Sales\SalesListController@index')->name('sales-list.index');
     Route::resource('/sales',  'Sales\SalesController')->except(['create']);
 
-
     Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'show', 'edit']);
     Route::resource('/customer/category',  'Customer\CustomerCategoryController',['names' => 'customer-category'])->except(['create', 'show', 'edit']);
 

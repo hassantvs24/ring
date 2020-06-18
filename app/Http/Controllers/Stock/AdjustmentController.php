@@ -8,6 +8,7 @@ use App\StockAdjustment;
 use App\StockAdjustmentItem;
 use App\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AdjustmentController extends Controller
@@ -39,6 +40,7 @@ class AdjustmentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        DB::beginTransaction();
         try{
 
             $table = new StockAdjustment();
@@ -70,7 +72,9 @@ class AdjustmentController extends Controller
                 }
             }
 
+            DB::commit();
         }catch (\Exception $ex) {
+            DB::rollback();
             return redirect()->back()->with(config('naz.error'));
         }
 
@@ -110,8 +114,8 @@ class AdjustmentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        DB::beginTransaction();
         try{
-
             $table = StockAdjustment::find($id);
             $table->code = $request->code ?? mt_rand();
             $table->recover_amount  = $request->recover_amount  ?? 0;
@@ -142,7 +146,9 @@ class AdjustmentController extends Controller
                 }
             }
 
+            DB::commit();
         }catch (\Exception $ex) {
+            DB::rollback();
             return redirect()->back()->with(config('naz.error'));
         }
 
