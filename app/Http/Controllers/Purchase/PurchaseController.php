@@ -82,6 +82,7 @@ class PurchaseController extends Controller
 
             $qtys = $request->qty;
             $price = $request->price;
+            $ck_status = ck_status($request->status, 'Received');//Change Status
 
             foreach ($qtys as $id => $qty){
 
@@ -95,6 +96,7 @@ class PurchaseController extends Controller
                     $trItem->quantity = $qty;
                     $trItem->amount = $price[$id];
                     $trItem->unit = $product->unit['name'];
+                    $trItem->status = $ck_status;
                     $trItem->products_id = $id;
                     $trItem->warehouses_id = $request->warehouses_id;
                     $trItem->purchase_invoices_id = $invoice_id;
@@ -122,6 +124,7 @@ class PurchaseController extends Controller
                     $payment->description = null_filter($description[$i]);
                     $payment->warehouses_id = $request->warehouses_id;
                     $payment->account_books_id = $account_books_id[$i];
+                    $payment->status = $ck_status;
                     $payment->suppliers_id = $request->suppliers_id;
                     $payment->purchase_invoices_id = $invoice_id;
                     $payment->created_at  = $request->created_at;
@@ -224,6 +227,7 @@ class PurchaseController extends Controller
             $qtys = $request->qty;
             $price = $request->price;
             $item_id = $request->item_id;
+            $ck_status = ck_status($request->status, 'Received');//Change Status
 
             PurchaseItem::where('purchase_invoices_id', $invoice_id)->delete(); //Delete Purchase Item
 
@@ -242,6 +246,7 @@ class PurchaseController extends Controller
                             'amount' => $price[$pid],
                             'unit' => $product->unit['name'],
                             'products_id' => $pid,
+                            'status' => $ck_status,
                             'warehouses_id' => $request->warehouses_id,
                             'purchase_invoices_id' => $invoice_id,
                             'created_at' => $request->created_at
@@ -274,6 +279,7 @@ class PurchaseController extends Controller
                             'bank_account_no' => null_filter($bank_account_no[$i]),
                             'transaction_no' => null_filter($transaction_no[$i]),
                             'description' => null_filter($description[$i]),
+                            'status' => $ck_status,
                             'warehouses_id' => $request->warehouses_id,
                             'account_books_id' => $account_books_id[$i],
                             'suppliers_id' => $request->suppliers_id,

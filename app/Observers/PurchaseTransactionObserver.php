@@ -30,6 +30,7 @@ class PurchaseTransactionObserver
             $supplierTransaction->account_books_id = $purchaseTransaction->account_books_id;
             $supplierTransaction->purchase_transactions_id = $purchaseTransaction->id;
             $supplierTransaction->purchase_invoices_id = $purchaseTransaction->purchase_invoices_id;
+            $supplierTransaction->status = $purchaseTransaction->status;
             $supplierTransaction->warehouses_id = $purchaseTransaction->warehouses_id;
             $supplierTransaction->created_at = $purchaseTransaction->created_at;
             $supplierTransaction->save();
@@ -45,6 +46,7 @@ class PurchaseTransactionObserver
             $all_transaction->transaction_no = $purchaseTransaction->transaction_no;
             $all_transaction->description = $purchaseTransaction->description;
             $all_transaction->account_books_id = $purchaseTransaction->account_books_id;
+            $all_transaction->status = $purchaseTransaction->status;
             $all_transaction->purchase_transactions_id = $purchaseTransaction->id;
             $all_transaction->supplier_transactions_id = $supplierTransaction_id;
             $all_transaction->warehouses_id = $purchaseTransaction->warehouses_id;
@@ -70,6 +72,7 @@ class PurchaseTransactionObserver
                 'bank_account_no' => $purchaseTransaction->bank_account_no,
                 'transaction_no' => $purchaseTransaction->transaction_no,
                 'description' => $purchaseTransaction->description,
+                'status' => $purchaseTransaction->status,
                 'account_books_id' => $purchaseTransaction->account_books_id,
                 'purchase_invoices_id' => $purchaseTransaction->purchase_invoices_id,
                 'warehouses_id' => $purchaseTransaction->warehouses_id,
@@ -83,6 +86,7 @@ class PurchaseTransactionObserver
                 'bank_account_no' => $purchaseTransaction->bank_account_no,
                 'transaction_no' => $purchaseTransaction->transaction_no,
                 'description' => $purchaseTransaction->description,
+                'status' => $purchaseTransaction->status,
                 'account_books_id' => $purchaseTransaction->account_books_id,
                 'warehouses_id' => $purchaseTransaction->warehouses_id,
                 'created_at' => $purchaseTransaction->created_at

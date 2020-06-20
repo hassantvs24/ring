@@ -24,6 +24,7 @@ class SalesItemOvserver
             $stockTransaction->unit = $invoiceItem->unit;
             $stockTransaction->quantity =  $invoiceItem->quantity;
             $stockTransaction->amount = $invoiceItem->amount;
+            $stockTransaction->status = $invoiceItem->status;
             $stockTransaction->products_id = $invoiceItem->products_id;
             $stockTransaction->invoice_items_id = $invoiceItem->id;
             $stockTransaction->warehouses_id = $invoiceItem->warehouses_id;
@@ -48,6 +49,7 @@ class SalesItemOvserver
                 'products_id' => $invoiceItem->products_id,
                 'quantity' => $invoiceItem->quantity,
                 'amount' => $invoiceItem->amount,
+                'status' => $invoiceItem->status,
                 'warehouses_id' => $invoiceItem->warehouses_id,
                 'created_at' => $invoiceItem->created_at
             ]);

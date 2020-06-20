@@ -65,7 +65,7 @@ class AllTransaction extends Model
     /**
      * @var array
      */
-    protected $fillable = ['expenses_id', 'sell_transactions_id', 'purchase_transactions_id', 'stock_transfers_id', 'agent_transactions_id', 'vat_tax_transactions_id', 'customer_transactions_id', 'supplier_transactions_id', 'warehouses_id', 'account_books_id', 'business_id', 'users_id', 'transaction_point', 'transaction_type', 'source_type', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'expenses_id', 'sell_transactions_id', 'purchase_transactions_id', 'stock_transfers_id', 'agent_transactions_id', 'vat_tax_transactions_id', 'customer_transactions_id', 'supplier_transactions_id', 'warehouses_id', 'account_books_id', 'business_id', 'users_id', 'transaction_point', 'transaction_type', 'source_type', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

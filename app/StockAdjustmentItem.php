@@ -95,6 +95,11 @@ class StockAdjustmentItem extends Model
         return $this->hasMany('App\StockTransaction', 'stock_adjustment_items_id');
     }
 
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
     protected static function boot()
     {
         parent::boot();

@@ -16,7 +16,8 @@
                         <ul>
                             <li class="{{Route::currentRouteName() == 'sales.index' ? 'active':''}}"><a href="{{route('sales.index')}}"><i class="icon-diamond"></i> Add Sales</a></li>
                             <li class="{{Route::currentRouteName() == 'sales-list.index' ? 'active':''}}"><a href="{{route('sales-list.index')}}"><i class="icon-diamond"></i> Invoice List</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Sales Return</a></li>
+                            <li class="{{Route::currentRouteName() == 'sales.quotation' ? 'active':''}}"><a href="{{route('sales.quotation')}}"><i class="icon-diamond"></i> Quotations List</a></li>
+                            <li class="{{Route::currentRouteName() == 'sales.draft' ? 'active':''}}"><a href="{{route('sales.draft')}}"><i class="icon-diamond"></i> Draft List</a></li>
                         </ul>
                     </li>
 
@@ -46,7 +47,8 @@
                         <ul>
                             <li class="{{Route::currentRouteName() == 'purchase.index' ? 'active':''}}"><a href="{{route('purchase.index')}}"><i class="icon-diamond"></i> Add Purchase</a></li>
                             <li class="{{Route::currentRouteName() == 'purchase-list.index' ? 'active':''}}"><a href="{{route('purchase-list.index')}}"><i class="icon-diamond"></i> Purchase List</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Purchase Return</a></li>
+                            <li class="{{Route::currentRouteName() == 'purchase.pending' ? 'active':''}}"><a href="{{route('purchase.pending')}}"><i class="icon-diamond"></i> Pending List</a></li>
+                            <li class="{{Route::currentRouteName() == 'purchase.ordered' ? 'active':''}}"><a href="{{route('purchase.ordered')}}"><i class="icon-diamond"></i> Ordered List</a></li>
                         </ul>
                     </li>
 
@@ -61,7 +63,7 @@
 
                     <li class=""><a href="#"><i class=" icon-box-remove"></i> <span>Expenses</span></a>
                         <ul>
-                            <li class="{{Route::currentRouteName() == 'zone.index' ? 'active':''}}"><a href="{{route('zone.index')}}"><i class="icon-diamond"></i> All Expenses</a></li>
+                            <li class="{{Route::currentRouteName() == 'expenses.index' ? 'active':''}}"><a href="{{route('expenses.index')}}"><i class="icon-diamond"></i> All Expenses</a></li>
                             <li class="{{Route::currentRouteName() == 'expense-category.index' ? 'active':''}}"><a href="{{route('expense-category.index')}}"><i class="icon-diamond"></i> Expense Category</a></li>
                         </ul>
                     </li>
@@ -73,13 +75,6 @@
                             <li class=""><a href=""><i class="icon-diamond"></i> Trial Balance</a></li>
                             <li class=""><a href=""><i class="icon-diamond"></i> Cash Flow</a></li>
                             <li class=""><a href=""><i class="icon-diamond"></i> Accounts Reports</a></li>
-                        </ul>
-                    </li>
-
-                    <li class=""><a href="#"><i class=" icon-clipboard3"></i> <span>Quotations</span></a>
-                        <ul>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Add Quotations</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Quotations List</a></li>
                         </ul>
                     </li>
 

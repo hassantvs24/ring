@@ -23,6 +23,7 @@ class CreateStockTransactionsTable extends Migration
             $table->double('amount')->default(0);
             $table->double('quantity')->default(0);
             $table->string('unit',50)->nullable();
+            $table->enum('status',['Active','Inactive'])->default('Active');
             $table->foreignId('products_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('invoice_items_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('purchase_items_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');

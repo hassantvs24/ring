@@ -7,6 +7,7 @@ use App\Company;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
+use App\StockTransaction;
 use App\Units;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'sku' => 'string|required|min:4|max:191',
+            'sku' => 'required|string|min:4|max:191|unique:products,sku',
             'name' => 'string|required|min:3|max:191',
             'sell_price' => 'numeric|required|min:0',
             'purchase_price' => 'numeric|required|min:0',
@@ -80,7 +81,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'sku' => 'string|required|min:4|max:191',
+            'sku' => 'required|string|min:4|max:191|unique:products,sku,'.$id.',id',
             'name' => 'string|required|min:3|max:191',
             'sell_price' => 'numeric|required|min:0',
             'purchase_price' => 'numeric|required|min:0',
@@ -139,4 +140,12 @@ class ProductController extends Controller
 
         return redirect()->back()->with(config('naz.del'));
     }
+
+    public function transaction($id){
+        $table = StockTransaction::where('products_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        return view('stock.stock_transaction')->with(['table' => $table]);
+    }
+
+
+
 }

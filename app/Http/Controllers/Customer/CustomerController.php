@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\AccountBook;
 use App\Customer;
 use App\CustomerCategory;
+use App\CustomerTransaction;
 use App\Http\Controllers\Controller;
 use App\Warehouse;
 use App\Zone;
@@ -19,7 +21,8 @@ class CustomerController extends Controller
         $zone = Zone::orderBy('name', 'ASC')->get();
         $category = CustomerCategory::orderBy('name', 'ASC')->get();
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
-        return view('customer.customer')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse, 'zone' => $zone]);
+        $ac_book = AccountBook::orderBy('name', 'ASC')->get();
+        return view('customer.customer')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse, 'zone' => $zone, 'ac_book' => $ac_book]);
     }
 
 
@@ -123,6 +126,15 @@ class CustomerController extends Controller
         }
 
         return redirect()->back()->with(config('naz.del'));
+    }
+
+    public function due_payment(Request $request, $id){
+
+    }
+
+    public function transaction($id){
+        $table = CustomerTransaction::where('customers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        return view('customer.transaction')->with(['table' => $table]);
     }
 
 }

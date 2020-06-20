@@ -50,7 +50,7 @@ class StockTransaction extends Model
     /**
      * @var array
      */
-    protected $fillable = ['products_id', 'invoice_items_id', 'purchase_items_id', 'product_return_items_id', 'stock_adjustment_items_id', 'stock_transfer_items_id', 'warehouses_id', 'business_id', 'users_id', 'transaction_point', 'transaction_type', 'name', 'sku', 'batch_no', 'amount', 'quantity', 'unit', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'products_id', 'invoice_items_id', 'purchase_items_id', 'product_return_items_id', 'stock_adjustment_items_id', 'stock_transfer_items_id', 'warehouses_id', 'business_id', 'users_id', 'transaction_point', 'transaction_type', 'name', 'sku', 'batch_no', 'amount', 'quantity', 'unit', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Customer;
+use App\Expense;
 use App\InvoiceItem;
 use App\Observers\CustomerObserver;
+use App\Observers\ExpenseObserver;
 use App\Observers\ProductObserver;
 use App\Observers\PurchaseItemObserver;
 use App\Observers\PurchaseObserver;
@@ -60,5 +62,7 @@ class AppServiceProvider extends ServiceProvider
         SellInvoice::observe(SalesOvserver::class);
         InvoiceItem::observe(SalesItemOvserver::class);
         SellTransaction::observe(SalesTransactionOvserver::class);
+
+        Expense::observe(ExpenseObserver::class);
     }
 }

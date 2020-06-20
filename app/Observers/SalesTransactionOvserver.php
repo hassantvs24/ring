@@ -30,6 +30,7 @@ class SalesTransactionOvserver
             $customerTransaction->account_books_id = $sellTransaction->account_books_id;
             $customerTransaction->sell_transactions_id = $sellTransaction->id;
             $customerTransaction->sell_invoices_id = $sellTransaction->sell_invoices_id;
+            $customerTransaction->status = $sellTransaction->status;
             $customerTransaction->warehouses_id = $sellTransaction->warehouses_id;
             $customerTransaction->created_at = $sellTransaction->created_at;
             $customerTransaction->save();
@@ -46,6 +47,7 @@ class SalesTransactionOvserver
             $all_transaction->description = $sellTransaction->description;
             $all_transaction->account_books_id = $sellTransaction->account_books_id;
             $all_transaction->sell_transactions_id = $sellTransaction->id;
+            $all_transaction->status = $sellTransaction->status;
             $all_transaction->customer_transactions_id = $customerTransaction_id;
             $all_transaction->warehouses_id = $sellTransaction->warehouses_id;
             $all_transaction->created_at = $sellTransaction->created_at;
@@ -72,6 +74,7 @@ class SalesTransactionOvserver
                 'description' => $sellTransaction->description,
                 'account_books_id' => $sellTransaction->account_books_id,
                 'sell_invoices_id' => $sellTransaction->sell_invoices_id,
+                'status' => $sellTransaction->status,
                 'warehouses_id' => $sellTransaction->warehouses_id,
                 'created_at' => $sellTransaction->created_at
             ]);
@@ -84,6 +87,7 @@ class SalesTransactionOvserver
                 'transaction_no' => $sellTransaction->transaction_no,
                 'description' => $sellTransaction->description,
                 'account_books_id' => $sellTransaction->account_books_id,
+                'status' => $sellTransaction->status,
                 'warehouses_id' => $sellTransaction->warehouses_id,
                 'created_at' => $sellTransaction->created_at
             ]);

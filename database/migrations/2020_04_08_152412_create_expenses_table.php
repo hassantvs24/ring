@@ -16,7 +16,7 @@ class CreateExpensesTable extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->double('amount')->default(0);
-            $table->string('reference_no')->nullable();
+            $table->string('code')->nullable();
             $table->string('description')->nullable();
             $table->string('document')->nullable()->comment('File attachment');
             $table->unsignedBigInteger('expense_for')->nullable()->comment('Expense for user/employee');

@@ -90,7 +90,7 @@ class CustomerObserver
     {
         $customerTransaction = CustomerTransaction::onlyTrashed()->where('customers_id',  $customer->id)->where('payment_type', 'Opening Balance')->first();
         CustomerTransaction::onlyTrashed()->where('customers_id',  $customer->id)->where('payment_type', 'Opening Balance')->restore();
-        AllTransaction::where('customer_transactions_id',  $customerTransaction->id)->where('transaction_point', 'Customer')->where('source_type', 'Opening')->first();
+        AllTransaction::onlyTrashed()->where('customer_transactions_id',  $customerTransaction->id)->where('transaction_point', 'Customer')->where('source_type', 'Opening')->restore();
     }
 
     /**

@@ -33,7 +33,7 @@ class ExpenseCategoryController extends Controller
 
             $table = new ExpenseCategory();
             $table->name = $request->name;
-            $table->code = $request->code;
+            $table->code = $request->code ?? mt_rand();
             $table->save();
 
         }catch (\Exception $ex) {

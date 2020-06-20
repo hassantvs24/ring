@@ -82,6 +82,17 @@ if (!function_exists('null_filter')) {
     }
 }
 
+if (!function_exists('ck_status')) {
+    function ck_status($status, $check=null)
+    {
+        if($status != $check){
+            return 'Inactive';
+        }
+
+        return 'Active';
+    }
+}
+
 if (!function_exists('in_word')) {
     function in_word($num = false)
     {

@@ -45,7 +45,7 @@ class InvoiceItem extends Model
     /**
      * @var array
      */
-    protected $fillable = ['warehouses_id', 'products_id', 'sell_invoices_id', 'business_id', 'users_id', 'name', 'sku', 'batch_no', 'purchase_amount', 'quantity', 'amount', 'unit', 'discount_type', 'discount_amount', 'vat_amount', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'warehouses_id', 'products_id', 'sell_invoices_id', 'business_id', 'users_id', 'name', 'sku', 'batch_no', 'purchase_amount', 'quantity', 'amount', 'unit', 'discount_type', 'discount_amount', 'vat_amount', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

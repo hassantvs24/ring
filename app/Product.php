@@ -180,8 +180,8 @@ class Product extends Model
     public function currentStock(){
         $openingStock = $this->stock;
 
-        $out_product = $this->invoiceItems()->sum('quantity');
-        $in_product = $this->purchaseItems()->sum('quantity');
+        $out_product = $this->invoiceItems()->where('status', 'Active')->sum('quantity');
+        $in_product = $this->purchaseItems()->where('status', 'Active')->sum('quantity');
 
         $out_adjust = $this->stockAdjustmentItems()->where('adjustment_action', 'OUT')->sum('quantity');
         $in_adjust = $this->stockAdjustmentItems()->where('adjustment_action', 'IN')->sum('quantity');

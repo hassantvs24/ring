@@ -26,13 +26,12 @@ class AdjustmentController extends Controller
 
     public function store(Request $request)
     {
-
-        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|min:4|max:191',
             'recover_amount' => 'required|numeric',
             'warehouses_id' => 'required|numeric',
             'qty' => "required|array",
+            'created_at' => 'required|date_format:d/m/Y',
             'action' => "required|array"
         ]);
 
@@ -48,6 +47,7 @@ class AdjustmentController extends Controller
             $table->recover_amount  = $request->recover_amount  ?? 0;
             $table->description = $request->description;
             $table->warehouses_id = $request->warehouses_id;
+            $table->created_at = $request->created_at;
             $table->save();
             $stock_adjustments_id = $table->id;
 
@@ -67,6 +67,7 @@ class AdjustmentController extends Controller
                     $trItem->adjustment_action = $action[$id];
                     $trItem->products_id = $id;
                     $trItem->warehouses_id = $request->warehouses_id;
+                    $trItem->created_at = $request->created_at;
                     $trItem->stock_adjustments_id = $stock_adjustments_id;
                     $trItem->save();
                 }
@@ -107,6 +108,7 @@ class AdjustmentController extends Controller
             'recover_amount' => 'required|numeric',
             'warehouses_id' => 'required|numeric',
             'qty' => "required|array",
+            'created_at' => 'required|date_format:d/m/Y',
             'action' => "required|array"
         ]);
 
@@ -121,6 +123,7 @@ class AdjustmentController extends Controller
             $table->recover_amount  = $request->recover_amount  ?? 0;
             $table->description = $request->description;
             $table->warehouses_id = $request->warehouses_id;
+            $table->created_at = $request->created_at;
             $table->save();
 
             $qty = $request->qty;
@@ -140,6 +143,7 @@ class AdjustmentController extends Controller
                     $trItem->unit = $product->unit['name'];
                     $trItem->adjustment_action = $action[$ids];
                     $trItem->products_id = $ids;
+                    $trItem->created_at = $request->created_at;
                     $trItem->warehouses_id = $request->warehouses_id;
                     $trItem->stock_adjustments_id = $id;
                     $trItem->save();

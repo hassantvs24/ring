@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Supplier;
 
+use App\AccountBook;
 use App\Http\Controllers\Controller;
 use App\Supplier;
 use App\SupplierCategory;
+use App\SupplierTransaction;
 use App\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +19,8 @@ class SupplierController extends Controller
         $table = Supplier::with('supplierCategory', 'warehouse')->orderBy('id', 'DESC')->get();
         $category = SupplierCategory::orderBy('name', 'ASC')->get();
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
-        return view('supplier.supplier')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse]);
+        $ac_book = AccountBook::orderBy('name', 'ASC')->get();
+        return view('supplier.supplier')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse, 'ac_book' => $ac_book]);
     }
 
 
@@ -109,6 +112,15 @@ class SupplierController extends Controller
         }
 
         return redirect()->back()->with(config('naz.del'));
+    }
+
+    public function due_payment(Request $request, $id){
+
+    }
+
+    public function transaction($id){
+        $table = SupplierTransaction::where('suppliers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        return view('supplier.transaction')->with(['table' => $table]);
     }
 
 }

@@ -53,7 +53,7 @@ class SupplierTransaction extends Model
     /**
      * @var array
      */
-    protected $fillable = ['purchase_transactions_id', 'warehouses_id', 'account_books_id', 'purchase_invoices_id', 'suppliers_id', 'business_id', 'users_id', 'payment_type', 'transaction_type', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'purchase_transactions_id', 'warehouses_id', 'account_books_id', 'purchase_invoices_id', 'suppliers_id', 'business_id', 'users_id', 'payment_type', 'transaction_type', 'amount', 'payment_method', 'card_number', 'card_holder_name', 'card_transaction_no', 'card_type', 'card_month', 'card_year', 'csv', 'cheque_number', 'bank_account_no', 'transaction_no', 'description', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

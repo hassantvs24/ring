@@ -20,9 +20,9 @@
                 <th class="p-th">Company</th>
                 <th title="Sales Price" class="p-th">S.Price</th>
                 <th title="Purchase Price" class="p-th">P.Price</th>
+                <th title="Alert Quantity" class="p-th">A.Qty</th>
                 <th class="p-th">Stock</th>
                 <th class="p-th">Unit</th>
-                <th title="Alert Quantity" class="p-th">A.Qty</th>
                 <th class="text-right"><i class="icon-more"></i></th>
             </tr>
             </thead>
@@ -35,13 +35,14 @@
                     <td class="p-td">{{$row->productCategory['name']}}</td>
                     <td class="p-td">{{$row->brand['name']}}</td>
                     <td class="p-td">{{$row->company['name']}}</td>
-                    <td class="p-td">{{$row->sell_price}}</td>
-                    <td class="p-td">{{$row->purchase_price}}</td>
-                    <td class="p-td">{{$row->stock}}</td>
-                    <td class="p-td">{{$row->unit['name']}}</td>
+                    <td class="p-td">{{money_c($row->sell_price)}}</td>
+                    <td class="p-td">{{money_c($row->purchase_price)}}</td>
                     <td class="p-td">{{$row->alert_quantity}}</td>
+                    <td class="p-td">{{$row->currentStock()}}</td>
+                    <td class="p-td">{{$row->unit['name']}}</td>
                     <td class="text-right p-td">
                         <x-actions>
+                            <li><a href="{{route('stock.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Stock Transaction</a></li>
                             <li><a href="{{route('products.update', ['product' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-sku="{{$row->sku}}"

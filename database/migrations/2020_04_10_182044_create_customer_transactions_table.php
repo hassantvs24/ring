@@ -30,6 +30,7 @@ class CreateCustomerTransactionsTable extends Migration
             $table->string('bank_account_no',100)->nullable()->comment('This is for Bank Transfer payment method');
             $table->string('transaction_no',100)->nullable()->comment('This is for Custom Payment payment method');
             $table->string('description')->nullable();
+            $table->enum('status',['Active','Inactive'])->default('Active');
             $table->foreignId('sell_transactions_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('sell_invoices_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('warehouses_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');

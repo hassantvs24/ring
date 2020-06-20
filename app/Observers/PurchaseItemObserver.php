@@ -22,6 +22,7 @@ class PurchaseItemObserver
             $stockTransaction->sku = $purchaseItem->sku;
             $stockTransaction->name = $purchaseItem->name;
             $stockTransaction->unit = $purchaseItem->unit;
+            $stockTransaction->status = $purchaseItem->status;
             $stockTransaction->quantity =  $purchaseItem->quantity;
             $stockTransaction->amount = $purchaseItem->amount;
             $stockTransaction->products_id = $purchaseItem->products_id;
@@ -49,6 +50,7 @@ class PurchaseItemObserver
                 'products_id' => $purchaseItem->products_id,
                 'quantity' => $purchaseItem->quantity,
                 'amount' => $purchaseItem->amount,
+                'status' => $purchaseItem->status,
                 'warehouses_id' => $purchaseItem->warehouses_id,
                 'created_at' => $purchaseItem->created_at
             ]);

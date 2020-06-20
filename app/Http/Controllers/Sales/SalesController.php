@@ -79,6 +79,7 @@ class SalesController extends Controller
 
             $qtys = $request->qty;
             $price = $request->price;
+            $ck_status = ck_status($request->status, 'Final');//Change Status
 
             foreach ($qtys as $id => $qty){
 
@@ -94,6 +95,7 @@ class SalesController extends Controller
                     $trItem->amount = $price[$id];
                     $trItem->unit = $product->unit['name'];
                     $trItem->products_id = $id;
+                    $trItem->status = $ck_status;
                     $trItem->warehouses_id = $request->warehouses_id;
                     $trItem->sell_invoices_id = $invoice_id;
                     $trItem->created_at  = $request->created_at;
@@ -120,6 +122,7 @@ class SalesController extends Controller
                     $payment->description = null_filter($description[$i]);
                     $payment->warehouses_id = $request->warehouses_id;
                     $payment->account_books_id = $account_books_id[$i];
+                    $payment->status = $ck_status;
                     $payment->customers_id = $request->customers_id;
                     $payment->sell_invoices_id = $invoice_id;
                     $payment->created_at  = $request->created_at;
@@ -222,6 +225,7 @@ class SalesController extends Controller
             $qtys = $request->qty;
             $price = $request->price;
             $item_id = $request->item_id;
+            $ck_status = ck_status($request->status, 'Final');//Change Status
 
             InvoiceItem::where('sell_invoices_id', $invoice_id)->delete(); //Delete Purchase Item
 
@@ -240,6 +244,7 @@ class SalesController extends Controller
                             'amount' => $price[$pid],
                             'unit' => $product->unit['name'],
                             'products_id' => $pid,
+                            'status' => $ck_status,
                             'warehouses_id' => $request->warehouses_id,
                             'sell_invoices_id' => $invoice_id,
                             'created_at' => $request->created_at
@@ -274,6 +279,7 @@ class SalesController extends Controller
                             'description' => null_filter($description[$i]),
                             'warehouses_id' => $request->warehouses_id,
                             'account_books_id' => $account_books_id[$i],
+                            'status' => $ck_status,
                             'customers_id' => $request->customers_id,
                             'sell_invoices_id' => $invoice_id,
                             'created_at' => $request->created_at

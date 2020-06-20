@@ -25,6 +25,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->enum('discount_type',['Fixed', 'Percentage'])->default('Fixed');
             $table->double('discount_amount')->default(0);
             $table->double('vat_amount')->default(0);
+            $table->enum('status',['Active','Inactive'])->default('Active');
             $table->foreignId('warehouses_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('products_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('sell_invoices_id')->constrained()->onDelete('cascade')->onUpdate('No Action');

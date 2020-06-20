@@ -54,6 +54,8 @@
                                    data-contacttwo="{{$row->alternate_contact}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                            <li><a href="{{route('supplier.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Supplier Transaction</a></li>
+                            <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
                             <li><a href="{{route('supplier.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>

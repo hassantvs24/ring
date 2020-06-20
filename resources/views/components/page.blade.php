@@ -14,7 +14,7 @@
 
     <div class="panel-body"></div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow-x: inherit;">
         {{ $slot }}
     </div>
 

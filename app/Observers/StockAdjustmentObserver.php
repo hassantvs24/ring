@@ -19,6 +19,7 @@ class StockAdjustmentObserver
             $all_transaction->source_type = 'Recover';
             $all_transaction->amount = $stockAdjustment->recover_amount;
             $all_transaction->warehouses_id = $stockAdjustment->warehouses_id;
+            $all_transaction->created_at = $stockAdjustment->created_at;
             $all_transaction->save();
         }
     }
@@ -30,7 +31,8 @@ class StockAdjustmentObserver
                 'stock_adjustments_id' => $stockAdjustment->id, 'transaction_point' => 'Stock Adjustment', 'source_type' => 'Recover'
             ], [
                 'amount' => $stockAdjustment->recover_amount,
-                'warehouses_id' => $stockAdjustment->warehouses_id
+                'warehouses_id' => $stockAdjustment->warehouses_id,
+                'created_at' => $stockAdjustment->created_at
             ]);
         }else{
             AllTransaction::where('stock_adjustments_id', $stockAdjustment->id)->where('transaction_point', 'Stock Adjustment')->forceDelete();

@@ -39,7 +39,7 @@ class Expense extends Model
     /**
      * @var array
      */
-    protected $fillable = ['expense_for', 'expense_categories_id', 'warehouses_id', 'business_id', 'users_id', 'amount', 'reference_no', 'description', 'document', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['expense_for', 'expense_categories_id', 'warehouses_id', 'business_id', 'users_id', 'amount', 'code', 'description', 'document', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -87,6 +87,11 @@ class Expense extends Model
     public function allTransactions()
     {
         return $this->hasMany('App\AllTransaction', 'expenses_id');
+    }
+
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
     }
 
     protected static function boot()

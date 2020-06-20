@@ -12,6 +12,7 @@
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
             <tr>
+                <th class="p-th">Date</th>
                 <th class="p-th">S/N</th>
                 <th class="p-th">Recover Amount</th>
                 <th class="p-th">Description</th>
@@ -23,6 +24,7 @@
             <tbody>
             @foreach($table as $row)
                 <tr>
+                    <td class="p-td">{{pub_date($row->created_at)}}</td>
                     <td class="p-td">{{$row->code}}</td>
                     <td class="p-td">{{$row->recover_amount}}</td>
                     <td class="p-td">{{$row->description}}</td>
@@ -35,6 +37,7 @@
                         <x-actions>
                             <li><a data-items="{{route('get_item', ['id' => $row->id])}}" href="{{route('adjustment.update', ['adjustment' => $row->id])}}"
                                    data-code="{{$row->code}}"
+                                   data-cdate="{{pub_date($row->created_at)}}"
                                    data-amount="{{$row->recover_amount}}"
                                    data-description="{{$row->description}}"
                                    data-warehouse="{{$row->warehouses_id}}"
@@ -70,6 +73,7 @@
                 var recover_amount = $(this).data('amount');
                 var description = $(this).data('description');
                 var warehouses_id = $(this).data('warehouse');
+                var created_at = $(this).data('cdate');
 
                 var item_url = $(this).data('items');
 
@@ -78,6 +82,7 @@
                 $('#ediModal [name=recover_amount]').val(recover_amount);
                 $('#ediModal [name=description]').val(description);
                 $('#ediModal [name=warehouses_id]').val(warehouses_id).select2();
+                $('#ediModal [name=created_at]').val(created_at);
 
                 all_items = [];
 
@@ -139,6 +144,17 @@
                 $('.item_list').html(tbl_item);
                 del_item();
                 update_item();
+                disible_submit_btn();
+            }
+
+            function disible_submit_btn() {
+                if(all_items.length > 0){
+                    $('#myModal [type=submit]').prop('disabled', false);
+                    $('#ediModal [type=submit]').prop('disabled', false);
+                }else{
+                    $('#myModal [type=submit]').prop('disabled', true);
+                    $('#ediModal [type=submit]').prop('disabled', true);
+                }
             }
 
             function del_item(){
@@ -169,8 +185,15 @@
 
             $('.datatable-basic').DataTable({
                 columnDefs: [
-                    { orderable: false, "targets": [5] }
+                    { orderable: false, "targets": [6] }
                 ]
+            });
+
+            $('.date_pic').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
             });
         });
     </script>

@@ -28,6 +28,7 @@ class StockAdjustmentItemObserver
             $stockTransaction->products_id = $stockAdjustmentItem->products_id;
             $stockTransaction->stock_adjustment_items_id = $stockAdjustmentItem->id;
             $stockTransaction->warehouses_id = $stockAdjustmentItem->warehouses_id;
+            $stockTransaction->created_at = $stockAdjustmentItem->created_at;
             $stockTransaction->save();
         }
 
@@ -53,6 +54,7 @@ class StockAdjustmentItemObserver
                     'quantity' => $stockAdjustmentItem->quantity,
                     'amount' => $stockAdjustmentItem->amount,
                     'warehouses_id' => $stockAdjustmentItem->warehouses_id,
+                    'created_at' => $stockAdjustmentItem->created_at
                 ]);
         }else{
             StockTransaction::where('stock_adjustment_items_id', $stockAdjustmentItem->id)->where('transaction_point', 'Adjustment')->forceDelete();

@@ -4,7 +4,7 @@
             <i class="icon-menu9"></i>
         </a>
 
-        <ul class="dropdown-menu dropdown-menu-right" style="z-index: 5000">
+        <ul class="dropdown-menu dropdown-menu-right" style="z-index: 999999;">
             {{$slot}}
         </ul>
     </li>
