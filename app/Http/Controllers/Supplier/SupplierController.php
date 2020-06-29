@@ -116,11 +116,61 @@ class SupplierController extends Controller
 
     public function due_payment(Request $request, $id){
 
+        $validator = Validator::make($request->all(), [
+            'payment_method' => 'string|required|max:20',
+            'account_books_id' => 'numeric|required',
+            'amount' => 'numeric|required|min:1',
+            'warehouses_id' => 'numeric|required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try{
+
+            $table = new SupplierTransaction();
+            $table->payment_type = 'Add Balance';
+            $table->transaction_type = 'IN';
+            $table->amount = $request->amount;
+            $table->suppliers_id = $id;
+            $table->payment_method = $request->payment_method;
+            $table->cheque_number = null_filter($request->cheque_number);
+            $table->bank_account_no = null_filter($request->bank_account_no);
+            $table->transaction_no = null_filter($request->transaction_no);
+            $table->description = null_filter($request->description);
+            $table->warehouses_id = $request->warehouses_id;
+            $table->save();
+
+        }catch (\Exception $ex) {
+            return redirect()->back()->with(config('naz.error'));
+        }
+
+        return redirect()->back()->with(config('naz.save'));
+    }
+
+    public function edit_due_payment(Request $request, $id, $supplier){
+        dd($request->all());
+    }
+
+    public function delete_due_payment($id){
+        try{
+
+            SupplierTransaction::destroy($id);
+
+        }catch (\Exception $ex) {
+            return redirect()->back()->with(config('naz.error'));
+        }
+
+        return redirect()->back()->with(config('naz.del'));
     }
 
     public function transaction($id){
-        $table = SupplierTransaction::where('suppliers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
-        return view('supplier.transaction')->with(['table' => $table]);
+        $supplier = Supplier::find($id);
+        $warehouse = Warehouse::orderBy('name', 'ASC')->get();
+        $ac_book = AccountBook::orderBy('name', 'ASC')->get();
+        $table = SupplierTransaction::with('accountBook', 'supplier', 'warehouse')->where('suppliers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        return view('supplier.transaction')->with(['table' => $table, 'supplier' => $supplier, 'ac_book' => $ac_book, 'warehouse' => $warehouse]);
     }
 
 }

@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,8 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
         Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
+		
+		Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

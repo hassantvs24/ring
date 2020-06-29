@@ -83,8 +83,15 @@
     </x-modal>
 
 
-    <x-modal id="payModal" title="Make a payment" icon="grid5">
-        <div  class="form-horizontal">
+    <x-modal id="payModal" action="#" title="Make a payment" icon="grid5">
+            @method('PUT')
+
+            <x-select class="warehouse" name="warehouses_id" label="Select Warehouse" required="required" >
+                @foreach($warehouse as $row)
+                    <option value="{{$row->id}}">{{$row->name}}</option>
+                @endforeach
+            </x-select>
+
             <x-select class="accounts" name="account_books_id" label="Account Book" required="required" >
                 @foreach($ac_book as $row)
                     <option value="{{$row->id}}" data-name="{{$row->name}}">{{$row->name}}({{$row->account_number}})</option>
@@ -96,7 +103,7 @@
                 <option value="Cheque">Cheque</option>
                 <option value="Bank Transfer">Bank Transfer</option>
                 <option value="Other">Other Payment</option>
-                <option value="Customer Account">Customer Accounts</option>
+                <option value="Customer Account">Customer Account</option>
             </x-select>
 
             <p class="customer_balance text-right text-danger" style="display: none;"></p>
@@ -113,15 +120,13 @@
                 <x-input name="transaction_no" label="Other Payment Reference" />
             </div>
 
-            <x-input class="paid" name="paid" type="number" label="Paid Amount" rest="step=any min=0" value="0" required="required" />
+            <x-input name="amount" type="number" label="Paid Amount" rest="step=any min=0" value="0" required="required" />
 
             <x-input name="description" label="Payment Note" />
 
             <p class="m-0 text-right">
-
                 <span class="help-block">**Double Click on "Paid Amount" Input box for automatic payment.</span>
             </p>
-        </div>
     </x-modal>
 
 @endsection

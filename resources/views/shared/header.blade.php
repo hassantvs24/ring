@@ -117,6 +117,7 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a href="#"><i class="icon-user-plus"></i> {{ isset(Auth::user()->name) ? Auth::user()->name : 'User name' }}</a></li>
                     <li><a href="#"><i class="icon-paperplane"></i> {{ isset(Auth::user()->email) ? Auth::user()->email : 'User email' }}</a></li>
+                    <li><a href="{{route('backup')}}"><i class="icon-database-export"></i> Database Backup</a></li>
                     <li class="divider"></li>
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

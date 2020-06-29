@@ -24,7 +24,6 @@ use App\ProductReturnItem;
 use App\PurchaseInvoice;
 use App\PurchaseItem;
 use App\PurchaseTransaction;
-use App\RolesAccess;
 use App\SellInvoice;
 use App\SellTransaction;
 use App\Shipment;
@@ -37,7 +36,6 @@ use App\SupplierTransaction;
 use App\Union;
 use App\Units;
 use App\UpaZilla;
-use App\UserRoles;
 use App\VatTaxTransaction;
 use App\VetTex;
 use App\Warehouse;
@@ -91,7 +89,6 @@ class EventServiceProvider extends ServiceProvider
         PurchaseInvoice::observe(CommonObserver::class);
         PurchaseItem::observe(CommonObserver::class);
         PurchaseTransaction::observe(CommonObserver::class);
-        RolesAccess::observe(CommonObserver::class);
         SellInvoice::observe(CommonObserver::class);
         SellTransaction::observe(CommonObserver::class);
         Shipment::observe(CommonObserver::class);
@@ -104,7 +101,6 @@ class EventServiceProvider extends ServiceProvider
         Union::observe(CommonObserver::class);
         Units::observe(CommonObserver::class);
         UpaZilla::observe(CommonObserver::class);
-        UserRoles::observe(CommonObserver::class);//Comment on seeder
         VatTaxTransaction::observe(CommonObserver::class);
         VetTex::observe(CommonObserver::class);
         Warehouse::observe(CommonObserver::class);

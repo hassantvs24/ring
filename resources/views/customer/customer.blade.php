@@ -16,15 +16,11 @@
                 <th class="p-th">S/N</th>
                 <th class="p-th">Name</th>
                 <th class="p-th">Contact</th>
-                <th class="p-th">Email</th>
                 <th class="p-th">Address</th>
-                <th class="p-th">Phone</th>
-                <th class="p-th">Contact2</th>
                 <th class="p-th">Zone</th>
                 <th class="p-th">Category</th>
-                <th class="p-th">Warehouse</th>
                 <th title="Credit Limit" class="p-th">Cr.Limit</th>
-                <th class="p-th">Target</th>
+                <th class="p-th" title="Monthly Target">Target</th>
                 <th class="p-th">Balance</th>
                 <th class="text-right"><i class="icon-more"></i></th>
             </tr>
@@ -35,16 +31,12 @@
                     <td class="p-td">{{$row->code}}</td>
                     <td class="p-td">{{$row->name}}</td>
                     <td class="p-td">{{$row->contact}}</td>
-                    <td class="p-td">{{$row->email}}</td>
                     <td class="p-td">{{$row->address}}</td>
-                    <td class="p-td">{{$row->phone}}</td>
-                    <td class="p-td">{{$row->alternate_contact}}</td>
                     <td class="p-td">{{$row->zone['name']}}</td>
                     <td class="p-td">{{$row->customerCategory['name']}}</td>
-                    <td class="p-td">{{$row->warehouse['name']}}</td>
-                    <td class="p-td">{{$row->credit_limit}}</td>
-                    <td class="p-td">{{$row->sells_target}}</td>
-                    <td class="p-td">{{$row->dueBalance()}}</td>
+                    <td class="p-td">{{money_c($row->credit_limit)}}</td>
+                    <td class="p-td">{{money_c($row->sells_target)}}</td>
+                    <td class="p-td">{{money_c($row->dueBalance())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
                             <li><a href="{{route('customer.update', ['list' => $row->id])}}"
@@ -64,7 +56,7 @@
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
                             <li><a href="{{route('customer.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Customer Transaction</a></li>
-                            <li><a href="{{route('customer.payment', ['id' => $row->id])}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
+                            <li><a href="{{route('customer.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Payment</a></li>
                             <li><a href="{{route('customer.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>
@@ -80,13 +72,12 @@
 
 @section('script')
     <script type="text/javascript">
+        var balance = 0;
         $(function () {
 
             $('.warehouse').val("{{auth()->user()->warehouses_id}}");
 
-            $('.warehouse').select2();
-            $('.category').select2();
-            $('.zone').select2();
+            $('.warehouse, .category, .zone, .accounts, .payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -125,12 +116,82 @@
 
             });
 
+            $('.payment').click(function (e) {
+                e.preventDefault();
+
+                $('.cheque_number').hide();
+                $('.bank_account_no').hide();
+                $('.transaction_no').hide();
+                $('.customer_balance').hide();
+
+                var url = $(this).attr('href');
+                balance = Number($(this).data('balance'));
+                $('#payModal form').attr('action', url);
+                disible_submit();
+            });
+
+
+            $('.payment_method').change(function () {
+                var methods = $(this).val();
+                switch(methods) {
+                    case "Cheque":
+                        $('.cheque_number').show();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                        $('.customer_balance').hide();
+                        break;
+                    case "Bank Transfer":
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').show();
+                        $('.transaction_no').hide();
+                        $('.customer_balance').hide();
+                        break;
+                    case "Other":
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').show();
+                        $('.customer_balance').hide();
+                        break;
+                    case "Customer Account":
+                        $('.customer_balance').html('Account Current Balance: '+parseFloat(balance).toFixed(2));
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                        $('.customer_balance').show();
+                        break;
+                    default:
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                        $('.customer_balance').hide();
+                }
+
+                disible_submit();
+
+            });
+
+            $('#payModal [name=amount]').on('keyup keydown change', function () {
+                disible_submit();
+            });
+
 
             $('.datatable-basic').DataTable({
                 columnDefs: [
-                    { orderable: false, "targets": [13] }
+                    { orderable: false, "targets": [9] }
                 ]
             });
         });
+        
+        function disible_submit() {
+            var amount = $('#payModal [name=amount]').val();
+            var payment_method = $('.payment_method').val();
+
+            if(amount <= 0 || amount > balance && payment_method == 'Customer Account'){
+                $('#payModal [type=submit]').prop('disabled', true);
+            }else{
+                $('#payModal [type=submit]').prop('disabled', false);
+            }
+        }
+        
     </script>
 @endsection

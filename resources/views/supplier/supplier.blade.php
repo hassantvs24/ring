@@ -55,7 +55,7 @@
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
                             <li><a href="{{route('supplier.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Supplier Transaction</a></li>
-                            <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
+                            <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
                             <li><a href="{{route('supplier.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>
@@ -75,8 +75,7 @@
 
             $('.warehouse').val("{{auth()->user()->warehouses_id}}");
 
-            $('.warehouse').select2();
-            $('.category').select2();
+            $('.warehouse, .category, .accounts, .payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -106,11 +105,49 @@
                 $('#ediModal [name=phone]').val(phone);
                 $('#ediModal [name=description]').val(description);
                 $('#ediModal [name=alternate_contact]').val(alternate_contact);
+            });
 
+            $('.payment').click(function (e) {
+                e.preventDefault();
 
+                $('.cheque_number').hide();
+                $('.bank_account_no').hide();
+                $('.transaction_no').hide();
+
+                var url = $(this).attr('href');
+                $('#payModal form').attr('action', url);
             });
 
 
+            $('.payment_method').change(function () {
+                var methods = $(this).val();
+                switch(methods) {
+                    case "Cheque":
+                        $('.cheque_number').show();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                        break;
+                    case "Bank Transfer":
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').show();
+                        $('.transaction_no').hide();
+                        break;
+                    case "Other":
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').show();
+                        break;
+                    case "Customer Account":
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                        break;
+                    default:
+                        $('.cheque_number').hide();
+                        $('.bank_account_no').hide();
+                        $('.transaction_no').hide();
+                }
+            });
 
 
             $('.datatable-basic').DataTable({

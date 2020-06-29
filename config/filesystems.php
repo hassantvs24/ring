@@ -68,6 +68,11 @@ return [
             'root' => public_path(),
         ],
 
+        'backup' => [
+            'driver' => 'local',
+            'root' => public_path('backup'),
+        ],
+
 
 
         'local' => [
