@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Business $business
  * @property Product $product
  * @property PurchaseInvoice $purchaseInvoice
- * @property User $user
+ * @property User $users
  * @property Warehouse $warehouse
  * @property StockTransaction[] $stockTransactions
  */

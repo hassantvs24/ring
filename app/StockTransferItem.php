@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Business $business
  * @property Product $product
  * @property StockTransfer $stockTransfer
- * @property User $user
+ * @property User $users
  * @property StockTransaction[] $stockTransactions
  */
 class StockTransferItem extends Model

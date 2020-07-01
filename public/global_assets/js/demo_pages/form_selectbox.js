@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger native select
     $(".selectbox-trigger-native").selectBoxIt({
         autoWidth: false,
-        native: true // Triggers the native select box when a user interacts with the drop down
+        native: true // Triggers the native select box when a users interacts with the drop down
     });
 
 

@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $(this).data('event', {
             title: $.trim($(this).html()), // use the element's text as the event title
             color: $(this).data('color'),
-            stick: true // maintain when user navigates (see docs on the renderEvent method)
+            stick: true // maintain when users navigates (see docs on the renderEvent method)
         });
 
         // Make the event draggable using jQuery UI

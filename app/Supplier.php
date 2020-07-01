@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $updated_at
  * @property Business $business
  * @property SupplierCategory $supplierCategory
- * @property User $user
+ * @property User $users
  * @property VetTex $vetTex
  * @property Warehouse $warehouse
  * @property ProductReturn[] $productReturns

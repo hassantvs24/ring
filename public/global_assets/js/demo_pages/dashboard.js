@@ -1047,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .delay(function(d, i) { return i * 20; })
                 .style("fill", function(d) { return colorScale(d.value); })
 
-            // Add user interaction
+            // Add users interaction
             hourGroup.each(function(d) {
                 heatMap
                     .on("mouseover", function (d, i) {
@@ -2152,7 +2152,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .style('opacity', 1);
 
 
-        // Add user interaction
+        // Add users interaction
         points
             .on("mouseover", function (d) {
                 tooltip.offset([-10, 0]).show(d);

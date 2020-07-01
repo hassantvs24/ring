@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $updated_at
  * @property Business $business
  * @property UpaZilla $upaZilla
- * @property User $user
+ * @property User $users
  * @property Customer[] $customers
  * @property Zone[] $zones
  */

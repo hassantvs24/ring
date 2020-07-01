@@ -80,8 +80,8 @@
 
                     <li class=""><a href="#"><i class=" icon-users"></i> <span>Users</span></a>
                         <ul>
-                            <li class=""><a href=""><i class="icon-diamond"></i> All Users</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> User Roles</a></li>
+                            <li class="{{Route::currentRouteName() == 'users.index' ? 'active':''}}"><a href="{{route('users.index')}}"><i class="icon-diamond"></i> All Users</a></li>
+                            <li class="{{Route::currentRouteName() == 'roles.index' ? 'active':''}}"><a href="{{route('roles.index')}}"><i class="icon-diamond"></i> User Roles</a></li>
                         </ul>
                     </li>
 

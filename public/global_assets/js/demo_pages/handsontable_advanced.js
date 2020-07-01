@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (rowsToFill.hasOwnProperty(r)) {
                     for (c = 0; c < clen; c++) {
 
-                        // If it is not provided by user in this change set, take value from template
+                        // If it is not provided by users in this change set, take value from template
                         if (!rowColumnSeen[r + '/' + c]) {
                             changes.push([r, c, null, tpl[c]]);
                         }

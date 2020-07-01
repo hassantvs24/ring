@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Division $division
  * @property Union $union
  * @property UpaZilla $upaZilla
- * @property User $user
+ * @property User $users
  * @property VetTex $vetTex
  * @property Warehouse $warehouse
  * @property Zilla $zilla

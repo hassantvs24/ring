@@ -1946,7 +1946,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .style('opacity', 1);
 
 
-        // Add user interaction
+        // Add users interaction
         points
             .on("mouseover", function (d) {
                 tooltip.offset([-10, 0]).show(d);

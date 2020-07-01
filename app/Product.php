@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Company $company
  * @property ProductCategory $productCategory
  * @property Unit $unit
- * @property User $user
+ * @property User $users
  * @property VetTex $vetTex
  * @property InvoiceItem[] $invoiceItems
  * @property ProductReturnItem[] $productReturnItems

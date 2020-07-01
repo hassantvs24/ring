@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $updated_at
  * @property Business $business
  * @property ExpenseCategory $expenseCategory
- * @property User $user
+ * @property User $users
  * @property Warehouse $warehouse
  * @property AllTransaction[] $allTransactions
  */

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $updated_at
  * @property Business $business
  * @property Union $union
- * @property User $user
+ * @property User $users
  * @property Customer[] $customers
  */
 class Zone extends Model

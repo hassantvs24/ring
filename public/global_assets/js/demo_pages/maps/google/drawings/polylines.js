@@ -12,7 +12,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // This example creates an interactive map which constructs a
-    // polyline based on user clicks. Note that the polyline only appears
+    // polyline based on users clicks. Note that the polyline only appears
     // once its path property contains two LatLng coordinates.
 
     var poly;

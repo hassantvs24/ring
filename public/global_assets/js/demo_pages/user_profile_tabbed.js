@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------------------
 *
-*  # Tabbed user profile
+*  # Tabbed users profile
 *
-*  Demo JS code for tabbed user profile page
+*  Demo JS code for tabbed users profile page
 *
 * ---------------------------------------------------------------------------- */
 

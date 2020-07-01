@@ -81,7 +81,7 @@ Globalize.addCultureInfo( "prs", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {

@@ -323,7 +323,7 @@
             // Prevent clicks from bubbling up to document.  This would cause it to be hidden.
             container.click(stopPropagation);
 
-            // Handle user typed input
+            // Handle users typed input
             textInput.change(setFromTextInput);
             textInput.on("paste", function () {
                 setTimeout(setFromTextInput, 1);

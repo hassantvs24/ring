@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return true;
             }
 
-            // Needed in some cases if the user went back (clean up)
+            // Needed in some cases if the users went back (clean up)
             if (currentIndex < newIndex) {
 
                 // To remove error styles

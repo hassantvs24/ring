@@ -2,13 +2,15 @@
 
 namespace App;
 
+use App\Scopes\BusinessScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +18,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'user_type', 'user_roles_id', 'business_id'
+        'name', 'email', 'password', 'business_id', 'account_books_id', 'warehouses_id'
     ];
+
+    public function business()
+    {
+        return $this->belongsTo('App\Business');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo('App\Warehouse', 'warehouses_id');
+    }
+
+    public function accountBook()
+    {
+        return $this->belongsTo('App\AccountBook', 'account_books_id');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +53,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -57,6 +73,5 @@ class User extends Authenticatable
     {
         return [];
     }
-
 
 }

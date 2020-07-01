@@ -48,7 +48,7 @@ use Illuminate\Support\Facades\DB;
  * @property Customer $customer
  * @property Discount $discount
  * @property Shipment $shipment
- * @property User $user
+ * @property User $users
  * @property VetTex $vetTex
  * @property Warehouse $warehouse
  * @property CustomerTransaction[] $customerTransactions

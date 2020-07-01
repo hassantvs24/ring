@@ -22,11 +22,15 @@
                     <td class="p-td">{{$row->address}}</td>
                     <td class="text-right p-td">
                         <x-actions>
+                            @can('Zone Edit')
                             <li><a href="{{route('zone.update', ['zone' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-address="{{$row->address}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                            @endcan
+                            @can('Zone Delete')
                             <li><a href="{{route('zone.destroy', ['zone' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

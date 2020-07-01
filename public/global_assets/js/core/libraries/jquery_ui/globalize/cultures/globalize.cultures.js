@@ -294,7 +294,7 @@ Globalize.addCultureInfo( "ar", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -2071,7 +2071,7 @@ Globalize.addCultureInfo( "ur", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -2655,7 +2655,7 @@ Globalize.addCultureInfo( "fa", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -4977,7 +4977,7 @@ Globalize.addCultureInfo( "ps", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -5139,7 +5139,7 @@ Globalize.addCultureInfo( "dv", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -6223,7 +6223,7 @@ Globalize.addCultureInfo( "prs", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -6623,7 +6623,7 @@ Globalize.addCultureInfo( "ar-SA", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -8380,7 +8380,7 @@ Globalize.addCultureInfo( "ur-PK", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -8964,7 +8964,7 @@ Globalize.addCultureInfo( "fa-IR", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -11203,7 +11203,7 @@ Globalize.addCultureInfo( "ps-AF", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -11365,7 +11365,7 @@ Globalize.addCultureInfo( "dv-MV", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -12449,7 +12449,7 @@ Globalize.addCultureInfo( "prs-AF", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -12872,7 +12872,7 @@ Globalize.addCultureInfo( "ar-IQ", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -14368,7 +14368,7 @@ Globalize.addCultureInfo( "ar-EG", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -14949,7 +14949,7 @@ Globalize.addCultureInfo( "ar-LY", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -15683,7 +15683,7 @@ Globalize.addCultureInfo( "ar-DZ", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -16433,7 +16433,7 @@ Globalize.addCultureInfo( "ar-MA", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -17094,7 +17094,7 @@ Globalize.addCultureInfo( "ar-TN", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -17700,7 +17700,7 @@ Globalize.addCultureInfo( "ar-OM", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -18522,7 +18522,7 @@ Globalize.addCultureInfo( "ar-YE", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -19119,7 +19119,7 @@ Globalize.addCultureInfo( "ar-SY", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -19673,7 +19673,7 @@ Globalize.addCultureInfo( "ar-JO", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -20229,7 +20229,7 @@ Globalize.addCultureInfo( "ar-LB", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -20557,7 +20557,7 @@ Globalize.addCultureInfo( "ar-KW", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -21265,7 +21265,7 @@ Globalize.addCultureInfo( "ar-AE", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -21750,7 +21750,7 @@ Globalize.addCultureInfo( "ar-BH", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {
@@ -22230,7 +22230,7 @@ Globalize.addCultureInfo( "ar-QA", "default", {
                     maxDate: 253402300799999,
                     // The number of days to add or subtract from the calendar to accommodate the variances
                     // in the start and the end of Ramadan and to accommodate the date difference between
-                    // countries/regions. May be dynamically adjusted based on user preference, but should
+                    // countries/regions. May be dynamically adjusted based on users preference, but should
                     // remain in the range of -2 to 2, inclusive.
                     hijriAdjustment: 0,
                     toGregorian: function(hyear, hmonth, hday) {

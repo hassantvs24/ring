@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $created_at
  * @property string $updated_at
  * @property Business $business
- * @property User $user
+ * @property User $users
  * @property Customer[] $customers
  * @property ProductReturn[] $productReturns
  * @property Product[] $products

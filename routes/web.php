@@ -16,9 +16,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/',  'Dashboard\DashboardController');
 
-    Route::resource('/user/all',  'User\UserController');
-    Route::resource('/user/role',  'User\RolesController');
-
     Route::get('/purchase/list',  'Purchase\PurchaseListController@index')->name('purchase-list.index');
     Route::get('/purchase/pending',  'Purchase\PurchaseListController@pending')->name('purchase.pending');
     Route::get('/purchase/ordered',  'Purchase\PurchaseListController@ordered')->name('purchase.ordered');
@@ -69,8 +66,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/settings/vat-tax',  'Settings\VatTaxController')->except(['create', 'show', 'edit']);
     Route::resource('/settings/zone',  'Settings\ZoneController')->except(['create', 'show', 'edit']);
 
-    Route::resource('/user/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
-    Route::resource('/user',  'User\UserController')->except(['create', 'show', 'edit']);
+    Route::put('/users/roles/permission/{role}',  'User\RolesController@assign_role')->name('role.permission');
+    Route::resource('/users/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
+    Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
 
 });
 

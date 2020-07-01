@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property PurchaseItem $purchaseItem
  * @property StockAdjustmentItem $stockAdjustmentItem
  * @property StockTransferItem $stockTransferItem
- * @property User $user
+ * @property User $users
  */
 class StockTransaction extends Model
 {
