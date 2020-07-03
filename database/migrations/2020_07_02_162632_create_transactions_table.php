@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTransactionTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->enum('transaction_point',['Expense', 'Sales', 'Purchase', 'Customer Account', 'Supplier Account', 'Agent Account', 'Account Book', 'Vat Tax', 'Stock Adjustment']);
             $table->enum('transaction_hub',['General', 'Due Payment', 'Opening', 'Add', 'Withdraw', 'Return', 'Transfer', 'Recover'])->default('General');
@@ -44,6 +44,7 @@ class CreateTransactionTable extends Migration
             $table->foreignId('warehouses_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('business_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('users_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -55,6 +56,6 @@ class CreateTransactionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction');
+        Schema::dropIfExists('transactions');
     }
 }
