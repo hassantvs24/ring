@@ -13,15 +13,17 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = [
+        $permissions = array(
             'Business Setup',
-            
+
             'Sales List',
+            'Sales Invoice',
             'Sales Create',
             'Sales Edit',
             'Sales Delete',
 
             'Purchase List',
+            'Purchase Invoice',
             'Purchase Create',
             'Purchase Edit',
             'Purchase Delete',
@@ -31,25 +33,25 @@ class PermissionTableSeeder extends Seeder
             'Product Edit',
             'Product Delete',
 
-            'Stock-Adjustment List',
-            'Stock-Adjustment Create',
-            'Stock-Adjustment Edit',
-            'Stock-Adjustment Delete',
+            'Stock Adjustment List',
+            'Stock Adjustment Create',
+            'Stock Adjustment Edit',
+            'Stock Adjustment Delete',
 
-            'Product-Category List',
-            'Product-Category Create',
-            'Product-Category Edit',
-            'Product-Category Delete',
+            'Product Category List',
+            'Product Category Create',
+            'Product Category Edit',
+            'Product Category Delete',
 
-            'Product-Units List',
-            'Product-Units Create',
-            'Product-Units Edit',
-            'Product-Units Delete',
+            'Product Units List',
+            'Product Units Create',
+            'Product Units Edit',
+            'Product Units Delete',
 
-            'Product-Company List',
-            'Product-Company Create',
-            'Product-Company Edit',
-            'Product-Company Delete',
+            'Product Company List',
+            'Product Company Create',
+            'Product Company Edit',
+            'Product Company Delete',
 
             'Product-Brand List',
             'Product-Brand Create',
@@ -57,24 +59,28 @@ class PermissionTableSeeder extends Seeder
             'Product-Brand Delete',
 
             'Customer List',
+            'Customer Transaction',
+            'Customer Payment',
             'Customer Create',
             'Customer Edit',
             'Customer Delete',
 
-            'Customer-Category List',
-            'Customer-Category Create',
-            'Customer-Category Edit',
-            'Customer-Category Delete',
+            'Customer Category List',
+            'Customer Category Create',
+            'Customer Category Edit',
+            'Customer Category Delete',
 
             'Supplier List',
+            'Supplier Transaction',
+            'Supplier Payment',
             'Supplier Create',
             'Supplier Edit',
             'Supplier Delete',
 
-            'Supplier-Category List',
-            'Supplier-Category Create',
-            'Supplier-Category Edit',
-            'Supplier-Category Delete',
+            'Supplier Category List',
+            'Supplier Category Create',
+            'Supplier Category Edit',
+            'Supplier Category Delete',
 
             'Accounts List',
             'Accounts Create',
@@ -86,10 +92,10 @@ class PermissionTableSeeder extends Seeder
             'Expense Edit',
             'Expense Delete',
 
-            'Expense-Category List',
-            'Expense-Category Create',
-            'Expense-Category Edit',
-            'Expense-Category Delete',
+            'Expense Category List',
+            'Expense Category Create',
+            'Expense Category Edit',
+            'Expense Category Delete',
 
             'Role List',
             'Role Create',
@@ -126,7 +132,7 @@ class PermissionTableSeeder extends Seeder
             'Zone Create',
             'Zone Edit',
             'Zone Delete'
-        ];
+        );
 
 
         Role::create(['name' => 'Super Admin']); //Create Super Admin By default

@@ -13,7 +13,7 @@ class RolesController extends Controller
     public function index()
     {
         $table = Role::orderBy('id', 'DESC')->get();
-        $permissions = Permission::orderBy('name', 'ASC')->get()->chunk(2);
+        $permissions = Permission::orderBy('name', 'ASC')->get()->chunk(4);
 
         return view('users.roles')->with(['table' => $table, 'permissions' => $permissions]);
     }
@@ -52,28 +52,22 @@ class RolesController extends Controller
         }
 
         try{
-
             $table = Role::find($id);
             $table->name = $request->name;
             $table->save();
-
         }catch (\Exception $ex) {
             return redirect()->back()->with(config('naz.error'));
         }
-
         return redirect()->back()->with(config('naz.save'));
     }
 
     public function destroy($id)
     {
         try{
-
             Role::destroy($id);
-
         }catch (\Exception $ex) {
             return redirect()->back()->with(config('naz.error'));
         }
-
         return redirect()->back()->with(config('naz.del'));
     }
 
@@ -84,11 +78,8 @@ class RolesController extends Controller
             $role->syncPermissions($request->permissions);
 
         }catch (\Exception $ex) {
-            dd($ex);
             return redirect()->back()->with(config('naz.error'));
         }
-
         return redirect()->back()->with(config('naz.save'));
-
     }
 }

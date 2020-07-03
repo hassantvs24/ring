@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSellTransactionsTable extends Migration
+class CreateTransactionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateSellTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sell_transactions', function (Blueprint $table) {
+        Schema::create('transaction', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_return')->default(1)->comment('0 mean this is return transaction');
-            $table->boolean('is_auto')->default(0)->comment('0 mean this is manual transaction');
+            $table->enum('transaction_point',['Expense', 'Sales', 'Purchase', 'Customer Account', 'Supplier Account', 'Agent Account', 'Account Book', 'Vat Tax', 'Stock Adjustment']);
+            $table->enum('transaction_hub',['General', 'Due Payment', 'Opening', 'Add', 'Withdraw', 'Return', 'Transfer', 'Recover'])->default('General');
+            $table->enum('transaction_type',['IN', 'OUT'])->default('IN');
+            $table->bigInteger('ref_id')->nullable()->comment('Using For Track Split Payment');
             $table->double('amount')->default(0);
-            $table->enum('payment_method',['Cash', 'Card', 'Cheque', 'Bank Transfer', 'Other', 'Customer Account', 'Custom Payment'])->default('Cash');
+            $table->enum('payment_method',['Cash', 'Card', 'Cheque', 'Bank Transfer', 'Other', 'Customer Account', 'Supplier Account', 'Custom Payment'])->default('Cash');
             $table->string('card_number',100)->nullable();
             $table->string('card_holder_name',100)->nullable();
             $table->string('card_transaction_no',100)->nullable();
@@ -31,14 +33,17 @@ class CreateSellTransactionsTable extends Migration
             $table->string('transaction_no',100)->nullable()->comment('This is for Custom Payment payment method');
             $table->string('description')->nullable();
             $table->enum('status',['Active','Inactive'])->default('Active');
-            $table->foreignId('warehouses_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
+            $table->foreignId('expenses_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('sell_invoices_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('customers_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('purchase_invoices_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('suppliers_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('agents_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('stock_adjustments_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('account_books_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
-            $table->foreignId('customers_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
-            $table->foreignId('customer_transactions_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
-            $table->foreignId('sell_invoices_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
+            $table->foreignId('warehouses_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('business_id')->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('users_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -50,6 +55,6 @@ class CreateSellTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sell_transactions');
+        Schema::dropIfExists('transaction');
     }
 }
