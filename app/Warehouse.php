@@ -97,14 +97,6 @@ class Warehouse extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function agentTransactions()
-    {
-        return $this->hasMany('App\AgentTransaction', 'warehouses_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function agents()
     {
         return $this->hasMany('App\Agent', 'warehouses_id');
@@ -113,18 +105,11 @@ class Warehouse extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function allTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\AllTransaction', 'warehouses_id');
+        return $this->hasMany('App\Transaction', 'warehouses_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function customerTransactions()
-    {
-        return $this->hasMany('App\CustomerTransaction', 'warehouses_id');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -193,26 +178,11 @@ class Warehouse extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchaseTransactions()
-    {
-        return $this->hasMany('App\PurchaseTransaction', 'warehouses_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function sellInvoices()
     {
         return $this->hasMany('App\SellInvoice', 'warehouses_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sellTransactions()
-    {
-        return $this->hasMany('App\SellTransaction', 'warehouses_id');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -258,26 +228,11 @@ class Warehouse extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function supplierTransactions()
-    {
-        return $this->hasMany('App\SupplierTransaction', 'warehouses_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function suppliers()
     {
         return $this->hasMany('App\Supplier', 'warehouses_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function vatTaxTransactions()
-    {
-        return $this->hasMany('App\VatTaxTransaction', 'warehouses_id');
-    }
 
     protected static function boot()
     {

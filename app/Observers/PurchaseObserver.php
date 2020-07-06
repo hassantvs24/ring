@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\PurchaseInvoice;
 use App\PurchaseItem;
-use App\PurchaseTransaction;
+use App\Transaction;
 
 class PurchaseObserver
 {
@@ -39,7 +39,7 @@ class PurchaseObserver
     public function deleted(PurchaseInvoice $purchaseInvoice)
     {
         PurchaseItem::where('purchase_invoices_id', $purchaseInvoice->id)->delete();
-        PurchaseTransaction::where('purchase_invoices_id', $purchaseInvoice->id)->delete();
+        Transaction::where('purchase_invoices_id', $purchaseInvoice->id)->delete();
     }
 
     /**
@@ -51,7 +51,7 @@ class PurchaseObserver
     public function restored(PurchaseInvoice $purchaseInvoice)
     {
         PurchaseItem::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->restore();
-        PurchaseTransaction::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->restore();
+        Transaction::onlyTrashed()->where('purchase_invoices_id', $purchaseInvoice->id)->restore();
     }
 
     /**
@@ -63,6 +63,6 @@ class PurchaseObserver
     public function forceDeleted(PurchaseInvoice $purchaseInvoice)
     {
         PurchaseItem::where('purchase_invoices_id', $purchaseInvoice->id)->forceDelete();
-        PurchaseTransaction::where('purchase_invoices_id', $purchaseInvoice->id)->forceDelete();
+        Transaction::where('purchase_invoices_id', $purchaseInvoice->id)->forceDelete();
     }
 }

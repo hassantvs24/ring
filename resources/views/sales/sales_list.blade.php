@@ -19,6 +19,7 @@
                 <th class="p-th">Total</th>
                 <th class="p-th">Paid</th>
                 <th class="p-th">Due</th>
+                <th class="p-th">Balance Due</th>
                 <th class="text-right"><i class="icon-more"></i></th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td class="p-td">{{money_c($row->invoice_sub_total())}}</td>
                     <td class="p-td">{{money_c($row->invoice_paid())}}</td>
                     <td class="p-td">{{money_c($row->invoice_due())}}</td>
+                    <td class="p-td">{{money_c($row->balance_due())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
                             <li><a  href="{{route('sales.edit', ['sale' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>

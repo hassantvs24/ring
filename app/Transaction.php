@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\BusinessScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -150,5 +151,16 @@ class Transaction extends Model
     public function warehouse()
     {
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
+    }
+
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new BusinessScope);
     }
 }

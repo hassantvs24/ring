@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\BusinessScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
@@ -138,14 +139,6 @@ class SellInvoice extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function customerTransactions()
-    {
-        return $this->hasMany('App\CustomerTransaction', 'sell_invoices_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function invoiceItems()
     {
         return $this->hasMany('App\InvoiceItem', 'sell_invoices_id');
@@ -159,12 +152,9 @@ class SellInvoice extends Model
         return $this->hasMany('App\ProductReturn', 'sell_invoices_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sellTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\SellTransaction', 'sell_invoices_id');
+        return $this->hasMany('App\Transaction', 'sell_invoices_id');
     }
 
     public function setCreatedAtAttribute($value)
@@ -178,17 +168,74 @@ class SellInvoice extends Model
     }
 
     public function invoice_paid(){
-        $total = $this->sellTransactions()->sum('amount');
+        $total = $this->transactions()->sum('amount');
         return $total;
     }
 
     public function invoice_sub_total(){
         $total = $this->invoice_total();
-        return $total + $this->additional_charges + $this->vet_texes_amount - $this->discount_amount;
+        return $total + $this->additional_charges + $this->labor_cost + $this->shipping_charges + $this->vet_texes_amount - $this->discount_amount;
     }
 
     public function invoice_due(){
         return $this->invoice_sub_total() - $this->invoice_paid();
+    }
+
+    public function balance_due(){
+        $id = $this->id;
+        $customers_id = $this->customers_id;
+        $previous_invoices = $this->orderBy('id')->where('id', '<', $id)->where('customers_id', $customers_id)->where('status', 'Final')->get();
+        $total_payment = $this->customer->totalAcPayment();
+        $current_due = $this->invoice_due();
+
+       if($previous_invoices->count() > 0){
+           $previous_due = 0;
+           foreach ($previous_invoices as $row){
+               $previous_due += $row->invoice_due();
+           }
+
+           $remain = $total_payment - $previous_due;
+
+           if($current_due <= 0){
+               return 0;
+           }else{
+               if($remain >= $current_due){
+                   return 0;
+               }else{
+                   if($remain > 0){
+                       return $current_due - $remain;
+                   }else{
+                       return $current_due;
+                   }
+               }
+           }
+
+       }else{
+
+           if($current_due == 0){
+               return 0;
+           }else{
+               if($total_payment >= $current_due){
+                   return 0;
+               }else{
+                   $init_due = $current_due - $total_payment;
+                   if($init_due > 0){
+                       return $init_due;
+                   }else{
+                       return $current_due;
+                   }
+               }
+               
+           }
+       }
+
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new BusinessScope);
     }
 
 }

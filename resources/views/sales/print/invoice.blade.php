@@ -36,9 +36,11 @@
                 <strong>{{$table->name}}</strong><br />
                 {{$table->address}}<br />
                 Cell: {{$table->contact}}<br />
-                Email: {{$table->email}} <br /><br />
+                Email: {{$table->email}}
+                <hr />
+                <p><strong>Invoice Due: {{money_c($table->invoice_due())}}</strong></p>
+                <p><strong>Due Adjustment: {{money_c($table->balance_due())}}</strong></p>
 
-                <strong>Due: {{money_c($table->invoice_due())}}</strong>
             </p>
         </div>
     </div>

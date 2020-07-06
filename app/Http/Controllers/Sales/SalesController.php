@@ -9,8 +9,8 @@ use App\Http\Controllers\Controller;
 use App\InvoiceItem;
 use App\Product;
 use App\SellInvoice;
-use App\SellTransaction;
 use App\Shipment;
+use App\Transaction;
 use App\VetTex;
 use App\Warehouse;
 use Illuminate\Http\Request;
@@ -113,8 +113,11 @@ class SalesController extends Controller
 
             if($request->total_all_pay > 0){
                 foreach ($amounts as $i => $amount){
-                    $payment = new SellTransaction();
+                    $payment = new Transaction();
                     $payment->amount = $amount;
+                    $payment->transaction_point = 'Sales';
+                    $payment->transaction_hub = 'General';
+                    $payment->transaction_type = 'IN';
                     $payment->payment_method = $payment_method[$i];
                     $payment->cheque_number = null_filter($cheque_number[$i]);
                     $payment->bank_account_no = null_filter($bank_account_no[$i]);
@@ -159,7 +162,7 @@ class SalesController extends Controller
         $ac_book = AccountBook::orderBy('name')->get();
 
         $items = $table->invoiceItems()->get();
-        $payments = $table->sellTransactions()->with('accountBook')->get();
+        $payments = $table->transactions()->with('accountBook')->get();
 
         return view('sales.sales_edit')->with([
             'table' => $table,
@@ -263,15 +266,18 @@ class SalesController extends Controller
             $account_books_id = $request->account_books_id;
             $payment_id = $request->payment_id;
 
-            SellTransaction::where('sell_invoices_id', $invoice_id)->delete(); //Delete Payment
+            Transaction::where('sell_invoices_id', $invoice_id)->delete(); //Delete Payment
 
             if($request->total_all_pay > 0){
                 foreach ($amounts as $i => $amount){
 
-                    SellTransaction::updateOrCreate(
+                    Transaction::updateOrCreate(
                         ['id' => $payment_id[$i]],
                         [
                             'amount' => $amount,
+                            'transaction_point' => 'Sales',
+                            'transaction_hub' => 'General',
+                            'transaction_type' => 'IN',
                             'payment_method' => null_filter($payment_method[$i]),
                             'cheque_number' => null_filter($cheque_number[$i]),
                             'bank_account_no' => null_filter($bank_account_no[$i]),

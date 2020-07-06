@@ -93,13 +93,6 @@ class Business extends Model
         return $this->hasMany('App\AccountBook');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function agentTransactions()
-    {
-        return $this->hasMany('App\AgentTransaction');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -112,9 +105,9 @@ class Business extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function allTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\AllTransaction');
+        return $this->hasMany('App\Transaction');
     }
 
     /**
@@ -141,13 +134,6 @@ class Business extends Model
         return $this->hasMany('App\CustomerCategory');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function customerTransactions()
-    {
-        return $this->hasMany('App\CustomerTransaction');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -248,14 +234,6 @@ class Business extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function purchaseTransactions()
-    {
-        return $this->hasMany('App\PurchaseTransaction');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function rolesAccesses()
     {
         return $this->hasMany('App\RolesAccess');
@@ -269,13 +247,6 @@ class Business extends Model
         return $this->hasMany('App\SellInvoice');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sellTransactions()
-    {
-        return $this->hasMany('App\SellTransaction');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -336,14 +307,6 @@ class Business extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function supplierTransactions()
-    {
-        return $this->hasMany('App\SupplierTransaction');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function suppliers()
     {
         return $this->hasMany('App\Supplier');
@@ -389,13 +352,6 @@ class Business extends Model
         return $this->hasMany('App\User');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function vatTaxTransactions()
-    {
-        return $this->hasMany('App\VatTaxTransaction');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

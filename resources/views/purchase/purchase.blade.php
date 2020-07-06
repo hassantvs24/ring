@@ -147,7 +147,7 @@
                     <button type="button" class="btn btn-warning btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-cash4"></i></b> Make a payment?</button>
                 </div>
                 <div class="col-md-4 text-right">
-                    <button id="submitBtn" type="submit" class="btn btn-primary btn-labeled btn-labeled-left"><b><i class="icon-checkmark4"></i></b> Purchase</button>
+                    <button id="submitBtn" type="submit" class="btn btn-primary btn-labeled btn-labeled-left"><b><i class="icon-checkmark4"></i></b> Submit</button>
                 </div>
 
             </div>
@@ -318,8 +318,9 @@
                 $(this).val(grand_total);
             });
 
-
-            $('.supplier, .status, .warehouses, .vat_tax, .discount, .shipment, .products, .accounts, .payment_method').select2();
+            $('.warehouses').val("{{auth()->user()->warehouses_id}}").select2();
+            $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
+            $('.supplier, .status, .vat_tax, .discount, .shipment, .products, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

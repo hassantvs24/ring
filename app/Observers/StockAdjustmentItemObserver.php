@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Product;
 use App\StockAdjustmentItem;
 use App\StockTransaction;
+use Illuminate\Support\Facades\Auth;
 
 class StockAdjustmentItemObserver
 {
@@ -27,7 +27,7 @@ class StockAdjustmentItemObserver
             $stockTransaction->amount = $stockAdjustmentItem->amount;
             $stockTransaction->products_id = $stockAdjustmentItem->products_id;
             $stockTransaction->stock_adjustment_items_id = $stockAdjustmentItem->id;
-            $stockTransaction->warehouses_id = $stockAdjustmentItem->warehouses_id;
+            $stockTransaction->warehouses_id = $stockAdjustmentItem->warehouses_id ?? Auth::user()->warehouses_id;
             $stockTransaction->created_at = $stockAdjustmentItem->created_at;
             $stockTransaction->save();
         }
@@ -53,7 +53,7 @@ class StockAdjustmentItemObserver
                     'unit' => $stockAdjustmentItem->unit,
                     'quantity' => $stockAdjustmentItem->quantity,
                     'amount' => $stockAdjustmentItem->amount,
-                    'warehouses_id' => $stockAdjustmentItem->warehouses_id,
+                    'warehouses_id' => $stockAdjustmentItem->warehouses_id ??  Auth::user()->warehouses_id,
                     'created_at' => $stockAdjustmentItem->created_at
                 ]);
         }else{

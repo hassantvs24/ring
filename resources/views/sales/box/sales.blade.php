@@ -13,7 +13,7 @@
                 <option value="Cheque">Cheque</option>
                 <option value="Bank Transfer">Bank Transfer</option>
                 <option value="Other">Other Payment</option>
-                <option value="Customer Account">Customer Accounts</option>
+                <!--<option value="Customer Account">Customer Accounts</option>-->
             </x-select>
 
             <p class="customer_balance text-right text-danger" style="display: none;"></p>

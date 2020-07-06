@@ -84,9 +84,9 @@ class Expense extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function allTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\AllTransaction', 'expenses_id');
+        return $this->hasMany('App\Transaction', 'expenses_id');
     }
 
     public function setCreatedAtAttribute($value)

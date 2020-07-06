@@ -147,14 +147,6 @@ class Customer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function customerTransactions()
-    {
-        return $this->hasMany('App\CustomerTransaction', 'customers_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function productReturns()
     {
         return $this->hasMany('App\ProductReturn', 'customers_id');
@@ -168,18 +160,54 @@ class Customer extends Model
         return $this->hasMany('App\SellInvoice', 'customers_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sellTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\SellTransaction', 'customers_id');
+        return $this->hasMany('App\Transaction', 'customers_id');
+    }
+
+    public function totalPayment(){
+        $total_in = $this->transactions()->where('transaction_type', 'IN')->where('status', 'Active')->sum('amount');
+        $total_out = $this->transactions()->where('transaction_type', 'OUT')->where('status', 'Active')->sum('amount');
+        $total = $total_in - $total_out;
+        return $total;
+    }
+
+    public function totalAcPayment(){
+        $total_in = $this->transactions()->where('transaction_type', 'IN')->where('transaction_point', 'Customer Account')->where('status', 'Active')->sum('amount');
+        $total_out = $this->transactions()->where('transaction_type', 'OUT')->where('status', 'Active')->sum('amount');
+        $total = $total_in - $total_out;
+        return $total;
+    }
+
+    public function totalSales(){
+        $invoices = $this->sellInvoices()->where('status', 'Final')->get();
+        $labor_cost = 0;
+        $discount_amount = 0;
+        $vet_texes_amount = 0;
+        $shipping_charges = 0;
+        $additional_charges = 0;
+        $total_sales = 0;
+
+        foreach ($invoices as $row){
+            $labor_cost += $row->labor_cost;
+            $discount_amount += $row->discount_amount;
+            $vet_texes_amount += $row->vet_texes_amount;
+            $shipping_charges += $row->shipping_charges;
+            $additional_charges += $row->additional_charges;
+            $total_sales += $row->invoice_total();
+        }
+        $total = $total_sales + $labor_cost + $vet_texes_amount + $shipping_charges + $additional_charges - $discount_amount;
+
+        return $total;
     }
 
     public function dueBalance(){
-        $opening_balance = $this->balance;
+        $total_paid = $this->totalPayment();
+        $total_amount = $this->totalSales();
 
-        return $opening_balance;
+        $total = $total_paid - $total_amount;
+
+        return $total;
     }
 
     protected static function boot()

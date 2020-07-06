@@ -85,7 +85,7 @@
 
     <x-modal id="payModal" action="#" title="Make a payment" icon="grid5">
             @method('PUT')
-
+            <x-input class="date_pic" name="created_at" label="Date" required="required" />
             <x-select class="warehouse" name="warehouses_id" label="Select Warehouse" required="required" >
                 @foreach($warehouse as $row)
                     <option value="{{$row->id}}">{{$row->name}}</option>
@@ -103,7 +103,7 @@
                 <option value="Cheque">Cheque</option>
                 <option value="Bank Transfer">Bank Transfer</option>
                 <option value="Other">Other Payment</option>
-                <option value="Customer Account">Customer Account</option>
+                <!--<option value="Customer Account">Customer Account</option>-->
             </x-select>
 
             <p class="customer_balance text-right text-danger" style="display: none;"></p>
@@ -124,9 +124,9 @@
 
             <x-input name="description" label="Payment Note" />
 
-            <p class="m-0 text-right">
+            <!--<p class="m-0 text-right">
                 <span class="help-block">**Double Click on "Paid Amount" Input box for automatic payment.</span>
-            </p>
+            </p>-->
     </x-modal>
 
 @endsection

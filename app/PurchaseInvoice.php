@@ -141,6 +141,11 @@ class PurchaseInvoice extends Model
         return $this->hasMany('App\PurchaseTransaction', 'purchase_invoices_id');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction', 'purchase_invoices_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -163,13 +168,13 @@ class PurchaseInvoice extends Model
     }
 
     public function invoice_paid(){
-        $total = $this->purchaseTransactions()->sum('amount');
+        $total = $this->transactions()->sum('amount');
         return $total;
     }
 
     public function invoice_sub_total(){
         $total = $this->invoice_total();
-        return $total + $this->additional_charges + $this->vet_texes_amount - $this->discount_amount;
+        return $total + $this->additional_charges + $this->vet_texes_amount + $this->shipping_charges + $this->labor_cost - $this->discount_amount;
     }
 
     public function invoice_due(){
@@ -177,7 +182,55 @@ class PurchaseInvoice extends Model
     }
 
 
+    public function balance_due(){
+        $id = $this->id;
+        $suppliers_id = $this->suppliers_id;
+        $previous_invoices = $this->orderBy('id')->where('id', '<', $id)->where('suppliers_id', $suppliers_id)->where('status', '<>', 'Pending')->get();
+        $total_payment = $this->supplier->totalAcPayment();
+        $current_due = $this->invoice_due();
 
+        if($previous_invoices->count() > 0){
+            $previous_due = 0;
+            foreach ($previous_invoices as $row){
+                $previous_due += $row->invoice_due();
+            }
+
+            $remain = $total_payment - $previous_due;
+
+            if($current_due <= 0){
+                return 0;
+            }else{
+                if($remain >= $current_due){
+                    return 0;
+                }else{
+                    if($remain > 0){
+                        return $current_due - $remain;
+                    }else{
+                        return $current_due;
+                    }
+                }
+            }
+
+        }else{
+
+            if($current_due == 0){
+                return 0;
+            }else{
+                if($total_payment >= $current_due){
+                    return 0;
+                }else{
+                    $init_due = $current_due - $total_payment;
+                    if($init_due > 0){
+                        return $init_due;
+                    }else{
+                        return $current_due;
+                    }
+                }
+
+            }
+        }
+
+    }
 
 
     protected static function boot()

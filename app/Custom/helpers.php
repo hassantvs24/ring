@@ -19,11 +19,16 @@ if (! function_exists('pub_date')) {
 }
 
 if (! function_exists('db_date')) {
-    function db_date($date){
+    function db_date($date, $istime=true){
         if($date == '' || $date == null){
             return null;
         }else{
-            return date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+            if($istime){
+                return date("Y-m-d H:i:s", strtotime(str_replace("/", "-",  $date)));
+            }else{
+                return date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+            }
+
         }
     }
 }

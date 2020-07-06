@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\PurchaseItem;
 use App\StockTransaction;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseItemObserver
 {
@@ -27,7 +28,7 @@ class PurchaseItemObserver
             $stockTransaction->amount = $purchaseItem->amount;
             $stockTransaction->products_id = $purchaseItem->products_id;
             $stockTransaction->purchase_items_id = $purchaseItem->id;
-            $stockTransaction->warehouses_id = $purchaseItem->warehouses_id;
+            $stockTransaction->warehouses_id = $purchaseItem->warehouses_id ??  Auth::user()->warehouses_id;
             $stockTransaction->created_at = $purchaseItem->created_at;
             $stockTransaction->save();
         }
@@ -51,7 +52,7 @@ class PurchaseItemObserver
                 'quantity' => $purchaseItem->quantity,
                 'amount' => $purchaseItem->amount,
                 'status' => $purchaseItem->status,
-                'warehouses_id' => $purchaseItem->warehouses_id,
+                'warehouses_id' => $purchaseItem->warehouses_id ??  Auth::user()->warehouses_id,
                 'created_at' => $purchaseItem->created_at
             ]);
         }else{

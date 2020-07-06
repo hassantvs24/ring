@@ -136,7 +136,6 @@
 
         $.extend(
             $.fn.dataTable.defaults, {
-
                 responsive: true,
                 autoWidth: false,
                 dom: 'Blfrtip',
@@ -162,6 +161,7 @@
                     },
                     {
                         extend: 'pdfHtml5',
+                       // footer: true,
                         exportOptions: {
                             columns: ':visible'
                         },
@@ -170,6 +170,7 @@
                     },
                     {
                         extend: 'print',
+                        //footer: true,
                         exportOptions: {
                             columns: ':visible'
                         },

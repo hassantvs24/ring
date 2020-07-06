@@ -75,9 +75,10 @@
         var balance = 0;
         $(function () {
 
-            $('.warehouse').val("{{auth()->user()->warehouses_id}}");
+            $('.warehouse').val("{{auth()->user()->warehouses_id}}").select2();
+            $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
 
-            $('.warehouse, .category, .zone, .accounts, .payment_method').select2();
+            $('.category, .zone, .payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -119,6 +120,8 @@
             $('.payment').click(function (e) {
                 e.preventDefault();
 
+                $('#payModal [name=amount]').val(0);
+
                 $('.cheque_number').hide();
                 $('.bank_account_no').hide();
                 $('.transaction_no').hide();
@@ -126,6 +129,12 @@
 
                 var url = $(this).attr('href');
                 balance = Number($(this).data('balance'));
+
+                /*$('#payModal [name=amount]').dblclick(function () {
+                    $(this).val(balance);
+                    disible_submit();
+                });*/
+
                 $('#payModal form').attr('action', url);
                 disible_submit();
             });
@@ -172,6 +181,13 @@
 
             $('#payModal [name=amount]').on('keyup keydown change', function () {
                 disible_submit();
+            });
+
+            $('.date_pic').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
             });
 
 

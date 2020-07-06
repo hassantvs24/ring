@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\InvoiceItem;
 use App\StockTransaction;
+use Illuminate\Support\Facades\Auth;
 
 class SalesItemOvserver
 {
@@ -27,7 +28,7 @@ class SalesItemOvserver
             $stockTransaction->status = $invoiceItem->status;
             $stockTransaction->products_id = $invoiceItem->products_id;
             $stockTransaction->invoice_items_id = $invoiceItem->id;
-            $stockTransaction->warehouses_id = $invoiceItem->warehouses_id;
+            $stockTransaction->warehouses_id = $invoiceItem->warehouses_id ??  Auth::user()->warehouses_id;
             $stockTransaction->created_at = $invoiceItem->created_at;
             $stockTransaction->save();
         }
@@ -50,7 +51,7 @@ class SalesItemOvserver
                 'quantity' => $invoiceItem->quantity,
                 'amount' => $invoiceItem->amount,
                 'status' => $invoiceItem->status,
-                'warehouses_id' => $invoiceItem->warehouses_id,
+                'warehouses_id' => $invoiceItem->warehouses_id ??  Auth::user()->warehouses_id,
                 'created_at' => $invoiceItem->created_at
             ]);
         }else{

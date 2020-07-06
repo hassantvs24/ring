@@ -5,9 +5,6 @@
     Purchase Edit
 @endsection
 @section('content')
-    <div class="mb-15">
-        <button onclick="window.history.back()" class="btn btn-danger heading-btn btn-labeled btn-labeled-left"><b><i class="icon-arrow-left16"></i></b> Back</button>
-    </div>
 
     <x-panel name="Purchase Edit">
         <form action="{{route('purchase.update',['purchase' => $table->id])}}" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -150,7 +147,7 @@
                     <button type="button" class="btn btn-warning btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-cash4"></i></b> Make a payment?</button>
                 </div>
                 <div class="col-md-4 text-right">
-                    <button id="submitBtn" type="submit" class="btn btn-primary btn-labeled btn-labeled-left"><b><i class="icon-checkmark4"></i></b> Purchase</button>
+                    <button id="submitBtn" type="submit" class="btn btn-primary btn-labeled btn-labeled-left"><b><i class="icon-checkmark4"></i></b> Submit</button>
                 </div>
 
             </div>

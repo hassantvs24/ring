@@ -5,13 +5,12 @@
 @endsection
 @section('content')
 
-    <div class="mb-15">
-        <a href="{{route('customer.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left"><b><i class="icon-arrow-left5"></i></b> Back to customer list</a>
-    </div>
+    <x-site name="{{$customer->name}}">
 
-    <x-page name="{{$customer->name}} - Payment Transaction" body="New payment">
-
-
+        <x-slot name="header">
+            <a href="{{route('customer.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left"><b><i class="icon-arrow-left5"></i></b> Back to customer list</a>
+            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Make Payment</button>
+        </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
@@ -19,11 +18,9 @@
                 <th class="p-th">Date</th>
                 <th class="p-th">Account Book</th>
                 <th class="p-th">Payment Method</th>
-                <th class="p-th">Payment Section</th>
-                <th class="p-th">Cheque</th>
-                <th class="p-th">A/C No</th>
-                <th class="p-th">Ref. No</th>
+                <th class="p-th">Payment No</th>
                 <th class="p-th">Description</th>
+                <th class="p-th">Payment Section</th>
                 <th class="p-th">IN</th>
                 <th class="p-th">OUT</th>
                 <th class="text-right"><i class="icon-more"></i></th>
@@ -35,11 +32,26 @@
                     <td class="p-td">{{pub_date($row->created_at)}}</td>
                     <td class="p-td">{{$row->accountBook['name']}}</td>
                     <td class="p-td">{{$row->payment_method}}</td>
-                    <td class="p-td">{{$row->payment_type}}</td>
-                    <td class="p-td">{{$row->cheque_number}}</td>
-                    <td class="p-td">{{$row->bank_account_no}}</td>
-                    <td class="p-td">{{$row->transaction_no}}</td>
-                    <td class="p-td">{{$row->description}}</td>
+
+                    @switch($row->payment_method)
+                        @case('Cheque')
+                        <td class="p-td" title="Cheque Number">{{$row->cheque_number}}</td>
+                        @break
+
+                        @case('Bank Transfer')
+                        <td class="p-td" title="Account Number">{{$row->bank_account_no}}</td>
+                        @break
+
+                        @case('Other')
+                        <td class="p-td" title="Other Transaction Number">{{$row->transaction_no}}</td>
+                        @break
+
+                        @default
+                        <td class="p-td"></td>
+                    @endswitch
+
+                    <td class="p-td" title="Bank name or Other note">{{$row->description}}</td>
+                    <td class="p-td">{{$row->transaction_point}}</td>
                     <td class="p-td">{{money_c($row->transaction_type == 'IN' ? $row->amount : 0)}}</td>
                     <td class="p-td">{{money_c($row->transaction_type == 'OUT' ? $row->amount : 0)}}</td>
                     <td class="text-right p-td">
@@ -61,21 +73,33 @@
                 </tr>
             @endforeach
             </tbody>
+            <tfoot>
+            <tr class="text-danger">
+                <th class="text-right p-td" colspan="3">Total Sales</th>
+                <th class="p-td">{{money_c($customer->totalSales())}}</th>
+                <th class="text-right p-td">Total Payment</th>
+                <th class="p-td">{{money_c($customer->totalPayment())}}</th>
+                <th class="text-right p-td">Total Balance</th>
+                <th class="p-td">{{money_c($customer->dueBalance())}}</th>
+                <th class="p-td"></th>
+            </tr>
+            </tfoot>
         </table>
 
-    </x-page>
+    </x-site>
 
 
 @endsection
 
 @section('script')
     <script type="text/javascript">
-        var balance = Number("{{$customer->dueBalance()}}");
+        var balance = 0;
 
         $(function () {
-            $('.warehouse').val("{{auth()->user()->warehouses_id}}");
+            $('.warehouse').val("{{auth()->user()->warehouses_id}}").select2();
+            $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
 
-            $('.warehouse, .accounts, .payment_method').select2();
+            $('.payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -107,6 +131,18 @@
                 $('#ediModal [name=warehouses_id]').val(warehouses_id).select2();
                 $('#ediModal [name=customer_categories_id]').val(customer_categories_id).select2();
 
+            });
+
+            $('#headerBtn').click(function () {
+
+                $('#myModal [name=amount]').val(0);
+
+                $('.cheque_number').hide();
+                $('.bank_account_no').hide();
+                $('.transaction_no').hide();
+
+
+                disible_submit();
             });
 
 
@@ -153,10 +189,16 @@
                 disible_submit();
             });
 
+            $('.date_pic').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
 
             $('.datatable-basic').DataTable({
                 columnDefs: [
-                     { orderable: false, "targets": [10] }
+                     { orderable: false, "targets": [8] }
                 ]
             });
         });

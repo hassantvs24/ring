@@ -76,14 +76,6 @@ class StockTransfer extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function allTransactions()
-    {
-        return $this->hasMany('App\AllTransaction', 'stock_transfers_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function stockTransferItems()
     {
         return $this->hasMany('App\StockTransferItem', 'stock_transfers_id');

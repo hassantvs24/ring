@@ -62,13 +62,6 @@ class Agent extends Model
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function agentTransactions()
-    {
-        return $this->hasMany('App\AgentTransaction', 'agents_id');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

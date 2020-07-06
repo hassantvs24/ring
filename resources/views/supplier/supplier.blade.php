@@ -47,15 +47,16 @@
                                    data-name="{{$row->name}}"
                                    data-code="{{$row->code}}"
                                    data-contact="{{$row->contact}}"
-                                   data-balance="{{$row->balance}}"
                                    data-email="{{$row->email}}"
                                    data-address="{{$row->address}}"
                                    data-phone="{{$row->phone}}"
                                    data-contacttwo="{{$row->alternate_contact}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('supplier.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Supplier Transaction</a></li>
-                            <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
+                            <li><a href="{{route('supplier.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Payment Transaction</a></li>
+                            @if($row->dueBalance() != 0)
+                                <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
+                            @endif
                             <li><a href="{{route('supplier.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>
@@ -71,11 +72,14 @@
 
 @section('script')
     <script type="text/javascript">
+        var balance = 0;
+
         $(function () {
 
-            $('.warehouse').val("{{auth()->user()->warehouses_id}}");
+            $('.warehouse').val("{{auth()->user()->warehouses_id}}").select2();
+            $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
 
-            $('.warehouse, .category, .accounts, .payment_method').select2();
+            $('.category, .payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -90,7 +94,6 @@
                 var description = $(this).data('description');
                 var supplier_categories_id = $(this).data('category');
                 var warehouses_id = $(this).data('warehouses');
-                var balance = $(this).data('balance');
 
 
                 $('#ediModal form').attr('action', url);
@@ -101,7 +104,6 @@
                 $('#ediModal [name=contact]').val(contact);
                 $('#ediModal [name=email]').val(email);
                 $('#ediModal [name=address]').val(address);
-                $('#ediModal [name=balance]').val(balance);
                 $('#ediModal [name=phone]').val(phone);
                 $('#ediModal [name=description]').val(description);
                 $('#ediModal [name=alternate_contact]').val(alternate_contact);
@@ -110,12 +112,23 @@
             $('.payment').click(function (e) {
                 e.preventDefault();
 
+                balance = $(this).data('balance');
+
+                $('#payModal [name=amount]').val(0);
+
                 $('.cheque_number').hide();
                 $('.bank_account_no').hide();
                 $('.transaction_no').hide();
 
                 var url = $(this).attr('href');
                 $('#payModal form').attr('action', url);
+
+                $('#payModal [name=amount]').dblclick(function () {
+                    $(this).val(balance);
+                    disible_submit();
+                });
+
+                disible_submit();
             });
 
 
@@ -149,12 +162,32 @@
                 }
             });
 
+            $('#payModal [name=amount]').on('keyup keydown change', function () {
+                disible_submit();
+            });
+
+            $('.date_pic').daterangepicker({
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
 
             $('.datatable-basic').DataTable({
                 columnDefs: [
-                    { orderable: false, "targets": [2] }
+                    { orderable: false, "targets": [9] }
                 ]
             });
         });
+
+        function disible_submit() {
+            var amount = $('#payModal [name=amount]').val();
+
+            if(amount <= 0 || amount > balance){
+                $('#payModal [type=submit]').prop('disabled', true);
+            }else{
+                $('#payModal [type=submit]').prop('disabled', false);
+            }
+        }
     </script>
 @endsection

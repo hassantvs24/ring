@@ -1,6 +1,7 @@
 @section('box')
-    <x-modal id="myModal" action="{{route('customer.payment', ['id' => $supplier->id])}}" title="Make a payment" icon="grid5">
+    <x-modal id="myModal" action="{{route('supplier.payment', ['id' => $supplier->id])}}" title="Make a payment" icon="grid5">
         @method('PUT')
+        <x-input class="date_pic" name="created_at" label="Date" required="required" />
 
         <x-select class="warehouse" name="warehouses_id" label="Select Warehouse" required="required" >
             @foreach($warehouse as $row)
@@ -46,6 +47,9 @@
 
     <x-modal id="ediModal" action="#" title="Edit Payment" bg="success" icon="pencil6">
         @method('PUT')
+
+        <x-input class="date_pic" name="created_at" label="Date" required="required" />
+
         <x-select name="warehouses_id" label="Select Warehouse" required="required" >
             @foreach($warehouse as $row)
                 <option value="{{$row->id}}">{{$row->name}}</option>

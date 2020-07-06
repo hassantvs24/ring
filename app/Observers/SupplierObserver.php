@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\AllTransaction;
 use App\Supplier;
-use App\SupplierTransaction;
+use App\Transaction;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierObserver
 {
@@ -18,24 +18,15 @@ class SupplierObserver
     public function created(Supplier $supplier)
     {
         if($supplier->balance > 0){
-            $supplierTransaction = new SupplierTransaction();
-            $supplierTransaction->suppliers_id = $supplier->id;
-            $supplierTransaction->payment_type = 'Opening Balance';
-            $supplierTransaction->transaction_type = 'OUT';
-            $supplierTransaction->amount = $supplier->balance;
-            $supplierTransaction->warehouses_id = $supplier->warehouses_id;
-            $supplierTransaction->save();
-            $supplier_transactions_id = $supplierTransaction->id;
-
-
-            $all_transaction = new AllTransaction();
-            $all_transaction->supplier_transactions_id = $supplier_transactions_id;
-            $all_transaction->transaction_point = 'Supplier';
-            $all_transaction->transaction_type = 'IN';
-            $all_transaction->source_type = 'Opening';
-            $all_transaction->amount = $supplier->balance;
-            $all_transaction->warehouses_id = $supplier->warehouses_id;
-            $all_transaction->save();
+            $transactions = new Transaction();
+            $transactions->suppliers_id = $supplier->id;
+            $transactions->transaction_point = 'Supplier Account';
+            $transactions->transaction_hub = 'Opening';
+            $transactions->transaction_type = 'OUT';
+            $transactions->amount = $supplier->balance;
+            $transactions->warehouses_id = $supplier->warehouses_id ??  Auth::user()->warehouses_id;
+            $transactions->account_books_id = Auth::user()->account_books_id;
+            $transactions->save();
         }
     }
 
@@ -49,25 +40,16 @@ class SupplierObserver
     public function updated(Supplier $supplier)
     {
         if($supplier->balance > 0) {
-            $supplierTransaction = SupplierTransaction::updateOrCreate(
-                ['suppliers_id' => $supplier->id, 'payment_type' => 'Opening Balance'],
-                [
-                    'amount' => $supplier->balance,
-                    'warehouses_id' => $supplier->warehouses_id
-                ]
-            );
 
-            AllTransaction::updateOrCreate([
-                'supplier_transactions_id' => $supplierTransaction->id, 'transaction_point' => 'Supplier', 'source_type' => 'Opening'
+            Transaction::updateOrCreate([
+                'suppliers_id' => $supplier->id, 'transaction_point' => 'Supplier Account', 'transaction_hub' => 'Opening', 'transaction_type' => 'OUT'
             ], [
                 'amount' => $supplier->balance,
-                'warehouses_id' => $supplier->warehouses_id
+                'warehouses_id' => $supplier->warehouses_id,
+                'account_books_id' => Auth::user()->account_books_id
             ]);
         }else{
-            $supplierTransaction = SupplierTransaction::where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->first();
-            SupplierTransaction::where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->forceDelete();
-
-            AllTransaction::where('supplier_transactions_id',  $supplierTransaction->id)->where('transaction_point', 'Supplier')->where('source_type', 'Opening')->forceDelete();
+            Transaction::where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'OUT')->forceDelete();
         }
     }
 
@@ -80,9 +62,7 @@ class SupplierObserver
 
     public function deleted(Supplier $supplier)
     {
-        $supplierTransaction = SupplierTransaction::where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->first();
-        SupplierTransaction::where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->delete();
-        AllTransaction::where('supplier_transactions_id',  $supplierTransaction->id)->where('transaction_point', 'Supplier')->where('source_type', 'Opening')->delete();
+        Transaction::where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'OUT')->delete();
     }
 
     /**
@@ -94,9 +74,7 @@ class SupplierObserver
 
     public function restored(Supplier $supplier)
     {
-        $supplierTransaction = SupplierTransaction::onlyTrashed()->where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->first();
-        SupplierTransaction::onlyTrashed()->where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->restore();
-        AllTransaction::onlyTrashed()->where('supplier_transactions_id',  $supplierTransaction->id)->where('transaction_point', 'Supplier')->where('source_type', 'Opening')->restore();
+        Transaction::onlyTrashed()->where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'OUT')->restore();
     }
 
     /**
@@ -108,8 +86,6 @@ class SupplierObserver
 
     public function forceDeleted(Supplier $supplier)
     {
-        $supplierTransaction = SupplierTransaction::onlyTrashed()->where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->first();
-        SupplierTransaction::where('suppliers_id',  $supplier->id)->where('payment_type', 'Opening Balance')->forceDelete();
-        AllTransaction::where('supplier_transactions_id',  $supplierTransaction->id)->where('transaction_point', 'Supplier')->where('source_type', 'Opening')->forceDelete();
+        Transaction::where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'OUT')->forceDelete();
     }
 }

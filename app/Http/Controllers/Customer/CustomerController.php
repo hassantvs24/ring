@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Customer;
 use App\AccountBook;
 use App\Customer;
 use App\CustomerCategory;
-use App\CustomerTransaction;
 use App\Http\Controllers\Controller;
+use App\Transaction;
 use App\Warehouse;
 use App\Zone;
 use Illuminate\Http\Request;
@@ -130,8 +130,11 @@ class CustomerController extends Controller
 
     public function due_payment(Request $request, $id){
 
+       // dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'payment_method' => 'string|required|max:20',
+            'created_at' => 'required|date_format:d/m/Y',
             'account_books_id' => 'numeric|required',
             'amount' => 'numeric|required|min:1',
             'warehouses_id' => 'numeric|required'
@@ -143,18 +146,20 @@ class CustomerController extends Controller
 
         try{
 
-            $table = new CustomerTransaction();
-            $table->payment_type = 'Add Balance';
-            $table->transaction_type = 'IN';
-            $table->amount = $request->amount;
+            $table = new Transaction();
             $table->customers_id = $id;
+            $table->transaction_point = 'Customer Account';
+            $table->transaction_hub = 'Due Payment';
+            $table->transaction_type = 'IN';
             $table->payment_method = $request->payment_method;
-            $table->account_books_id = $request->account_books_id;
+            $table->amount = $request->amount;
             $table->cheque_number = null_filter($request->cheque_number);
             $table->bank_account_no = null_filter($request->bank_account_no);
             $table->transaction_no = null_filter($request->transaction_no);
             $table->description = null_filter($request->description);
+            $table->account_books_id = $request->account_books_id;
             $table->warehouses_id = $request->warehouses_id;
+            $table->created_at = $request->created_at;
             $table->save();
 
         }catch (\Exception $ex) {
@@ -171,7 +176,7 @@ class CustomerController extends Controller
     public function delete_due_payment($id){
         try{
 
-            CustomerTransaction::destroy($id);
+            Transaction::destroy($id);
 
         }catch (\Exception $ex) {
             return redirect()->back()->with(config('naz.error'));
@@ -185,7 +190,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
         $ac_book = AccountBook::orderBy('name', 'ASC')->get();
-        $table = CustomerTransaction::with('accountBook', 'customer', 'warehouse')->where('customers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        $table = Transaction::with('accountBook', 'customer', 'warehouse')->where('customers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
         return view('customer.transaction')->with(['table' => $table, 'warehouse' => $warehouse, 'customer' => $customer, 'ac_book' => $ac_book]);
     }
 

@@ -21,7 +21,6 @@
         <x-input name="phone" label="Phone Number" />
         <x-input name="alternate_contact" label="Alternate Contact" />
         <x-input name="address" label="Address" />
-        <x-input type="number" name="balance"  rest="step=any min=0" value="0" label="Opening Due" required="required" />
         <x-input name="description" label="Additional Note" />
 
     </x-modal>
@@ -49,13 +48,14 @@
         <x-input name="phone" label="Phone Number" />
         <x-input name="alternate_contact" label="Alternate Contact" />
         <x-input name="address" label="Address" />
-        <x-input type="number" name="balance"  rest="step=any min=0" value="0" label="Opening Due" required="required" />
         <x-input name="description" label="Additional Note" />
 
     </x-modal>
 
     <x-modal id="payModal" action="#" title="Make a payment" icon="grid5">
         @method('PUT')
+
+        <x-input class="date_pic" name="created_at" label="Date" required="required" />
 
         <x-select class="warehouse" name="warehouses_id" label="Select Warehouse" required="required" >
             @foreach($warehouse as $row)

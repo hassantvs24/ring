@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\InvoiceItem;
 use App\SellInvoice;
-use App\SellTransaction;
+use App\Transaction;
 
 class SalesOvserver
 {
@@ -39,7 +39,7 @@ class SalesOvserver
     public function deleted(SellInvoice $sellInvoice)
     {
         InvoiceItem::where('sell_invoices_id', $sellInvoice->id)->delete();
-        SellTransaction::where('sell_invoices_id', $sellInvoice->id)->delete();
+        Transaction::where('sell_invoices_id', $sellInvoice->id)->delete();
     }
 
     /**
@@ -51,7 +51,7 @@ class SalesOvserver
     public function restored(SellInvoice $sellInvoice)
     {
         InvoiceItem::onlyTrashed()->where('sell_invoices_id', $sellInvoice->id)->restore();
-        SellTransaction::onlyTrashed()->where('sell_invoices_id', $sellInvoice->id)->restore();
+        Transaction::onlyTrashed()->where('sell_invoices_id', $sellInvoice->id)->restore();
     }
 
     /**
@@ -63,6 +63,6 @@ class SalesOvserver
     public function forceDeleted(SellInvoice $sellInvoice)
     {
         InvoiceItem::where('sell_invoices_id', $sellInvoice->id)->forceDelete();
-        SellTransaction::where('sell_invoices_id', $sellInvoice->id)->forceDelete();
+        Transaction::where('sell_invoices_id', $sellInvoice->id)->forceDelete();
     }
 }

@@ -8,9 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseItem;
-use App\PurchaseTransaction;
 use App\Shipment;
 use App\Supplier;
+use App\Transaction;
 use App\VetTex;
 use App\Warehouse;
 use Illuminate\Http\Request;
@@ -113,10 +113,15 @@ class PurchaseController extends Controller
             $description = $request->description;
             $account_books_id = $request->account_books_id;
 
+            $ck_status = ($request->status == 'Pending' ? 'Inactive':'Active');
+
             if($request->total_all_pay > 0){
                 foreach ($amounts as $i => $amount){
-                    $payment = new PurchaseTransaction();
+                    $payment = new Transaction();
                     $payment->amount = $amount;
+                    $payment->transaction_point = 'Purchase';
+                    $payment->transaction_hub = 'General';
+                    $payment->transaction_type = 'OUT';
                     $payment->payment_method = $payment_method[$i];
                     $payment->cheque_number = null_filter($cheque_number[$i]);
                     $payment->bank_account_no = null_filter($bank_account_no[$i]);
@@ -161,7 +166,7 @@ class PurchaseController extends Controller
         $ac_book = AccountBook::orderBy('name')->get();
 
         $items = $table->purchaseItems()->get();
-        $payments = $table->purchaseTransactions()->with('accountBook')->get();
+        $payments = $table->transactions()->with('accountBook')->get();
 
         return view('purchase.purchase_edit')
             ->with(['table' => $table,
@@ -265,15 +270,21 @@ class PurchaseController extends Controller
             $account_books_id = $request->account_books_id;
             $payment_id = $request->payment_id;
 
-            PurchaseTransaction::where('purchase_invoices_id', $invoice_id)->delete(); //Delete Payment
+            Transaction::where('purchase_invoices_id', $invoice_id)->delete(); //Delete Payment
 
             if($request->total_all_pay > 0){
+
+                $ck_status = ($request->status == 'Pending' ? 'Inactive':'Active');
+
                 foreach ($amounts as $i => $amount){
 
-                    PurchaseTransaction::updateOrCreate(
+                    Transaction::updateOrCreate(
                         ['id' => $payment_id[$i]],
                         [
                             'amount' => $amount,
+                            'transaction_point' => 'Purchase',
+                            'transaction_hub' => 'General',
+                            'transaction_type' => 'OUT',
                             'payment_method' => null_filter($payment_method[$i]),
                             'cheque_number' => null_filter($cheque_number[$i]),
                             'bank_account_no' => null_filter($bank_account_no[$i]),
