@@ -21,8 +21,8 @@
                 <th class="p-th">Payment No</th>
                 <th class="p-th">Description</th>
                 <th class="p-th">Payment Section</th>
-                <th class="p-th">IN</th>
-                <th class="p-th">OUT</th>
+                <th class="p-th" title="Based on account book">Type</th>
+                <th class="p-th">Amount</th>
                 <th class="text-right"><i class="icon-more"></i></th>
             </tr>
             </thead>
@@ -32,42 +32,28 @@
                     <td class="p-td">{{pub_date($row->created_at)}}</td>
                     <td class="p-td">{{$row->accountBook['name']}}</td>
                     <td class="p-td">{{$row->payment_method}}</td>
-
-                    @switch($row->payment_method)
-                        @case('Cheque')
-                        <td class="p-td" title="Cheque Number">{{$row->cheque_number}}</td>
-                        @break
-
-                        @case('Bank Transfer')
-                        <td class="p-td" title="Account Number">{{$row->bank_account_no}}</td>
-                        @break
-
-                        @case('Other')
-                        <td class="p-td" title="Other Transaction Number">{{$row->transaction_no}}</td>
-                        @break
-
-                        @default
-                        <td class="p-td"></td>
-                    @endswitch
-
+                    <td class="p-td" title="{{$row->payment_number()['title']}}">{{$row->payment_number()['numbers']}}</td>
                     <td class="p-td" title="Bank name or Other note">{{$row->description}}</td>
                     <td class="p-td">{{$row->transaction_point}}</td>
-                    <td class="p-td">{{money_c($row->transaction_type == 'IN' ? $row->amount : 0)}}</td>
-                    <td class="p-td">{{money_c($row->transaction_type == 'OUT' ? $row->amount : 0)}}</td>
+                    <td class="p-td">{{$row->transaction_type}}</td>
+                    <td class="p-td">{{money_c($row->amount)}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <!--<li><a href="{{route('customer.edit-payment', ['id' => $row->id, 'customer' => $customer->id])}}"
+                            <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
                                    data-acbook="{{$row->account_books_id}}"
                                    data-pmethod="{{$row->payment_method}}"
-                                   data-ptype="{{$row->payment_type}}"
                                    data-cheque="{{$row->cheque_number}}"
                                    data-bac="{{$row->bank_account_no}}"
                                    data-trno="{{$row->transaction_no}}"
+                                   data-trhub="{{$row->transaction_hub}}"
+                                   data-point="{{$row->transaction_point}}"
+                                   data-trtype="{{$row->transaction_type}}"
                                    data-description="{{$row->description}}"
                                    data-amount="{{$row->amount}}"
-                                   data-warehouses="{{$row->warehouses_id}}"
-                                   class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>-->
-                            <li><a href="{{route('customer.del-payment', ['id' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                   data-warehouse="{{$row->warehouses_id}}"
+                                   data-crdate="{{pub_date($row->created_at)}}"
+                                   class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                            <li><a href="{{route('transactions.destroy', ['transaction' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>
                 </tr>
@@ -104,32 +90,43 @@
             $('.ediItem').click(function (e) {
                 e.preventDefault();
                 var url = $(this).attr('href');
-                var warehouses_id = $(this).data('warehouses');
+                var transaction_type = $(this).data('trtype');
                 var account_books_id = $(this).data('acbook');
                 var payment_method = $(this).data('pmethod');
-                var payment_type = $(this).data('ptype');
                 var cheque_number = $(this).data('cheque');
-                var transaction_no = $(this).data('trno');
                 var bank_account_no = $(this).data('bac');
+                var transaction_no = $(this).data('trno');
                 var description = $(this).data('description');
+                var transaction_hub = $(this).data('trhub');
+                var transaction_point = $(this).data('point');
                 var amount = $(this).data('amount');
+                var warehouses_id = $(this).data('warehouse');
+                var created_at = $(this).data('crdate');
 
 
                 $('#ediModal form').attr('action', url);
-                $('#ediModal [name=warehouses_id]').val(warehouses_id).select2();
-                $('#ediModal [name=account_books_id]').val(account_books_id).select2();
-                $('#ediModal [name=payment_method]').val(payment_method).select2();
-                $('#ediModal [name=payment_type]').val(payment_type).select2();
+                $('#ediModal [name=transaction_type]').val(transaction_type);
                 $('#ediModal [name=cheque_number]').val(cheque_number);
-                $('#ediModal [name=transaction_no]').val(transaction_no);
                 $('#ediModal [name=bank_account_no]').val(bank_account_no);
-                $('#ediModal [name=description]').val(description);
+                $('#ediModal [name=transaction_no]').val(transaction_no);
                 $('#ediModal [name=amount]').val(amount);
+                $('#ediModal [name=description]').val(description);
+                $('#ediModal [name=transaction_hub]').val(transaction_hub);
+                $('#ediModal [name=transaction_point]').val(transaction_point);
+                $('#ediModal [name=created_at]').val(created_at);
+                $('#ediModal [name=transaction_type]').val(transaction_type);
 
-
-                $('#ediModal [name=zones_id]').val(zones_id).select2();
+                $('#ediModal [name=account_books_id]').val(account_books_id).select2();
                 $('#ediModal [name=warehouses_id]').val(warehouses_id).select2();
-                $('#ediModal [name=customer_categories_id]').val(customer_categories_id).select2();
+                $('#ediModal [name=payment_method]').val(payment_method).select2();
+
+                var methods = $('#ediModal [name=payment_method]').val();
+                pay_method(methods);
+
+                $('#ediModal [name=payment_method]').change(function () {
+                    var methodss = $(this).val();
+                    pay_method(methodss);
+                });
 
             });
 
@@ -141,53 +138,14 @@
                 $('.bank_account_no').hide();
                 $('.transaction_no').hide();
 
-
-                disible_submit();
             });
 
 
             $('.payment_method').change(function () {
                 var methods = $(this).val();
-                switch(methods) {
-                    case "Cheque":
-                        $('.cheque_number').show();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').hide();
-                        $('.customer_balance').hide();
-                        break;
-                    case "Bank Transfer":
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').show();
-                        $('.transaction_no').hide();
-                        $('.customer_balance').hide();
-                        break;
-                    case "Other":
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').show();
-                        $('.customer_balance').hide();
-                        break;
-                    case "Customer Account":
-                        $('.customer_balance').html('Account Current Balance: '+parseFloat(balance).toFixed(2));
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').hide();
-                        $('.customer_balance').show();
-                        break;
-                    default:
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').hide();
-                        $('.customer_balance').hide();
-                }
-
-                disible_submit();
-
+                pay_method(methods);
             });
 
-            $('#myModal [name=amount]').on('keyup keydown change', function () {
-                disible_submit();
-            });
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,
@@ -203,15 +161,30 @@
             });
         });
 
-        function disible_submit() {
-            var amount = $('#myModal [name=amount]').val();
-            var payment_method = $('.payment_method').val();
 
-            if(amount <= 0 || amount > balance && payment_method == 'Customer Account'){
-                $('#myModal [type=submit]').prop('disabled', true);
-            }else{
-                $('#myModal [type=submit]').prop('disabled', false);
+        function pay_method(methods) {
+            switch(methods) {
+                case "Cheque":
+                    $('.cheque_number').show();
+                    $('.bank_account_no').hide();
+                    $('.transaction_no').hide();
+                    break;
+                case "Bank Transfer":
+                    $('.cheque_number').hide();
+                    $('.bank_account_no').show();
+                    $('.transaction_no').hide();
+                    break;
+                case "Other":
+                    $('.cheque_number').hide();
+                    $('.bank_account_no').hide();
+                    $('.transaction_no').show();
+                    break;
+                default:
+                    $('.cheque_number').hide();
+                    $('.bank_account_no').hide();
+                    $('.transaction_no').hide();
             }
         }
+
     </script>
 @endsection

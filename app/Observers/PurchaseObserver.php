@@ -27,7 +27,11 @@ class PurchaseObserver
      */
     public function updated(PurchaseInvoice $purchaseInvoice)
     {
-        //
+//        $ck_status = ($purchaseInvoice->status == 'Pending' ? 'Inactive':'Active');
+//        Transaction::where('sell_invoices_id', $purchaseInvoice->id)->update([
+//            'customers_id' => $purchaseInvoice->suppliers_id,
+//            'status' => $ck_status
+//        ]);
     }
 
     /**

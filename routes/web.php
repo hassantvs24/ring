@@ -26,14 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/draft',  'Sales\SalesListController@draft')->name('sales.draft');
     Route::resource('/sales',  'Sales\SalesController')->except(['create']);
 
-
-    Route::delete('/customer/payment/{id}',  'Customer\CustomerController@delete_due_payment')->name('customer.del-payment');
     Route::put('/customer/payment/{id}/{customer}',  'Customer\CustomerController@edit_due_payment')->name('customer.edit-payment');
     Route::put('/customer/payment/{id}',  'Customer\CustomerController@due_payment')->name('customer.payment');
-
-
-    Route::get('/customer/transaction/{id}',  'Customer\CustomerController@transaction')->name('customer.transaction');
-    Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'show', 'edit']);
+    Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'edit']);
     Route::resource('/customer/category',  'Customer\CustomerCategoryController',['names' => 'customer-category'])->except(['create', 'show', 'edit']);
 
     Route::get('/stock/transaction/{id}',  'Stock\ProductController@transaction')->name('stock.transaction');
@@ -46,18 +41,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/stock/adjustment/item/{id}',  'Stock\AdjustmentController@get_items')->name('get_item');//Adjustment Item API
     Route::resource('/stock/adjustment',  'Stock\AdjustmentController')->except(['create', 'show', 'edit']);
 
-    Route::delete('/supplier/payment/{id}',  'Supplier\SupplierController@delete_due_payment')->name('supplier.del-payment');
     Route::put('/supplier/payment/{id}/{supplier}',  'Supplier\SupplierController@edit_due_payment')->name('supplier.edit-payment');
     Route::put('/supplier/payment/{id}',  'Supplier\SupplierController@due_payment')->name('supplier.payment');
 
-    Route::get('/supplier/transaction/{id}',  'Supplier\SupplierController@transaction')->name('supplier.transaction');
-    Route::resource('/supplier/list',  'Supplier\SupplierController',['names' => 'supplier'])->except(['create', 'show', 'edit']);
+    Route::resource('/supplier/list',  'Supplier\SupplierController',['names' => 'supplier'])->except(['create', 'edit']);
     Route::resource('/supplier/category',  'Supplier\SupplierCategoryController',['names' => 'supplier-category'])->except(['create', 'show', 'edit']);
 
     Route::resource('/expenses',  'Expense\ExpenseController')->except(['create', 'show', 'edit']);
     Route::resource('/expenses/category',  'Expense\ExpenseCategoryController',['names' => 'expense-category'])->except(['create', 'show', 'edit']);
 
-    Route::resource('/accounts/list',  'Accounts\AccountsController',['names' => 'accounts'])->except(['create', 'show', 'edit']);
+    Route::put('/accounts/payment/{id}',  'Accounts\AccountsController@payment')->name('accounts.payment');
+    Route::resource('/accounts/transactions',  'Accounts\AccountActionController')->except(['index', 'store', 'create', 'show', 'edit']);
+    Route::resource('/accounts/list',  'Accounts\AccountsController',['names' => 'accounts'])->except(['create', 'edit']);
 
     Route::resource('/settings/business',  'Settings\BusinessController')->only(['show', 'update']);
     Route::resource('/settings/warehouse',  'Settings\WareHouseController')->except(['create', 'show', 'edit']);
@@ -69,7 +64,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/users/roles/permission/{role}',  'User\RolesController@assign_role')->name('role.permission');
     Route::resource('/users/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
     Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
-
 });
 
 

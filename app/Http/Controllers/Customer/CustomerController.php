@@ -130,8 +130,6 @@ class CustomerController extends Controller
 
     public function due_payment(Request $request, $id){
 
-       // dd($request->all());
-
         $validator = Validator::make($request->all(), [
             'payment_method' => 'string|required|max:20',
             'created_at' => 'required|date_format:d/m/Y',
@@ -169,28 +167,11 @@ class CustomerController extends Controller
         return redirect()->back()->with(config('naz.save'));
     }
 
-    public function edit_due_payment(Request $request, $id, $customer){
-        dd($request->all());
-    }
-
-    public function delete_due_payment($id){
-        try{
-
-            Transaction::destroy($id);
-
-        }catch (\Exception $ex) {
-            return redirect()->back()->with(config('naz.error'));
-        }
-
-        return redirect()->back()->with(config('naz.del'));
-    }
-
-
-    public function transaction($id){
+    public function show($id){
         $customer = Customer::find($id);
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
         $ac_book = AccountBook::orderBy('name', 'ASC')->get();
-        $table = Transaction::with('accountBook', 'customer', 'warehouse')->where('customers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        $table = $customer->transactions()->with('accountBook', 'customer', 'warehouse')->where('status', 'Active')->orderBy('id', 'DESC')->get();
         return view('customer.transaction')->with(['table' => $table, 'warehouse' => $warehouse, 'customer' => $customer, 'ac_book' => $ac_book]);
     }
 

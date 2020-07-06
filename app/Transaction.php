@@ -153,6 +153,29 @@ class Transaction extends Model
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
     }
 
+    public function payment_number(){
+
+        switch ($this->payment_method) {
+            case "Cheque":
+                $title = 'Cheque Number';
+                $numbers = $this->cheque_number;
+                break;
+            case "Bank Transfer":
+                $title = 'Account Number';
+                $numbers = $this->bank_account_no;
+                break;
+            case "Other":
+                $title = 'Other Transaction Number';
+                $numbers = $this->transaction_no;
+                break;
+            default:
+                $title = 'Payment Number';
+                $numbers = '';
+        }
+
+        return array('title' => $title, 'numbers' => $numbers);
+    }
+
     public function setCreatedAtAttribute($value)
     {
         $this->attributes['created_at'] = db_date($value);

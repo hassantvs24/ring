@@ -68,62 +68,29 @@ class AccountBook extends Model
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function agentTransactions()
-    {
-        return $this->hasMany('App\AgentTransaction', 'account_books_id');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function allTransactions()
+    public function transactions()
     {
-        return $this->hasMany('App\AllTransaction', 'account_books_id');
+        return $this->hasMany('App\Transaction', 'account_books_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function customerTransactions()
-    {
-        return $this->hasMany('App\CustomerTransaction', 'account_books_id');
+
+    public function in(){
+        return $this->transactions()->where('transaction_type', 'IN')->where('status', 'Active')->sum('amount');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function purchaseTransactions()
-    {
-        return $this->hasMany('App\PurchaseTransaction', 'account_books_id');
+    public function out(){
+        return $this->transactions()->where('transaction_type', 'OUT')->where('status', 'Active')->sum('amount');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sellTransactions()
+    public function acBalance()
     {
-        return $this->hasMany('App\SellTransaction', 'account_books_id');
+        $total = $this->in() - $this->out();
+        return $total;
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function supplierTransactions()
-    {
-        return $this->hasMany('App\SupplierTransaction', 'account_books_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function vatTaxTransactions()
-    {
-        return $this->hasMany('App\VatTaxTransaction', 'account_books_id');
-    }
-
 
     /**
      * Add Global Scope where selected business id getting from Auth

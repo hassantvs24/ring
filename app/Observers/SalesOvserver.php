@@ -27,7 +27,11 @@ class SalesOvserver
      */
     public function updated(SellInvoice $sellInvoice)
     {
-        //
+//        $ck_status = ck_status($sellInvoice->status, 'Final');//Change Status
+//        Transaction::where('sell_invoices_id', $sellInvoice->id)->update([
+//            'customers_id' => $sellInvoice->customers_id,
+//            'status' => $ck_status
+//        ]);
     }
 
     /**

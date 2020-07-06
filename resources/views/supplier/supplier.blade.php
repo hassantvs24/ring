@@ -41,7 +41,7 @@
                     <td class="p-td">{{$row->dueBalance()}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('supplier.update', ['list' => $row->id])}}"
+                            <li><a href="#{{route('supplier.update', ['list' => $row->id])}}"
                                    data-category="{{$row->supplier_categories_id}}"
                                    data-warehouses="{{$row->warehouses_id}}"
                                    data-name="{{$row->name}}"
@@ -53,7 +53,7 @@
                                    data-contacttwo="{{$row->alternate_contact}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('supplier.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Payment Transaction</a></li>
+                            <li><a href="{{route('supplier.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Payment Transaction</a></li>
                             @if($row->dueBalance() != 0)
                                 <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
                             @endif
@@ -83,7 +83,7 @@
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
-                var url = $(this).attr('href');
+                var url = $(this).attr('href').substr(1);
                 var name = $(this).data('name');
                 var code = $(this).data('code');
                 var contact = $(this).data('contact');
@@ -123,12 +123,6 @@
                 var url = $(this).attr('href');
                 $('#payModal form').attr('action', url);
 
-                $('#payModal [name=amount]').dblclick(function () {
-                    $(this).val(balance);
-                    disible_submit();
-                });
-
-                disible_submit();
             });
 
 
@@ -162,9 +156,6 @@
                 }
             });
 
-            $('#payModal [name=amount]').on('keyup keydown change', function () {
-                disible_submit();
-            });
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,
@@ -180,14 +171,5 @@
             });
         });
 
-        function disible_submit() {
-            var amount = $('#payModal [name=amount]').val();
-
-            if(amount <= 0 || amount > balance){
-                $('#payModal [type=submit]').prop('disabled', true);
-            }else{
-                $('#payModal [type=submit]').prop('disabled', false);
-            }
-        }
     </script>
 @endsection

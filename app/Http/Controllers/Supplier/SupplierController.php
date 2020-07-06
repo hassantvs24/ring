@@ -149,27 +149,11 @@ class SupplierController extends Controller
         return redirect()->back()->with(config('naz.save'));
     }
 
-    public function edit_due_payment(Request $request, $id, $supplier){
-        dd($request->all());
-    }
-
-    public function delete_due_payment($id){
-        try{
-
-            Transaction::destroy($id);
-
-        }catch (\Exception $ex) {
-            return redirect()->back()->with(config('naz.error'));
-        }
-
-        return redirect()->back()->with(config('naz.del'));
-    }
-
-    public function transaction($id){
+    public function show($id){
         $supplier = Supplier::find($id);
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
         $ac_book = AccountBook::orderBy('name', 'ASC')->get();
-        $table = Transaction::with('accountBook', 'supplier', 'warehouse')->where('suppliers_id', $id)->where('status', 'Active')->orderBy('id', 'DESC')->get();
+        $table = $supplier->transactions()->with('accountBook', 'supplier', 'warehouse')->where('status', 'Active')->orderBy('id', 'DESC')->get();
         return view('supplier.transaction')->with(['table' => $table, 'supplier' => $supplier, 'ac_book' => $ac_book, 'warehouse' => $warehouse]);
     }
 

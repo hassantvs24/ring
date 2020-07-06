@@ -43,6 +43,8 @@ class ExpenseObserver
                 'expenses_id' => $expense->id, 'transaction_point' => 'Expense'
             ], [
                 'amount' => $expense->amount,
+                'transaction_type' => 'OUT',
+                'transaction_hub' => 'General',
                 'warehouses_id' => $expense->warehouses_id ?? Auth::user()->warehouses_id,
                 'account_books_id' => Auth::user()->account_books_id,
                 'created_at' => $expense->created_at

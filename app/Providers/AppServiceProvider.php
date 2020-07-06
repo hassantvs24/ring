@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Expense;
 use App\Observers\ExpenseObserver;
+use App\Observers\TransactionObserver;
 use App\PurchaseItem;
 use App\Observers\PurchaseItemObserver;
 use App\PurchaseInvoice;
@@ -22,6 +23,7 @@ use App\Observers\StockAdjustmentObserver;
 use App\Product;
 use App\StockAdjustment;
 use App\StockAdjustmentItem;
+use App\Transaction;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,6 +58,8 @@ class AppServiceProvider extends ServiceProvider
 
         PurchaseInvoice::observe(PurchaseObserver::class);
         PurchaseItem::observe(PurchaseItemObserver::class);
+
+        Transaction::observe(TransactionObserver::class);
 
         Expense::observe(ExpenseObserver::class);
 

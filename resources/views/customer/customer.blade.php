@@ -39,7 +39,7 @@
                     <td class="p-td">{{money_c($row->dueBalance())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('customer.update', ['list' => $row->id])}}"
+                            <li><a href="#{{route('customer.update', ['list' => $row->id])}}"
                                    data-code="{{$row->code}}"
                                    data-name="{{$row->name}}"
                                    data-contact="{{$row->contact}}"
@@ -55,7 +55,7 @@
                                    data-balance="{{$row->balance}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('customer.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Customer Transaction</a></li>
+                            <li><a href="{{route('customer.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Customer Transaction</a></li>
                             <li><a href="{{route('customer.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Payment</a></li>
                             <li><a href="{{route('customer.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
@@ -82,7 +82,7 @@
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
-                var url = $(this).attr('href');
+                var url = $(this).attr('href').substr(1);
                 var name = $(this).data('name');
                 var code = $(this).data('code');
                 var email = $(this).data('email');
@@ -130,13 +130,7 @@
                 var url = $(this).attr('href');
                 balance = Number($(this).data('balance'));
 
-                /*$('#payModal [name=amount]').dblclick(function () {
-                    $(this).val(balance);
-                    disible_submit();
-                });*/
-
                 $('#payModal form').attr('action', url);
-                disible_submit();
             });
 
 
@@ -147,41 +141,25 @@
                         $('.cheque_number').show();
                         $('.bank_account_no').hide();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                         break;
                     case "Bank Transfer":
                         $('.cheque_number').hide();
                         $('.bank_account_no').show();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                         break;
                     case "Other":
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').show();
-                        $('.customer_balance').hide();
-                        break;
-                    case "Customer Account":
-                        $('.customer_balance').html('Account Current Balance: '+parseFloat(balance).toFixed(2));
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').hide();
-                        $('.customer_balance').show();
                         break;
                     default:
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                 }
 
-                disible_submit();
-
             });
-
-            $('#payModal [name=amount]').on('keyup keydown change', function () {
-                disible_submit();
-            });
+            
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,
@@ -190,24 +168,13 @@
                 }
             });
 
-
             $('.datatable-basic').DataTable({
                 columnDefs: [
                     { orderable: false, "targets": [9] }
                 ]
             });
         });
-        
-        function disible_submit() {
-            var amount = $('#payModal [name=amount]').val();
-            var payment_method = $('.payment_method').val();
 
-            if(amount <= 0 || amount > balance && payment_method == 'Customer Account'){
-                $('#payModal [type=submit]').prop('disabled', true);
-            }else{
-                $('#payModal [type=submit]').prop('disabled', false);
-            }
-        }
         
     </script>
 @endsection
