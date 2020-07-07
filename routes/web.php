@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/expenses',  'Expense\ExpenseController')->except(['create', 'show', 'edit']);
     Route::resource('/expenses/category',  'Expense\ExpenseCategoryController',['names' => 'expense-category'])->except(['create', 'show', 'edit']);
 
-
     Route::put('/accounts/payment/{id}',  'Accounts\AccountsController@payment')->name('accounts.payment');
     Route::get('/accounts/balance-sheet',  'Accounts\AccountActionController@balance_sheet')->name('accounts.balance');
     Route::get('/accounts/trial-balance',  'Accounts\AccountActionController@trial_balance')->name('accounts.trial');

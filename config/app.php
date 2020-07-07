@@ -180,6 +180,8 @@ return [
 		
 		Spatie\Permission\PermissionServiceProvider::class,
 
+        SamuelTerra22\ReportGenerator\ServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +235,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'PdfReport'     => SamuelTerra22\ReportGenerator\Facades\PdfReportFacade::class,
+        'ExcelReport'   => SamuelTerra22\ReportGenerator\Facades\ExcelReportFacade::class,
+        'CSVReport'     => SamuelTerra22\ReportGenerator\Facades\CSVReportFacade::class,
 
     ],
 
