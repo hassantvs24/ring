@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\KeyCheck;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,10 +34,35 @@ class MainController extends Controller
 
         $files = Storage::disk('local')->files('Laravel');
         return Storage::disk('local')->download($files[1]);
+    }
 
-      //  return redirect()->back()->with(['message' => 'Database Backup successfully completed.',  'alert-type' => 'success']);
+    public function activate(){
+        return view('auth.key');
+    }
+
+    public function active(Request $request){
+        $validator = Validator::make($request->all(), [
+            'activation_code' => 'required|string|min:10|max:191|unique:codexes,current_code',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try{
+
+            $active = new KeyCheck();
+            $active->code($request->activation_code);
+            $active->activate();
+
+        }catch (\Exception $ex) {
+            return redirect()->back()->with(['message' => 'Invalid Activation! Please Try again.',  'alert-type' => 'error']);
+        }
+
+        return redirect()->route('index')->with(['message' => 'Your Software is successfully Activated.',  'alert-type' => 'success']);
 
     }
+
 
     public function catches(){
         Artisan::call('config:cache');

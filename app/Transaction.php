@@ -153,6 +153,21 @@ class Transaction extends Model
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
     }
 
+    public function setCreatedAtAttribute($value)
+    {
+        $this->attributes['created_at'] = db_date($value);
+    }
+
+    public function in(){
+        $amount = ($this->transaction_type == 'IN' ? $this->amount:0);
+        return $amount;
+    }
+
+    public function out(){
+        $amount = ($this->transaction_type == 'OUT' ? $this->amount:0);
+        return $amount;
+    }
+
     public function payment_number(){
 
         switch ($this->payment_method) {
@@ -176,10 +191,6 @@ class Transaction extends Model
         return array('title' => $title, 'numbers' => $numbers);
     }
 
-    public function setCreatedAtAttribute($value)
-    {
-        $this->attributes['created_at'] = db_date($value);
-    }
 
     protected static function boot()
     {

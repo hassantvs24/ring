@@ -7,6 +7,7 @@
 
     <x-panel name="Dashboard">
         dashboard
+        <p>{{$remain}}</p>
 
     </x-panel>
 

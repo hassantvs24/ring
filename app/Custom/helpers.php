@@ -98,6 +98,34 @@ if (!function_exists('ck_status')) {
     }
 }
 
+
+if (!function_exists('is_timestamp')) {
+    function is_timestamp($timestamp)
+    {
+        $check = (is_int($timestamp) OR is_float($timestamp))
+            ? $timestamp
+            : (string) (int) $timestamp;
+        return  ($check === $timestamp)
+            AND ( (int) $timestamp <=  PHP_INT_MAX)
+            AND ( (int) $timestamp >= ~PHP_INT_MAX);
+    }
+}
+
+
+if (!function_exists('remain_day')) {
+    function remain_day($date){
+        $date1 = date("Y-m-d");
+        $date2 = date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+        $earlier = new DateTime($date2);
+        $later = new DateTime($date1);
+        $diff = $later->diff($earlier)->format("%r%a");
+        return (int)$diff;
+    }
+}
+
+
+
+
 if (!function_exists('in_word')) {
     function in_word($num = false)
     {

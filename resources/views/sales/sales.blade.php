@@ -16,7 +16,7 @@
                 <div class="col-md-6">
                     <x-select class="customer" name="customers_id" label="Customer" required="required" >
                         @foreach($customer as $row)
-                            <option value="{{$row->id}}" data-balance="{{$row->dueBalance()}}">{{$row->code}} - {{$row->name}} &diams; {{$row->contact}}</option>
+                            <option value="{{$row->id}}" data-crlimit="{{$row->credit_limit}}" data-balance="{{$row->dueBalance()}}">{{$row->code}} - {{$row->name}} &diams; {{$row->contact}}</option>
                         @endforeach
                     </x-select>
                 </div>
@@ -139,6 +139,7 @@
                             <td class="due_show" data-due="0">0.00</td>
                         </tr>
                     </table>
+                    <p id="credit_limit" class="text-warning text-right" style="display: none;"><i class="icon-warning22"></i> <b>Customer Credit Limit is over!!</b></p>
                 </div>
 
             </div>
@@ -299,37 +300,31 @@
                         $('.cheque_number').show();
                         $('.bank_account_no').hide();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                         break;
                     case "Bank Transfer":
                         $('.cheque_number').hide();
                         $('.bank_account_no').show();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                         break;
                     case "Other":
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').show();
-                        $('.customer_balance').hide();
                         break;
                     case "Customer Account":
-                        $('.customer_balance').html('Account Current Balance: '+parseFloat(balance).toFixed(2));
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').hide();
-                        $('.customer_balance').show();
                         break;
                     default:
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').hide();
-                        $('.customer_balance').hide();
                 }
 
             });
 
-            $('.additional_charges, .discount, .vat_tax, .vet_texes_amount, .discount_amount').on('change focusout', function () {
+            $('.additional_charges, .customer, .discount, .vat_tax, .vet_texes_amount, .discount_amount').on('change focusout', function () {
                 final_change();
             });
 
@@ -514,8 +509,8 @@
             var additional_charges = Number($('.additional_charges').val());
             var paid = Number($('.all_pay_total').val());
             var total_price = Number($('.total_price').attr('data-prices'));
-            var show_vat = $('.vet_texes_amount').val()
-            var show_discount = $('.discount_amount').val()
+            var show_vat = $('.vet_texes_amount').val();
+            var show_discount = $('.discount_amount').val();
 
             var total_show = Number(total_price) + Number(show_vat) + Number(additional_charges) - Number(show_discount);
 
@@ -531,6 +526,7 @@
             $('.total_show').attr('data-total', total_show);
 
             handle_submit_btn();//Disable Enable Submit Button
+            cr_limit();//Show Credit Limit of customer
         }
         /**
          * /Form Input Change
@@ -550,6 +546,35 @@
         }
         /**
          * /Disable submit btn when 0 item and invalid payment
+         */
+
+        /**
+         * Customer Credit Limit
+         */
+        function cr_limit() {
+            var balance = Number($('.customer').find('option:selected').data('balance'));
+            var crlimit = Number($('.customer').find('option:selected').data('crlimit'));
+            var due = Number($('.due_show').attr('data-due'));
+            var crbalance = balance - due;
+            var cr_abs = Math.abs(crbalance);
+
+
+            if(crlimit == 0){
+                $('#credit_limit').hide();
+                //$('#submitBtn').prop('disabled', false);
+            }else if (crbalance >= 0){
+                $('#credit_limit').hide();
+                //$('#submitBtn').prop('disabled', false);
+            }else if (cr_abs <= crlimit){
+                $('#credit_limit').hide();
+                //$('#submitBtn').prop('disabled', false);
+            }else{
+                $('#credit_limit').show();
+                //$('#submitBtn').prop('disabled', true);
+            }
+        }
+        /**
+         * Customer Credit Limit
          */
 
     </script>

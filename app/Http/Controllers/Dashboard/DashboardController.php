@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Custom\KeyCheck;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.dashboard');
+        $key = new KeyCheck();
+        $remain = $key->day_remain();
+        return view('dashboard.dashboard')->with(['remain' => $remain]);
     }
 
     /**

@@ -19,7 +19,7 @@
         <x-input class="date_pic" name="created_at" label="Date" required="required" />
 
         <x-select class="transaction_type" name="transaction_type" label="Transaction Type" required="required" >
-            <option value="IN">Add Amount (+)</option>
+            <option value="IN">Deposit Amount (+)</option>
             <option value="OUT">Withdraw Amount (-)</option>
         </x-select>
 

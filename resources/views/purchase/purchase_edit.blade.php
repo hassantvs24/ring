@@ -533,8 +533,8 @@
             var additional_charges = Number($('.additional_charges').val());
             var paid = Number($('.all_pay_total').val());
             var total_price = Number($('.total_price').attr('data-prices'));
-            var show_vat = $('.vet_texes_amount').val()
-            var show_discount = $('.discount_amount').val()
+            var show_vat = $('.vet_texes_amount').val();
+            var show_discount = $('.discount_amount').val();
 
             var total_show = Number(total_price) + Number(show_vat) + Number(additional_charges) - Number(show_discount);
 

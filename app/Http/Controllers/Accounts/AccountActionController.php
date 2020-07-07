@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Accounts;
 
+use App\AccountBook;
+use App\Customer;
 use App\Http\Controllers\Controller;
+use App\Product;
+use App\Supplier;
 use App\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -65,4 +69,77 @@ class AccountActionController extends Controller
 
         return redirect()->back()->with(config('naz.del'));
     }
+
+
+    public function balance_sheet(){
+        $table = AccountBook::orderBy('name')->get();
+        $supplier = Supplier::all();
+        $customer = Customer::all();
+        $product = Product::all();
+
+        $stock_value = 0;
+        foreach ($product as $row){
+            $stock_value += $row->current_stock_value();
+        }
+
+        $customer_due = 0;
+        foreach ($customer as $row){
+            $customer_due += $row->dueBalance();
+        }
+
+        $supplier_due = 0;
+        foreach ($supplier as $row){
+            $supplier_due += $row->dueBalance();
+        }
+
+        $total_liability = $supplier_due;
+        $total_asset = $stock_value + (-$customer_due);
+
+        return view('accounts.balance_sheet')->with([
+            'customer_due' => -$customer_due,
+            'supplier_due' => $supplier_due,
+            'table' => $table,
+            'stock_value' => $stock_value,
+            'total_liability' => $total_liability,
+            'total_asset' => $total_asset,
+        ]);
+    }
+
+    public function trial_balance(){
+        $table = AccountBook::orderBy('name')->get();
+        $supplier = Supplier::all();
+        $customer = Customer::all();
+
+        $customer_due = 0;
+        foreach ($customer as $row){
+            $customer_due += $row->dueBalance();
+        }
+
+        $supplier_due = 0;
+        foreach ($supplier as $row){
+            $supplier_due += $row->dueBalance();
+        }
+
+        $credit = $customer_due;
+        $debit = $supplier_due;
+
+        return view('accounts.trial_balance')->with([
+            'table' => $table,
+            'customer_due' => $customer_due,
+            'supplier_due' => $supplier_due,
+            'debit' => $debit,
+            'credit' => $credit
+        ]);
+    }
+
+    public function cash_flow(){
+        $table = Transaction::orderBy('created_at', 'DESC')->get();
+        return view('accounts.cash_flow')->with(['table' => $table]);
+    }
+
+    public function payment_report(){
+        $table = Transaction::all();
+        return view('accounts.payment_report')->with(['table' => $table]);
+    }
+
 }

@@ -92,6 +92,18 @@ class AccountBook extends Model
         return $total;
     }
 
+    public function bankBalance(){
+        $in_ac = $this->transactions()->where('transaction_type', 'IN')->whereIn('payment_method', ['Card', 'Cheque', 'Bank Transfer'])->where('status', 'Active')->sum('amount');
+        $out_ac = $this->transactions()->where('transaction_type', 'OUT')->whereIn('payment_method', ['Card', 'Cheque', 'Bank Transfer'])->where('status', 'Active')->sum('amount');
+        return $in_ac - $out_ac;
+    }
+
+    public function cashBalance(){
+        $in_ac = $this->transactions()->where('transaction_type', 'IN')->whereNotIn('payment_method', ['Card', 'Cheque', 'Bank Transfer'])->where('status', 'Active')->sum('amount');
+        $out_ac = $this->transactions()->where('transaction_type', 'OUT')->whereNotIn('payment_method', ['Card', 'Cheque', 'Bank Transfer'])->where('status', 'Active')->sum('amount');
+        return $in_ac - $out_ac;
+    }
+
     /**
      * Add Global Scope where selected business id getting from Auth
      */

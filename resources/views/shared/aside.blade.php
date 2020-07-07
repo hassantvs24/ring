@@ -71,10 +71,10 @@
                     <li class=""><a href="#"><i class=" icon-calculator3"></i> <span>Payment Account</span></a>
                         <ul>
                             <li class="{{Route::currentRouteName() == 'accounts.index' ? 'active':''}}"><a href="{{route('accounts.index')}}"><i class="icon-diamond"></i> Accounts List</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Balance Sheet</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Trial Balance</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Cash Flow</a></li>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Accounts Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'accounts.balance' ? 'active':''}}"><a href="{{route('accounts.balance')}}"><i class="icon-diamond"></i> Balance Sheet</a></li>
+                            <li class="{{Route::currentRouteName() == 'accounts.trial' ? 'active':''}}"><a href="{{route('accounts.trial')}}"><i class="icon-diamond"></i> Trial Balance</a></li>
+                            <li class="{{Route::currentRouteName() == 'accounts.cash' ? 'active':''}}"><a href="{{route('accounts.cash')}}"><i class="icon-diamond"></i> Cash Flow</a></li>
+                            <!--<li class="{{Route::currentRouteName() == 'accounts.report' ? 'active':''}}"><a href="{{route('accounts.report')}}"><i class="icon-diamond"></i> Accounts Reports</a></li>-->
                         </ul>
                     </li>
 

@@ -40,6 +40,16 @@
 
                 <!-- Content area -->
                 <div class="content">
+
+                    @if(Session::has('message'))
+                        <div>
+                            <div class="alert alert-info no-border">
+                                <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                                {{ Session::get('message') }}
+                            </div>
+                        </div>
+                    @endif
+
                     @yield('content')
 
                     @include('shared.app_footer')

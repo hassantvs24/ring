@@ -21,8 +21,8 @@
                 <th class="p-th">Description</th>
                 <th class="p-th">Section</th>
                 <th class="p-th">Purpose</th>
-                <th class="p-th">IN</th>
-                <th class="p-th">Out</th>
+                <th class="p-th">Credit</th>
+                <th class="p-th">Debit</th>
                 <th class="text-right"><i class="icon-more"></i></th>
             </tr>
             </thead>
@@ -36,8 +36,8 @@
                     <td class="p-td" title="Bank name or Other note">{{$row->description}}</td>
                     <td class="p-td">{{$row->transaction_point}}</td>
                     <td class="p-td">{{$row->transaction_hub}}</td>
-                    <td class="p-td">{{$row->transaction_type == 'IN' ? money_c($row->amount):'0.00'}}</td>
-                    <td class="p-td">{{$row->transaction_type == 'OUT' ? money_c($row->amount):'0.00'}}</td>
+                    <td class="p-td">{{money_c($row->in())}}</td>
+                    <td class="p-td">{{money_c($row->out())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
                             <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
@@ -62,9 +62,9 @@
             </tbody>
             <tfoot>
                 <tr class="text-danger">
-                    <th class="text-right p-td" colspan="2">Total IN</th>
+                    <th class="text-right p-td" colspan="3">Total Credit</th>
                     <th class="p-td">{{money_c($table->in())}}</th>
-                    <th class="text-right p-td">Total Out</th>
+                    <th class="text-right p-td">Total Debit</th>
                     <th class="p-td">{{money_c($table->out())}}</th>
                     <th class="text-right p-td">Total Balance</th>
                     <th class="p-td">{{money_c($table->acBalance())}}</th>

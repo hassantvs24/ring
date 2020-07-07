@@ -159,7 +159,7 @@
                 }
 
             });
-            
+
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

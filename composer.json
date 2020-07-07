@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "spatie/laravel-backup": "^6.11",
-        "spatie/laravel-permission": "^3.13"
+        "spatie/laravel-permission": "^3.13",
+      "ext-openssl": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

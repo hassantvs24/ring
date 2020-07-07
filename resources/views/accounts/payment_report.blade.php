@@ -2,20 +2,19 @@
 @extends('box.welcome')
 
 @section('title')
-    Welcome
+    Payment Account Report
 @endsection
 @section('content')
-
 
     <x-page name="Welcome" body="Add Elements">
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
-                <tr>
-                    <th class="p-th">Name</th>
-                    <th class="p-th">Contact</th>
-                    <th class="text-right"><i class="icon-more"></i></th>
-                </tr>
+            <tr>
+                <th class="p-th">Name</th>
+                <th class="p-th">Contact</th>
+                <th class="text-right"><i class="icon-more"></i></th>
+            </tr>
             </thead>
             <tbody>
             @foreach($table as $row)

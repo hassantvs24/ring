@@ -5,6 +5,7 @@ namespace App;
 use App\Scopes\BusinessScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property integer $id
@@ -192,6 +193,11 @@ class Product extends Model
         $total = ($openingStock + $in_product + $in_return + $in_adjust) - ($out_product + $out_adjust + $out_return);
 
 
+        return $total;
+    }
+
+    public function current_stock_value(){
+        $total = $this->currentStock() * $this->purchase_price;
         return $total;
     }
 

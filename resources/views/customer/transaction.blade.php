@@ -60,15 +60,15 @@
             @endforeach
             </tbody>
             <tfoot>
-            <tr class="text-danger">
-                <th class="text-right p-td" colspan="3">Total Sales</th>
-                <th class="p-td">{{money_c($customer->totalSales())}}</th>
-                <th class="text-right p-td">Total Payment</th>
-                <th class="p-td">{{money_c($customer->totalPayment())}}</th>
-                <th class="text-right p-td">Total Balance</th>
-                <th class="p-td">{{money_c($customer->dueBalance())}}</th>
-                <th class="p-td"></th>
-            </tr>
+                <tr class="text-danger">
+                    <th class="text-right p-td" colspan="3">Total Sales</th>
+                    <th class="p-td">{{money_c($customer->totalSales())}}</th>
+                    <th class="text-right p-td">Total Payment</th>
+                    <th class="p-td">{{money_c($customer->totalPayment())}}</th>
+                    <th class="text-right p-td">Total Balance</th>
+                    <th class="p-td">{{money_c($customer->dueBalance())}}</th>
+                    <th class="p-td"></th>
+                </tr>
             </tfoot>
         </table>
 
