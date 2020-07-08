@@ -8,7 +8,12 @@
 @section('content')
 
 
-    <x-page name="Supplier Category" body="Add New Supplier Category">
+    <x-site name="Supplier Category">
+
+        <x-slot name="header">
+            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Supplier Category</button>
+        </x-slot>
+
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
@@ -37,7 +42,7 @@
             </tbody>
         </table>
 
-    </x-page>
+    </x-site>
 
 
 @endsection

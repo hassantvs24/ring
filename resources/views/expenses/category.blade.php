@@ -7,8 +7,11 @@
 
 @section('content')
 
+    <x-site name="Expenses Category" body="Add New Expenses Category">
 
-    <x-page name="Expenses Category" body="Add New Expenses Category">
+        <x-slot name="header">
+            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Expenses Category</button>
+        </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
@@ -37,7 +40,7 @@
             </tbody>
         </table>
 
-    </x-page>
+    </x-site>
 
 
 @endsection

@@ -8,7 +8,11 @@
 @section('content')
 
 
-    <x-page name="User List" body="Add New User">
+    <x-site name="User List" body="Add New User">
+
+        <x-slot name="header">
+            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New User</button>
+        </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
@@ -25,18 +29,21 @@
             @foreach($table as $row)
                 @php
                     $role = $row->getRoleNames()->first();
-                    $role_id = $row->roles()->first()->id;
+                    if($role != null){
+                        $role_id = $row->roles()->first()->id;
+                    }
+
                 @endphp
                 <tr>
                     <td class="p-td">{{$row->name}}</td>
                     <td class="p-td">{{$row->email}}</td>
-                    <td class="p-td">{{$role}}</td>
+                    <td class="p-td">{{$role ?? ''}}</td>
                     <td class="p-td">{{$row->warehouse['name']}}</td>
                     <td class="p-td">{{$row->accountBook['name']}}</td>
                     <td class="text-right p-td">
                         <x-actions>
                             <li><a href="{{route('users.update', ['user' => $row->id])}}"
-                                   data-role="{{$role_id}}"
+                                   data-role="{{$role_id ?? ''}}"
                                    data-name="{{$row->name}}"
                                    data-email="{{$row->email}}"
                                    data-warehouses="{{$row->warehouses_id}}"
@@ -50,7 +57,7 @@
             </tbody>
         </table>
 
-    </x-page>
+    </x-site>
 
 
 @endsection

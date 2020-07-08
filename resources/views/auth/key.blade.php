@@ -28,7 +28,7 @@
             <div class="form-group">
                 <button type="submit" class="btn bg-blue btn-block"><i class="icon-unlocked position-right"></i> Activate</button>
             </div>
-            <p class="text-center"><a href="{{route('index')}}">Back to dashboard</a></p>
+            <p class="text-center" title="Go to dashboard"><a href="{{route('index')}}"><i class="icon-home4"></i></a></p>
         </div>
     </form>
     <!-- /advanced login -->

@@ -22,6 +22,11 @@ class PermissionTableSeeder extends Seeder
             'Sales Edit',
             'Sales Delete',
 
+            'Quotations List',
+            'Draft List',
+            'Pending List',
+            'Order List',
+
             'Purchase List',
             'Purchase Invoice',
             'Purchase Create',
@@ -52,6 +57,7 @@ class PermissionTableSeeder extends Seeder
             'Product Company Create',
             'Product Company Edit',
             'Product Company Delete',
+            'Product Transaction',
 
             'Product-Brand List',
             'Product-Brand Create',
@@ -83,9 +89,19 @@ class PermissionTableSeeder extends Seeder
             'Supplier Category Delete',
 
             'Accounts List',
+            'Accounts Transaction',
             'Accounts Create',
             'Accounts Edit',
             'Accounts Delete',
+
+            'Transaction Create',
+            'Transaction Edit',
+
+            'Balance Sheet View',
+            'Trial Balance View',
+            'Cash Flow View',
+
+            'Reports Generate',
 
             'Expense List',
             'Expense Create',
@@ -135,7 +151,7 @@ class PermissionTableSeeder extends Seeder
         );
 
 
-        Role::create(['name' => 'Super Admin']); //Create Super Admin By default
+        //Role::create(['name' => 'Super Admin']); //Create Super Admin By default
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

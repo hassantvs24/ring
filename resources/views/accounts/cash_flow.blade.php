@@ -1,13 +1,10 @@
 @extends('layouts.master')
-@extends('box.welcome')
-
 @section('title')
     Cash Flow
 @endsection
 @section('content')
 
-
-    <x-page name="Cash Flow" body="Add Elements">
+    <x-page name="Cash Flow">
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>

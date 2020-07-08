@@ -5,7 +5,10 @@
 @endsection
 @section('content')
 
-    <x-page name="Shipment" body="Add New Shipment">
+    <x-site name="Shipment">
+        <x-slot name="header">
+            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Shipment</button>
+        </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>
@@ -37,7 +40,7 @@
             </tbody>
         </table>
 
-    </x-page>
+    </x-site>
 
 @endsection
 
