@@ -104,6 +104,11 @@ class AccountBook extends Model
         return $in_ac - $out_ac;
     }
 
+    public function getTotalBalanceAttribute()
+    {
+        return $this->acBalance();
+    }
+
     /**
      * Add Global Scope where selected business id getting from Auth
      */

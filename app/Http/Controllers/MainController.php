@@ -37,7 +37,9 @@ class MainController extends Controller
     }
 
     public function activate(){
-        return view('auth.key');
+        $key = new KeyCheck();
+        $remain = $key->day_remain();
+        return view('auth.key')->with(['remain' => $remain]);
     }
 
     public function active(Request $request){

@@ -159,6 +159,11 @@ class Supplier extends Model
         return $total;
     }
 
+    public function getPurchaseDueAttribute()
+    {
+        return $this->dueBalance();
+    }
+
     protected static function boot()
     {
         parent::boot();

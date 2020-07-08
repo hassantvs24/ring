@@ -8,7 +8,7 @@
 @section('content')
 
 
-    <x-page name="Welcome" body="User List">
+    <x-page name="User List" body="Add New User">
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
             <thead>

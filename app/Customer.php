@@ -210,6 +210,16 @@ class Customer extends Model
         return $total;
     }
 
+    public function getSalesAttribute()
+    {
+        return $this->totalSales();
+    }
+
+    public function getSalesDueAttribute()
+    {
+        return -$this->dueBalance();
+    }
+
     protected static function boot()
     {
         parent::boot();

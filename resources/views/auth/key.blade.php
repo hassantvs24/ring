@@ -28,9 +28,11 @@
             <div class="form-group">
                 <button type="submit" class="btn bg-blue btn-block"><i class="icon-unlocked position-right"></i> Activate</button>
             </div>
+            <p class="text-center"><a href="{{route('index')}}">Back to dashboard</a></p>
         </div>
     </form>
     <!-- /advanced login -->
+    <p class="text-center text-warning text-size-large text-semibold">Remaining Day: {{$remain}}</p>
     <p class="text-center text-grey-300 text-size-mini">{{ Auth::user()->business['software_key']}}</p>
 
 

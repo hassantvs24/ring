@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::resource('/',  'Dashboard\DashboardController');
+    Route::get('/', 'Dashboard\DashboardController@index')->name('index');
+
+    Route::get('/api/graph', 'Dashboard\DashboardController@fixed_data')->name('api.graph');
 
     Route::get('/purchase/list',  'Purchase\PurchaseListController@index')->name('purchase-list.index');
     Route::get('/purchase/pending',  'Purchase\PurchaseListController@pending')->name('purchase.pending');
@@ -69,8 +71,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/key', 'MainController@active')->name('key.active');
     Route::get('/key', 'MainController@activate')->name('key');
 });
-
-
 
 
 //==================== Backup Database =======================

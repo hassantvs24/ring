@@ -231,6 +231,11 @@ class SellInvoice extends Model
 
     }
 
+    public function getSubTotalAttribute()
+    {
+        return $this->invoice_sub_total();
+    }
+
 
     protected static function boot()
     {

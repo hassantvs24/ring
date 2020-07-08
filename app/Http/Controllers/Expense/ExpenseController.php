@@ -46,6 +46,7 @@ class ExpenseController extends Controller
             $table->save();
 
         }catch (\Exception $ex) {
+            dd($ex);
             return redirect()->back()->with(config('naz.error'));
         }
 

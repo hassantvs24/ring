@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 if (! function_exists('money_c')) {
@@ -24,14 +25,34 @@ if (! function_exists('db_date')) {
             return null;
         }else{
             if($istime){
-                return date("Y-m-d H:i:s", strtotime(str_replace("/", "-",  $date)));
+                $times = date('H:i:s');
+                try {
+                    $idt = date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+                    $dt = new DateTime($idt . ' ' . $times);
+                } catch (Exception $e) {
+                    throw new \Exception($e);
+                }
+                return $dt->format('Y-m-d H:i:s');
             }else{
-                return date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+                $idt = date("Y-m-d", strtotime(str_replace("/", "-",  $date)));
+                return $idt;
             }
 
         }
     }
 }
+
+if (! function_exists('db_se_date')) {
+    function db_se_date($date){
+        $db_date = db_date($date, false);
+
+        $start = Carbon::createFromFormat('Y-m-d', $db_date)->startOfDay()->toDateTimeString();
+        $end = Carbon::createFromFormat('Y-m-d', $db_date)->endOfDay()->toDateTimeString();
+
+        return array($start, $end);
+    }
+}
+
 
 if (!function_exists('db_result')) {
     function db_result($data)

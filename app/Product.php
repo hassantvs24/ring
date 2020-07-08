@@ -196,9 +196,32 @@ class Product extends Model
         return $total;
     }
 
+    public function getCurrentStockAttribute()
+    {
+        return $this->currentStock();
+    }
+
+    public function stock_low(){
+        if($this->alert_quantity == 0 || $this->currentStock() >= $this->alert_quantity){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
+
+    public function getStockLowerAttribute()
+    {
+        return $this->stock_low();
+    }
+
     public function current_stock_value(){
         $total = $this->currentStock() * $this->purchase_price;
         return $total;
+    }
+
+    public function getStockValueAttribute()
+    {
+        return $this->current_stock_value();
     }
 
     protected static function boot()
