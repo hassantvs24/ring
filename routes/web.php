@@ -68,6 +68,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
     Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
 
+
+    Route::get('/reports/profit-loss',  'Report\ReportsController@index')->name('reports.profit-loss');
+
+    Route::post('/reports/expense',  'Report\ExpenseController@reports')->name('reports.expense-report');
+    Route::get('/reports/expense',  'Report\ExpenseController@index')->name('reports.expense');
+
+    Route::get('/reports/accounts',  'Report\AccountsController@index')->name('reports.accounts');
+    Route::get('/reports/customer',  'Report\CustomerController@index')->name('reports.customer');
+    Route::get('/reports/supplier',  'Report\SupplierController@index')->name('reports.supplier');
+    Route::get('/reports/sales',  'Report\SalesController@index')->name('reports.sales');
+    Route::get('/reports/purchase',  'Report\PurchaseController@index')->name('reports.purchase');
+    Route::get('/reports/stock',  'Report\StockController@index')->name('reports.stock');
+
+
     Route::post('/key', 'MainController@active')->name('key.active');
     Route::get('/key', 'MainController@activate')->name('key');
 });

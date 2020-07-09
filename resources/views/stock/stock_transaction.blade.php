@@ -21,18 +21,37 @@
             </tr>
             </thead>
             <tbody>
+            @php
+                $in = 0;
+                $out = 0;
+            @endphp
             @foreach($table as $row)
                 <tr>
                     <td class="p-td">{{pub_date($row->created_at)}}</td>
                     <td class="p-td">{{$row->sku}}</td>
                     <td class="p-td">{{$row->name}}</td>
                     <td class="p-td">{{$row->transaction_point}}</td>
-                    <td class="p-td">{{$row->transaction_type == 'IN' ? $row->quantity : 0}}</td>
-                    <td class="p-td">{{$row->transaction_type == 'OUT' ? $row->quantity : 0}}</td>
+                    <td class="p-td">{{$row->in()}}</td>
+                    <td class="p-td">{{$row->out()}}</td>
                     <td class="p-td">{{$row->unit}}</td>
                 </tr>
+                @php
+                    $in += $row->in();
+                    $out += $row->out();
+                @endphp
             @endforeach
             </tbody>
+            <tfoot>
+                <tr class="text-danger">
+                    <th class="text-right p-td" colspan="1">Total IN</th>
+                    <th class="p-td">{{money_c($in)}}</th>
+                    <th class="text-right p-td">Total OUT</th>
+                    <th class="p-td">{{money_c($out)}}</th>
+                    <th class="text-right p-td">Total Stock</th>
+                    <th class="p-td">{{money_c($in-$out)}}</th>
+                    <th class="p-td"></th>
+                </tr>
+            </tfoot>
         </table>
 
     </x-page>

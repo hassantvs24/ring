@@ -124,6 +124,14 @@ class StockTransaction extends Model
         return $this->belongsTo('App\User', 'users_id');
     }
 
+    public function in(){
+        return ($this->transaction_type == 'IN' ? $this->quantity : 0);
+    }
+
+    public function out(){
+        return ($this->transaction_type == 'OUT' ? $this->quantity : 0);
+    }
+
     public function ref(){
 
         switch ($this->transaction_point) {

@@ -98,7 +98,14 @@
 
                     <li class=""><a href="#"><i class=" icon-chart"></i> <span>Reports</span></a>
                         <ul>
-                            <li class=""><a href=""><i class="icon-diamond"></i> Summery Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.profit-loss' ? 'active':''}}"><a href="{{route('reports.profit-loss')}}"><i class="icon-diamond"></i> Profit/Loss Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.expense' ? 'active':''}}"><a href="{{route('reports.expense')}}"><i class="icon-diamond"></i> Expense Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.sales' ? 'active':''}}"><a href="{{route('reports.sales')}}"><i class="icon-diamond"></i> Sales Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.purchase' ? 'active':''}}"><a href="{{route('reports.purchase')}}"><i class="icon-diamond"></i> Purchase Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.stock' ? 'active':''}}"><a href="{{route('reports.stock')}}"><i class="icon-diamond"></i> Stock Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.customer' ? 'active':''}}"><a href="{{route('reports.customer')}}"><i class="icon-diamond"></i> Customer Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.supplier' ? 'active':''}}"><a href="{{route('reports.supplier')}}"><i class="icon-diamond"></i> Supplier Reports</a></li>
+                            <li class="{{Route::currentRouteName() == 'reports.accounts' ? 'active':''}}"><a href="{{route('reports.accounts')}}"><i class="icon-diamond"></i> Accounts Reports</a></li>
                         </ul>
                     </li>
 
