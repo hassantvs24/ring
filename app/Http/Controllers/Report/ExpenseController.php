@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Report;
 
+use App\Custom\DbDate;
+use App\Expense;
+use App\ExpenseCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,8 +12,8 @@ use Illuminate\Support\Facades\Validator;
 class ExpenseController extends Controller
 {
     public function index(){
-
-        return view('reports.expense');
+        $table = ExpenseCategory::orderBy('name')->get();
+        return view('reports.expense')->with(['table' => $table]);
     }
 
     public function reports(Request $request){
@@ -23,7 +26,22 @@ class ExpenseController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        dd($request->all());
+        $dt = new DbDate($request->date_range);
 
+        $table = Expense::whereBetween('created_at', $dt->ftr());
+
+        $title = 'Expense Sheet';
+
+        $meta = [
+            'Date' => $request->date_range
+        ];
+
+        $columns = [
+            'Name' => 'description',
+            'Code',
+            'Amount'
+        ];
+
+      //  return (new PdfReport)->of($title, $meta, $table, $columns)->withoutManipulation()->make();
     }
 }
