@@ -18,30 +18,22 @@ class ExpenseController extends Controller
 
     public function reports(Request $request){
 
-        $validator = Validator::make($request->all(), [
-            'date_range' => 'required|string|min:23|max:23',
-        ]);
+            $validator = Validator::make($request->all(), [
+                'date_range' => 'required|string|min:23|max:23',
+            ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput()->orderBy('created_at');
+            }
 
-        $dt = new DbDate($request->date_range);
+            $dt = new DbDate($request->date_range);
 
-        $table = Expense::whereBetween('created_at', $dt->ftr());
+            $tablex = Expense::whereBetween('created_at', $dt->ftr());
+                if(!empty($request->expense_categories_id)){
+                    $tablex->where('expense_categories_id', $request->expense_categories_id);
+                }
+            $table = $tablex->get();
 
-        $title = 'Expense Sheet';
-
-        $meta = [
-            'Date' => $request->date_range
-        ];
-
-        $columns = [
-            'Name' => 'description',
-            'Code',
-            'Amount'
-        ];
-
-      //  return (new PdfReport)->of($title, $meta, $table, $columns)->withoutManipulation()->make();
+            return view('reports.print.expense')->with(['table' => $table, 'request' => $request->all()]);
     }
 }

@@ -153,6 +153,11 @@ class Transaction extends Model
         return $this->belongsTo('App\Warehouse', 'warehouses_id');
     }
 
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = abs($value);
+    }
+
     public function setCreatedAtAttribute($value)
     {
         $this->attributes['created_at'] = db_date($value);

@@ -17,8 +17,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "maatwebsite/excel": "^3.1",
         "milon/barcode": "^7.0",
-        "samuelterra22/laravel-report-generator": "^5.2",
         "spatie/laravel-backup": "^6.11",
         "spatie/laravel-permission": "^3.13"
     },

@@ -45,6 +45,7 @@ class SalesController extends Controller
             'vet_texes_amount' => 'required|numeric',
             'discount_amount' => 'required|numeric',
             'created_at' => 'required|date_format:d/m/Y',
+            'due_date' => 'required|date_format:d/m/Y',
             'qty' => 'required|array',
             'price' => 'required|array'
         ]);
@@ -73,6 +74,8 @@ class SalesController extends Controller
             $table->discounts_id  = $request->discounts_id;
             $table->vet_texes_id  = $request->vet_texes_id;
             $table->warehouses_id  = $request->warehouses_id;
+            $table->agents_id  = $customer->agents_id ?? '';
+            $table->due_date  = $request->due_date;
             $table->created_at  = $request->created_at;
             $table->save();
             $invoice_id = $table->id;
@@ -191,6 +194,7 @@ class SalesController extends Controller
             'vet_texes_amount' => 'required|numeric',
             'discount_amount' => 'required|numeric',
             'created_at' => 'required|date_format:d/m/Y',
+            'due_date' => 'required|date_format:d/m/Y',
             'qty' => 'required|array',
             'price' => 'required|array'
         ]);
@@ -221,7 +225,9 @@ class SalesController extends Controller
             $table->discounts_id  = $request->discounts_id;
             $table->vet_texes_id  = $request->vet_texes_id;
             $table->warehouses_id  = $request->warehouses_id;
+            $table->agents_id  = $customer->agents_id ?? '';
             $table->created_at  = $request->created_at;
+            $table->due_date  = $request->due_date;
             $table->save();
             $invoice_id = $id;
 

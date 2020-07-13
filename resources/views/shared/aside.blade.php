@@ -25,6 +25,9 @@
                         <ul>
                             <li class="{{Route::currentRouteName() == 'customer.index' ? 'active':''}}"><a href="{{route('customer.index')}}"><i class="icon-diamond"></i> Customers List</a></li>
                             <li class="{{Route::currentRouteName() == 'customer-category.index' ? 'active':''}}"><a href="{{route('customer-category.index')}}"><i class="icon-diamond"></i> Customers Category</a></li>
+                            <li class="{{Route::currentRouteName() == 'agent.index' ? 'active':''}}"><a href="{{route('agent.index')}}"><i class="icon-diamond"></i> Agent List</a></li>
+                            <li class="{{Route::currentRouteName() == 'district.index' ? 'active':''}}"><a href="{{route('district.index')}}"><i class="icon-diamond"></i> District</a></li>
+                            <li class="{{Route::currentRouteName() == 'sub-district.index' ? 'active':''}}"><a href="{{route('sub-district.index')}}"><i class="icon-diamond"></i> Sub-district</a></li>
                         </ul>
                     </li>
 

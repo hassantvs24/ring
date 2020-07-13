@@ -62,7 +62,7 @@ class Customer extends Model
     /**
      * @var array
      */
-    protected $fillable = ['zones_id', 'unions_id', 'upa_zillas_id', 'zillas_id', 'divisions_id', 'vet_texes_id', 'customer_categories_id', 'warehouses_id', 'business_id', 'users_id', 'name', 'code', 'address', 'email', 'contact', 'phone', 'alternate_contact', 'description', 'image', 'pay_term', 'credit_limit', 'balance', 'sells_target', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['zones_id', 'agent_id', 'unions_id', 'upa_zillas_id', 'zillas_id', 'divisions_id', 'vet_texes_id', 'customer_categories_id', 'warehouses_id', 'business_id', 'users_id', 'name', 'code', 'address', 'email', 'contact', 'phone', 'alternate_contact', 'description', 'image', 'pay_term', 'credit_limit', 'balance', 'sells_target', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -142,6 +142,14 @@ class Customer extends Model
     public function zone()
     {
         return $this->belongsTo('App\Zone', 'zones_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function agent()
+    {
+        return $this->belongsTo('App\Agent', 'agent_id');
     }
 
     /**

@@ -16,12 +16,12 @@ class CustomerObserver
      */
     public function created(Customer $customer)
     {
-        if($customer->balance > 0){
+        if($customer->balance != 0){
             $transactions = new Transaction();
             $transactions->customers_id = $customer->id;
             $transactions->transaction_point = 'Customer Account';
             $transactions->transaction_hub = 'Opening';
-            $transactions->transaction_type = 'IN';
+            $transactions->transaction_type = ($customer->balance > 0 ? 'IN' : 'OUT');
             $transactions->amount = $customer->balance;
             $transactions->warehouses_id = $customer->warehouses_id ??  Auth::user()->warehouses_id;
             $transactions->account_books_id = Auth::user()->account_books_id;
@@ -37,16 +37,17 @@ class CustomerObserver
      */
     public function updated(Customer $customer)
     {
-        if($customer->balance > 0) {
+        if($customer->balance != 0) {
             Transaction::updateOrCreate([
-                'customers_id' => $customer->id, 'transaction_point' => 'Customer Account', 'transaction_hub' => 'Opening', 'transaction_type' => 'IN'
+                'customers_id' => $customer->id, 'transaction_point' => 'Customer Account', 'transaction_hub' => 'Opening'
             ], [
+                'transaction_type' => ($customer->balance > 0 ? 'IN' : 'OUT'),
                 'amount' => $customer->balance,
                 'warehouses_id' => $customer->warehouses_id,
                 'account_books_id' => Auth::user()->account_books_id
             ]);
         }else{
-            Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'IN')->forceDelete();
+            Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->forceDelete();
         }
     }
 
@@ -58,7 +59,7 @@ class CustomerObserver
      */
     public function deleted(Customer $customer)
     {
-        Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'IN')->delete();
+        Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->delete();
     }
 
     /**
@@ -69,7 +70,7 @@ class CustomerObserver
      */
     public function restored(Customer $customer)
     {
-        Transaction::onlyTrashed()->where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'IN')->restore();
+        Transaction::onlyTrashed()->where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->restore();
     }
 
     /**
@@ -80,6 +81,6 @@ class CustomerObserver
      */
     public function forceDeleted(Customer $customer)
     {
-        Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->where('transaction_type', 'IN')->forceDelete();
+        Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->forceDelete();
     }
 }

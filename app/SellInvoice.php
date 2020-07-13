@@ -162,6 +162,11 @@ class SellInvoice extends Model
         $this->attributes['created_at'] = db_date($value);
     }
 
+    public function setDueDateAttribute($value)
+    {
+        $this->attributes['due_date'] = db_date($value);
+    }
+
     public function invoice_total(){
         $total = $this->invoiceItems()->sum(DB::raw('quantity * amount'));
         return $total;

@@ -15,8 +15,14 @@
                     @endforeach
                 </x-select>
 
-                <x-select class="category" name="zones_id" label="Supplier Category" required="required" >
-                    @foreach($zone as $row)
+                <x-select class="upa_zaill" name="upa_zillas_id" label="Sub District" required="required" >
+                    @foreach($upa_zilla as $row)
+                        <option value="{{$row->id}}">{{$row->name}} - {{$row->zilla['name']}}</option>
+                    @endforeach
+                </x-select>
+
+                <x-select class="agent" name="agent_id" label="Assign Person" required="required" >
+                    @foreach($agent as $row)
                         <option value="{{$row->id}}">{{$row->name}}</option>
                     @endforeach
                 </x-select>
@@ -25,7 +31,6 @@
                 <x-input name="name" label="Customer Name" required="required" />
                 <x-input name="contact" label="Contact Number" required="required"  />
                 <x-input type="email" name="email" label="Email Address" />
-
             </div>
 
             <div class="col-md-6">
@@ -34,7 +39,7 @@
                 <x-input name="address" label="Address" />
                 <x-input type="number" name="credit_limit"  rest="step=any min=0" value="0" label="Credit Limit" required="required" />
                 <x-input type="number" name="sells_target"  rest="step=any min=0" value="0" label="Sells Target" required="required" />
-                <x-input type="number" name="balance"  rest="step=any min=0" value="0" label="Opening Balance" required="required" />
+                <x-input type="number" name="balance"  rest="step=any" value="0" label="Opening Balance" required="required" />
                 <x-input name="description" label="Additional Note" />
             </div>
         </div>
@@ -58,8 +63,14 @@
                 @endforeach
             </x-select>
 
-            <x-select name="zones_id" label="Supplier Category" required="required" >
-                @foreach($zone as $row)
+            <x-select name="upa_zillas_id" label="Sub District" required="required" >
+                @foreach($upa_zilla as $row)
+                    <option value="{{$row->id}}">{{$row->name}}</option>
+                @endforeach
+            </x-select>
+
+            <x-select name="agent_id" label="Assign Person" required="required" >
+                @foreach($agent as $row)
                     <option value="{{$row->id}}">{{$row->name}}</option>
                 @endforeach
             </x-select>
@@ -69,6 +80,7 @@
             <x-input name="contact" label="Contact Number" required="required"  />
             <x-input type="email" name="email" label="Email Address" />
 
+
         </div>
 
         <div class="col-md-6">
@@ -77,7 +89,7 @@
             <x-input name="address" label="Address" />
             <x-input type="number" name="credit_limit"  rest="step=any min=0" value="0" label="Credit Limit" required="required" />
             <x-input type="number" name="sells_target"  rest="step=any min=0" value="0" label="Sells Target" required="required" />
-            <x-input type="number" name="balance"  rest="step=any min=0" value="0" label="Opening Balance" required="required" />
+            <x-input type="number" name="balance"  rest="step=any" value="0" label="Opening Balance" required="required" />
             <x-input name="description" label="Additional Note" />
         </div>
     </x-modal>

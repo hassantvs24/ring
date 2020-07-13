@@ -1,6 +1,6 @@
 <div class="input-group mb-15">
-    @if(isset($addon))
-        <span class="input-group-addon">{{$addon}}</span>
+    @if(isset($label))
+        <span class="input-group-addon">{{$label}}</span>
     @endif
         <select id="{{$id ?? ''}}" name="{{$name ?? ''}}" class="form-control {{$class ?? ''}}"  {{$rest ?? ''}} @if($required == 'required') required @endif >
             {{$slot}}

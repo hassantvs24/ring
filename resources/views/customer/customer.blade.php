@@ -19,9 +19,9 @@
                 <th class="p-th">S/N</th>
                 <th class="p-th">Name</th>
                 <th class="p-th">Contact</th>
-                <th class="p-th">Address</th>
-                <th class="p-th">Zone</th>
+                <th class="p-th">Upazilla</th>
                 <th class="p-th">Category</th>
+                <th class="p-th">Agent</th>
                 <th title="Credit Limit" class="p-th">Cr.Limit</th>
                 <th class="p-th" title="Monthly Target">Target</th>
                 <th class="p-th">Balance</th>
@@ -34,9 +34,9 @@
                     <td class="p-td">{{$row->code}}</td>
                     <td class="p-td">{{$row->name}}</td>
                     <td class="p-td">{{$row->contact}}</td>
-                    <td class="p-td">{{$row->address}}</td>
-                    <td class="p-td">{{$row->zone['name']}}</td>
+                    <td class="p-td">{{$row->upaZilla['name']}}</td>
                     <td class="p-td">{{$row->customerCategory['name']}}</td>
+                    <td class="p-td">{{$row->agent['name']}}</td>
                     <td class="p-td">{{money_c($row->credit_limit)}}</td>
                     <td class="p-td">{{money_c($row->sells_target)}}</td>
                     <td class="p-td">{{money_c($row->dueBalance())}}</td>
@@ -50,7 +50,8 @@
                                    data-address="{{$row->address}}"
                                    data-phone="{{$row->phone}}"
                                    data-contacttwo="{{$row->alternate_contact}}"
-                                   data-zone="{{$row->zones_id}}"
+                                   data-upazillas="{{$row->upa_zillas_id}}"
+                                   data-agent="{{$row->agent_id}}"
                                    data-category="{{$row->customer_categories_id}}"
                                    data-warehouse="{{$row->warehouses_id}}"
                                    data-crlimit="{{$row->credit_limit}}"
@@ -81,7 +82,7 @@
             $('.warehouse').val("{{auth()->user()->warehouses_id}}").select2();
             $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
 
-            $('.category, .zone, .payment_method').select2();
+            $('.category, .upa_zaill, .agent, .payment_method').select2();
 
             $('.ediItem').click(function (e) {
                 e.preventDefault();
@@ -92,7 +93,8 @@
                 var address = $(this).data('address');
                 var phone = $(this).data('phone');
                 var alternate_contact = $(this).data('contacttwo');
-                var zones_id = $(this).data('zone');
+                var upa_zillas_id = $(this).data('upazillas');
+                var agent_id = $(this).data('agent');
                 var contact = $(this).data('contact');
                 var warehouses_id = $(this).data('warehouse');
                 var credit_limit = $(this).data('crlimit');
@@ -114,7 +116,8 @@
                 $('#ediModal [name=balance]').val(balance);
                 $('#ediModal [name=description]').val(description);
 
-                $('#ediModal [name=zones_id]').val(zones_id).select2();
+                $('#ediModal [name=agent_id]').val(agent_id).select2();
+                $('#ediModal [name=upa_zillas_id]').val(upa_zillas_id).select2();
                 $('#ediModal [name=warehouses_id]').val(warehouses_id).select2();
                 $('#ediModal [name=customer_categories_id]').val(customer_categories_id).select2();
 

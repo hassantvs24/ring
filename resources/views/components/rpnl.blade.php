@@ -13,7 +13,6 @@
         <div class="heading-elements">
             <button type="submit" class="btn bg-indigo-400 btn-xs heading-btn pull-right btn-labeled btn-labeled-left"><b><i class="icon-checkmark4"></i></b> Submit</button>
         </div>
-        </div>
     </div>
     @if(isset($action))
         </form>

@@ -30,6 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::put('/customer/payment/{id}',  'Customer\CustomerController@due_payment')->name('customer.payment');
     Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'edit']);
+
+    Route::resource('/customer/agent',  'Customer\AgentController')->except(['create', 'show', 'edit']);
+    Route::resource('/customer/district',  'Customer\ZillaController')->except(['create', 'show', 'edit']);
+    Route::resource('/customer/sub-district',  'Customer\UpaZillaController')->except(['create', 'show', 'edit']);
+    Route::resource('/customer/agent',  'Customer\AgentController')->except(['create', 'show', 'edit']);
     Route::resource('/customer/category',  'Customer\CustomerCategoryController',['names' => 'customer-category'])->except(['create', 'show', 'edit']);
 
     Route::get('/stock/transaction/{id}',  'Stock\ProductController@transaction')->name('stock.transaction');
@@ -64,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/settings/vat-tax',  'Settings\VatTaxController')->except(['create', 'show', 'edit']);
     Route::resource('/settings/zone',  'Settings\ZoneController')->except(['create', 'show', 'edit']);
 
+
     Route::put('/users/roles/permission/{role}',  'User\RolesController@assign_role')->name('role.permission');
     Route::resource('/users/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
     Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
@@ -79,6 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/reports/supplier',  'Report\SupplierController@index')->name('reports.supplier');
     Route::get('/reports/sales',  'Report\SalesController@index')->name('reports.sales');
     Route::get('/reports/purchase',  'Report\PurchaseController@index')->name('reports.purchase');
+
+    Route::post('/reports/stock-product',  'Report\StockController@reports')->name('reports.stock-product');
+    Route::post('/reports/stock-transaction',  'Report\StockController@transaction')->name('reports.stock-transaction');
     Route::get('/reports/stock',  'Report\StockController@index')->name('reports.stock');
 
 

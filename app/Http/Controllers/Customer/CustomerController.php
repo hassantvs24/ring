@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Customer;
 
 use App\AccountBook;
+use App\Agent;
 use App\Customer;
 use App\CustomerCategory;
 use App\Http\Controllers\Controller;
 use App\Transaction;
+use App\UpaZilla;
 use App\Warehouse;
 use App\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
@@ -18,11 +21,13 @@ class CustomerController extends Controller
     public function index()
     {
         $table = Customer::with('zone', 'customerCategory', 'warehouse')->orderBy('id', 'DESC')->get();
-        $zone = Zone::orderBy('name', 'ASC')->get();
         $category = CustomerCategory::orderBy('name', 'ASC')->get();
         $warehouse = Warehouse::orderBy('name', 'ASC')->get();
         $ac_book = AccountBook::orderBy('name', 'ASC')->get();
-        return view('customer.customer')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse, 'zone' => $zone, 'ac_book' => $ac_book]);
+
+        $agent = Agent::orderBy('name', 'ASC')->get();
+        $upa_zilla = UpaZilla::orderBy('name', 'ASC')->get();
+        return view('customer.customer')->with(['table' => $table, 'category' => $category, 'warehouse' => $warehouse, 'agent' => $agent, 'upa_zilla' => $upa_zilla, 'ac_book' => $ac_book]);
     }
 
 
@@ -36,7 +41,8 @@ class CustomerController extends Controller
             'customer_categories_id' => 'numeric|required',
             'sells_target' => 'numeric|required',
             'credit_limit' => 'numeric|required',
-            'zones_id' => 'numeric|required',
+            'upa_zillas_id' => 'numeric|required',
+            'agent_id' => 'numeric|required',
             'warehouses_id' => 'numeric|required'
         ]);
 
@@ -45,6 +51,8 @@ class CustomerController extends Controller
         }
 
         try{
+
+            $zilla = UpaZilla::find($request->upa_zillas_id);
 
             $table = new Customer();
             $table->code = $request->code ?? mt_rand();
@@ -58,10 +66,13 @@ class CustomerController extends Controller
             $table->credit_limit = $request->credit_limit ?? 0;
             $table->balance = $request->balance ?? 0;
             $table->sells_target = $request->sells_target ?? 0;
-            $table->zones_id = $request->zones_id;
+            $table->upa_zillas_id = $request->upa_zillas_id;
+            $table->zillas_id = $zilla->zillas_id;
+            $table->agent_id = $request->agent_id;
             $table->customer_categories_id = $request->customer_categories_id;
             $table->warehouses_id = $request->warehouses_id;
             $table->save();
+
 
         }catch (\Exception $ex) {
             return redirect()->back()->with(config('naz.error'));
@@ -80,7 +91,8 @@ class CustomerController extends Controller
             'customer_categories_id' => 'numeric|required',
             'sells_target' => 'numeric|required',
             'credit_limit' => 'numeric|required',
-            'zones_id' => 'numeric|required',
+            'upa_zillas_id' => 'numeric|required',
+            'agent_id' => 'numeric|required',
             'warehouses_id' => 'numeric|required'
         ]);
 
@@ -89,6 +101,8 @@ class CustomerController extends Controller
         }
 
         try{
+
+            $zilla = UpaZilla::find($request->upa_zillas_id);
 
             $table = Customer::find($id);
             $table->code = $request->code ?? mt_rand();
@@ -102,12 +116,16 @@ class CustomerController extends Controller
             $table->credit_limit = $request->credit_limit ?? 0;
             $table->balance = $request->balance ?? 0;
             $table->sells_target = $request->sells_target ?? 0;
-            $table->zones_id = $request->zones_id;
+            $table->upa_zillas_id = $request->upa_zillas_id;
+            $table->zillas_id = $zilla->zillas_id;
+            $table->agent_id = $request->agent_id;
             $table->customer_categories_id = $request->customer_categories_id;
             $table->warehouses_id = $request->warehouses_id;
             $table->save();
 
+
         }catch (\Exception $ex) {
+            dd($ex);
             return redirect()->back()->with(config('naz.error'));
         }
 

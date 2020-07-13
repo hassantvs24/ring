@@ -68,6 +68,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <x-input class="date_pic" name="created_at" label="Date" value="{{pub_date($table->created_at)}}" required="required" />
+                    <x-input class="date_pic" name="due_date" label="Due Date"  value="{{pub_date($table->due_date)}}" required="required" />
 
                     <x-select class="status" name="status" label="Status" required="required" >
                         <option value="Final">Final</option>

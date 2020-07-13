@@ -16,19 +16,20 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
-        if($transaction->transaction_point == 'Customer Account' && $transaction->transaction_hub == 'Opening'){
+        /*if($transaction->transaction_point == 'Customer Account' && $transaction->transaction_hub == 'Opening'){
             $table = Customer::find($transaction->customers_id);
-            $table->balance = $transaction->amount;
+            $table->balance = ($transaction->transaction_type == 'IN' ? $transaction->amount : -$transaction->amount);
             $table->save();
         }elseif ($transaction->transaction_point == 'Supplier Account' && $transaction->transaction_hub == 'Opening'){
             $table = Customer::find($transaction->suppliers_id);
-            $table->balance = $transaction->amount;
+            $table->balance = ($transaction->transaction_type == 'IN' ? -$transaction->amount : $transaction->amount);
             $table->save();
         }elseif ($transaction->transaction_point == 'Expense' && $transaction->transaction_hub == 'General'){
             $table = Expense::find($transaction->expenses_id);
             $table->amount = $transaction->amount;
             $table->save();
         }
+        }*/
     }
 
     /**
@@ -41,11 +42,11 @@ class TransactionObserver
     {
         if($transaction->transaction_point == 'Customer Account' && $transaction->transaction_hub == 'Opening'){
             $table = Customer::find($transaction->customers_id);
-            $table->balance = $transaction->amount;
+            $table->balance = ($transaction->transaction_type == 'IN' ? $transaction->amount : -$transaction->amount);
             $table->save();
         }elseif ($transaction->transaction_point == 'Supplier Account' && $transaction->transaction_hub == 'Opening'){
             $table = Customer::find($transaction->suppliers_id);
-            $table->balance = $transaction->amount;
+            $table->balance = ($transaction->transaction_type == 'IN' ? -$transaction->amount : $transaction->amount);
             $table->save();
         }elseif ($transaction->transaction_point == 'Expense' && $transaction->transaction_hub == 'General'){
             $table = Expense::find($transaction->expenses_id);

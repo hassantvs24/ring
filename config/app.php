@@ -180,8 +180,6 @@ return [
 		
 		Spatie\Permission\PermissionServiceProvider::class,
 
-        SamuelTerra22\ReportGenerator\ServiceProvider::class,
-
         Milon\Barcode\BarcodeServiceProvider::class,
 
     ],
@@ -237,10 +235,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
-
-        'PdfReport'     => SamuelTerra22\ReportGenerator\Facades\PdfReportFacade::class,
-        'ExcelReport'   => SamuelTerra22\ReportGenerator\Facades\ExcelReportFacade::class,
-        'CSVReport'     => SamuelTerra22\ReportGenerator\Facades\CSVReportFacade::class,
 
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,

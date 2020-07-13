@@ -66,7 +66,8 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <x-input class="date_pic" name="created_at" label="Date" required="required" />
+                    <x-input class="date_pic" name="created_at" label="Invoice Date" required="required" />
+                    <x-input class="date_pic" name="due_date" label="Due Date" required="required" />
 
                     <x-select class="status" name="status" label="Status" required="required" >
                         <option value="Final">Final</option>
