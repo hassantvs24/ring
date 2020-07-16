@@ -33,7 +33,7 @@ class MainController extends Controller
         }
 
         $files = Storage::disk('local')->files('Laravel');
-        return Storage::disk('local')->download($files[1]);
+        return Storage::disk('local')->download(end($files));
     }
 
     public function activate(){

@@ -71,6 +71,21 @@ class PermissionTableSeeder extends Seeder
             'Customer Edit',
             'Customer Delete',
 
+            'Agent List',
+            'Agent Create',
+            'Agent Edit',
+            'Agent Delete',
+
+            'District List',
+            'District Create',
+            'District Edit',
+            'District Delete',
+
+            'SubDistrict List',
+            'SubDistrict Create',
+            'SubDistrict Edit',
+            'SubDistrict Delete',
+
             'Customer Category List',
             'Customer Category Create',
             'Customer Category Edit',

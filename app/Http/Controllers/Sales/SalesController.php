@@ -74,7 +74,7 @@ class SalesController extends Controller
             $table->discounts_id  = $request->discounts_id;
             $table->vet_texes_id  = $request->vet_texes_id;
             $table->warehouses_id  = $request->warehouses_id;
-            $table->agents_id  = $customer->agents_id ?? '';
+            $table->agents_id  = $customer->agent_id ?? '';
             $table->due_date  = $request->due_date;
             $table->created_at  = $request->created_at;
             $table->save();
@@ -139,6 +139,7 @@ class SalesController extends Controller
             DB::commit();
         }catch (\Exception $ex) {
             DB::rollback();
+            dd($ex);
             return redirect()->back()->with(config('naz.error'));
         }
 
@@ -225,7 +226,7 @@ class SalesController extends Controller
             $table->discounts_id  = $request->discounts_id;
             $table->vet_texes_id  = $request->vet_texes_id;
             $table->warehouses_id  = $request->warehouses_id;
-            $table->agents_id  = $customer->agents_id ?? '';
+            $table->agents_id  = $customer->agent_id ?? '';
             $table->created_at  = $request->created_at;
             $table->due_date  = $request->due_date;
             $table->save();

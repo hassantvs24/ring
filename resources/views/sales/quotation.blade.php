@@ -34,7 +34,7 @@
                     <td class="text-right p-td">
                         <x-actions>
                             <li><a  href="{{route('sales.edit', ['sale' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('sales.show', ['sale' => $row->id])}}"><i class="icon-file-eye2 text-info"></i> Show</a></li>
+                            <!--<li><a href="{{route('sales.show', ['sale' => $row->id])}}"><i class="icon-file-eye2 text-info"></i> Show</a></li>-->
                             <li><a href="{{route('sales.destroy', ['sale' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                         </x-actions>
                     </td>

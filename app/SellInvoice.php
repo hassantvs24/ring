@@ -223,17 +223,27 @@ class SellInvoice extends Model
                if($total_payment >= $current_due){
                    return 0;
                }else{
-                   $init_due = $current_due - $total_payment;
-                   if($init_due > 0){
-                       return $init_due;
+                   if($total_payment >= 0){
+                       $init_due = $current_due - $total_payment;
+                       if($init_due > 0){
+                           return $init_due;
+                       }else{
+                           return $current_due;
+                       }
                    }else{
                        return $current_due;
                    }
+                   
                }
                
            }
        }
 
+    }
+
+    public function getBalanceDueAttribute()
+    {
+        return $this->balance_due();
     }
 
     public function getSubTotalAttribute()

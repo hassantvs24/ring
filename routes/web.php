@@ -81,9 +81,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/reports/expense',  'Report\ExpenseController@index')->name('reports.expense');
 
     Route::get('/reports/accounts',  'Report\AccountsController@index')->name('reports.accounts');
-    Route::get('/reports/customer',  'Report\CustomerController@index')->name('reports.customer');
     Route::get('/reports/supplier',  'Report\SupplierController@index')->name('reports.supplier');
+
+    Route::get('/reports/customer',  'Report\CustomerController@index')->name('reports.customer');
+
+    Route::post('/reports/sales-invoice',  'Report\SalesController@invoice')->name('reports.sales_invoice');
+    Route::post('/reports/sales-invoice-item',  'Report\SalesController@items')->name('reports.sales_items');
     Route::get('/reports/sales',  'Report\SalesController@index')->name('reports.sales');
+
+    Route::post('/reports/purchase-invoice',  'Report\PurchaseController@invoice')->name('reports.purchase_invoice');
+    Route::post('/reports/purchase-invoice-item',  'Report\PurchaseController@items')->name('reports.purchase_items');
     Route::get('/reports/purchase',  'Report\PurchaseController@index')->name('reports.purchase');
 
     Route::post('/reports/stock-product',  'Report\StockController@reports')->name('reports.stock-product');

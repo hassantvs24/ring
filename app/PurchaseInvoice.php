@@ -232,6 +232,12 @@ class PurchaseInvoice extends Model
 
     }
 
+    public function getBalanceDueAttribute()
+    {
+        return $this->balance_due();
+    }
+
+
     public function getSubTotalAttribute()
     {
         return $this->invoice_sub_total();

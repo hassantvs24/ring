@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1a5a4982-0a9a-497b-a386-e6375ff60bb0" name="Ring" url="http://premium22.web-hosting.com">
+        <fileTransfer host="premium22.web-hosting.com" port="21" rootFolder="/ring.infinityflamesoft.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
