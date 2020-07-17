@@ -63,7 +63,7 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         Brand::observe(CommonObserver::class);
-        AccountBook::observe(CommonObserver::class);
+        AccountBook::observe(CommonObserver::class); //Comment this on seeder
         Agent::observe(CommonObserver::class);
         Company::observe(CommonObserver::class);
         Customer::observe(CommonObserver::class);
@@ -91,7 +91,7 @@ class EventServiceProvider extends ServiceProvider
         Units::observe(CommonObserver::class);
         UpaZilla::observe(CommonObserver::class);
         VetTex::observe(CommonObserver::class);
-        Warehouse::observe(CommonObserver::class);
+        Warehouse::observe(CommonObserver::class);  //Comment this on seeder
         Zilla::observe(CommonObserver::class);
         Zone::observe(CommonObserver::class);
     }
