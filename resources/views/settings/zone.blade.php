@@ -7,7 +7,9 @@
 
     <x-site name="Zone">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Zone</button>
+            @can('Zone Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Zone</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -26,13 +28,13 @@
                     <td class="text-right p-td">
                         <x-actions>
                             @can('Zone Edit')
-                            <li><a href="{{route('zone.update', ['zone' => $row->id])}}"
+                                <li><a href="{{route('zone.update', ['zone' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-address="{{$row->address}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
                             @endcan
                             @can('Zone Delete')
-                            <li><a href="{{route('zone.destroy', ['zone' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                <li><a href="{{route('zone.destroy', ['zone' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
                             @endcan
                         </x-actions>
                     </td>

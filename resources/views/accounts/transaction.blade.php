@@ -9,7 +9,9 @@
 
         <x-slot name="header">
             <a href="{{route('accounts.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left"><b><i class="icon-arrow-left5"></i></b> Back to account list</a>
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Make Transaction</button>
+            @can('Transaction Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Make Transaction</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -40,7 +42,8 @@
                     <td class="p-td">{{money_c($row->out())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
+                            @can('Transaction Edit')
+                                <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
                                    data-acbook="{{$row->account_books_id}}"
                                    data-pmethod="{{$row->payment_method}}"
                                    data-cheque="{{$row->cheque_number}}"
@@ -54,7 +57,8 @@
                                    data-warehouse="{{$row->warehouses_id}}"
                                    data-crdate="{{pub_date($row->created_at)}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('transactions.destroy', ['transaction' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                <li><a href="{{route('transactions.destroy', ['transaction' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

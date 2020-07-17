@@ -9,7 +9,9 @@
 
     <x-site name="Stock List" body="Add Products">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Products</button>
+            @can('Product Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Products</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -45,8 +47,11 @@
                     <td class="p-td">{{$row->unit['name']}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('stock.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Stock Transaction</a></li>
-                            <li><a href="{{route('products.update', ['product' => $row->id])}}"
+                            @can('Product Transaction')
+                                <li><a href="{{route('stock.transaction', ['id' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Stock Transaction</a></li>
+                            @endcan
+                            @can('Product Edit')
+                                <li><a href="{{route('products.update', ['product' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-sku="{{$row->sku}}"
                                    data-ptype="{{$row->product_type}}"
@@ -60,7 +65,10 @@
                                    data-aqty="{{$row->alert_quantity}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('products.destroy', ['product' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Product Delete')
+                                <li><a href="{{route('products.destroy', ['product' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

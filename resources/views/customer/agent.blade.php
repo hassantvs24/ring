@@ -9,7 +9,9 @@
 
     <x-site name="Agent List">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Agent</button>
+            @can('Agent Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Agent</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -29,12 +31,16 @@
                     <td class="p-td">{{$row->warehouse['name']}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('agent.update', ['agent' => $row->id])}}"
+                            @can('Agent Edit')
+                                <li><a href="{{route('agent.update', ['agent' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-code="{{$row->code}}"
                                    data-warehouses="{{$row->warehouses_id}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('agent.destroy', ['agent' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Agent Delete ')
+                                <li><a href="{{route('agent.destroy', ['agent' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

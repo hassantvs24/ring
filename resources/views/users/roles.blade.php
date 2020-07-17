@@ -10,7 +10,9 @@
     <x-site name="User Roles">
 
         <x-slot name="header">
+            @can('Role Create')
             <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New User Role</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -36,11 +38,17 @@
                         @endphp
                         @if($row->name != 'Super Admin')
                             <x-actions>
+                                @can('Role Permission')
                                     <li><a href="{{route('role.permission', ['role' => $row->id])}}" class="permissionEdit" data-permission="{{json_encode($data)}}" data-toggle="modal" data-target="#permissionModal"><i class="icon-magic-wand text-warning"></i> Add Permission</a></li>
+                                @endcan
+                                @can('Role Edit')
                                     <li><a href="{{route('roles.update', ['role' => $row->id])}}"
                                            data-name="{{$row->name}}"
                                            class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                                @endcan
+                                @can('Role Delete')
                                     <li><a href="{{route('roles.destroy', ['role' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                @endcan
                             </x-actions>
                         @endif
                     </td>

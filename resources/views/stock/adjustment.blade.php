@@ -9,7 +9,9 @@
 
     <x-site name="Stock Adjustment" body="New Stock Adjustment">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Adjustment</button>
+            @can('Stock Adjustment Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Adjustment</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -38,14 +40,18 @@
                     <td class="p-td">{{$items}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a data-items="{{route('get_item', ['id' => $row->id])}}" href="{{route('adjustment.update', ['adjustment' => $row->id])}}"
+                            @can('Stock Adjustment Edit')
+                                <li><a data-items="{{route('get_item', ['id' => $row->id])}}" href="{{route('adjustment.update', ['adjustment' => $row->id])}}"
                                    data-code="{{$row->code}}"
                                    data-cdate="{{pub_date($row->created_at)}}"
                                    data-amount="{{$row->recover_amount}}"
                                    data-description="{{$row->description}}"
                                    data-warehouse="{{$row->warehouses_id}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('adjustment.destroy', ['adjustment' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Stock Adjustment Delete')
+                                <li><a href="{{route('adjustment.destroy', ['adjustment' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

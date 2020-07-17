@@ -9,7 +9,9 @@
     <x-site name="{{$supplier->name}}">
         <x-slot name="header">
             <a href="{{route('supplier.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left"><b><i class="icon-arrow-left5"></i></b> Back to supplier list</a>
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal" @if($supplier->dueBalance() == 0) disabled="disabled" @endif><b><i class="icon-add-to-list"></i></b> Make Payment</button>
+            @can('Supplier Payment')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal" @if($supplier->dueBalance() == 0) disabled="disabled" @endif><b><i class="icon-add-to-list"></i></b> Make Payment</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -39,21 +41,23 @@
                     <td class="p-td">{{money_c($row->amount)}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
-                                   data-acbook="{{$row->account_books_id}}"
-                                   data-pmethod="{{$row->payment_method}}"
-                                   data-cheque="{{$row->cheque_number}}"
-                                   data-bac="{{$row->bank_account_no}}"
-                                   data-trno="{{$row->transaction_no}}"
-                                   data-trhub="{{$row->transaction_hub}}"
-                                   data-point="{{$row->transaction_point}}"
-                                   data-trtype="{{$row->transaction_type}}"
-                                   data-description="{{$row->description}}"
-                                   data-amount="{{$row->amount}}"
-                                   data-warehouse="{{$row->warehouses_id}}"
-                                   data-crdate="{{pub_date($row->created_at)}}"
-                                   class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('transactions.destroy', ['transaction' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @can('Transaction Edit')
+                                <li><a href="{{route('transactions.update', ['transaction' => $row->id])}}"
+                                       data-acbook="{{$row->account_books_id}}"
+                                       data-pmethod="{{$row->payment_method}}"
+                                       data-cheque="{{$row->cheque_number}}"
+                                       data-bac="{{$row->bank_account_no}}"
+                                       data-trno="{{$row->transaction_no}}"
+                                       data-trhub="{{$row->transaction_hub}}"
+                                       data-point="{{$row->transaction_point}}"
+                                       data-trtype="{{$row->transaction_type}}"
+                                       data-description="{{$row->description}}"
+                                       data-amount="{{$row->amount}}"
+                                       data-warehouse="{{$row->warehouses_id}}"
+                                       data-crdate="{{pub_date($row->created_at)}}"
+                                       class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                                <li><a href="{{route('transactions.destroy', ['transaction' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

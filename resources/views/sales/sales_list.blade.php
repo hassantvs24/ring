@@ -37,9 +37,15 @@
                     <td class="p-td">{{money_c($row->balance_due())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a  href="{{route('sales.edit', ['sale' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('sales.show', ['sale' => $row->id])}}"><i class="icon-file-eye2 text-info"></i> Show</a></li>
-                            <li><a href="{{route('sales.destroy', ['sale' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @can('Sales Edit')
+                                <li><a  href="{{route('sales.edit', ['sale' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                            @endcan
+                            @can('Sales Invoice')
+                                <li><a href="{{route('sales.show', ['sale' => $row->id])}}"><i class="icon-file-eye2 text-info"></i> Show</a></li>
+                            @endcan
+                            @can('Sales Delete')
+                                <li><a href="{{route('sales.destroy', ['sale' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

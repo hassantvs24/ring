@@ -33,9 +33,12 @@
                     <td class="p-td">{{money_c($row->invoice_paid())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a  href="{{route('purchase.edit', ['purchase' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <!--<li><a href="{{route('purchase.show', ['purchase' => $row->id])}}"><i class="icon-file-eye2 text-info"></i> Show</a></li>-->
-                            <li><a href="{{route('purchase.destroy', ['purchase' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @can('Purchase Edit')
+                                <li><a  href="{{route('purchase.edit', ['purchase' => $row->id])}}"><i class="icon-pencil6 text-success"></i> Edit</a></li>
+                            @endcan
+                            @can('Purchase Delete')
+                                <li><a href="{{route('purchase.destroy', ['purchase' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

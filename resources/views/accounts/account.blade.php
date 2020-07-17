@@ -11,7 +11,9 @@
     <x-site name="Accounts" body="Add New Account">
 
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Account</button>
+            @can('Accounts Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Account</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -37,14 +39,22 @@
                     <td class="p-td">{{money_c($row->acBalance())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="{{route('accounts.update', ['list' => $row->id])}}"
+                            @can('Accounts Edit')
+                                <li><a href="{{route('accounts.update', ['list' => $row->id])}}"
                                    data-name="{{$row->name}}"
                                    data-acnumber="{{$row->account_number}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('accounts.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Account Transaction</a></li>
-                            <li><a href="{{route('accounts.payment', ['id' => $row->id])}}" class="payments" data-toggle="modal" data-target="#acModal"><i class="icon-wallet text-purple"></i> Make Transaction</a></li>
-                            <li><a href="{{route('accounts.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Accounts Transaction')
+                                <li><a href="{{route('accounts.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Account Transaction</a></li>
+                            @endcan
+                            @can('Transaction Create')
+                                <li><a href="{{route('accounts.payment', ['id' => $row->id])}}" class="payments" data-toggle="modal" data-target="#acModal"><i class="icon-wallet text-purple"></i> Make Transaction</a></li>
+                            @endcan
+                            @can('Accounts Delete')
+                                <li><a href="{{route('accounts.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

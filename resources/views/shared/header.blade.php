@@ -19,7 +19,7 @@
             <li class="dropdown dropdown-user">
                 <a class="dropdown-toggle" data-toggle="dropdown">
                     <img src="{{asset('public/global_assets/images/image.png')}}" alt="User">
-                    <span>Admin</span>
+                    <span>{{ isset(Auth::user()->name) ? Auth::user()->name : 'Admin' }}</span>
                     <i class="caret"></i>
                 </a>
 

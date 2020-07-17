@@ -10,7 +10,9 @@
 
     <x-site name="Customer List">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Customer</button>
+            @can('Customer Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Customer</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -42,7 +44,8 @@
                     <td class="p-td">{{money_c($row->dueBalance())}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="#{{route('customer.update', ['list' => $row->id])}}"
+                            @can('Customer Edit')
+                                <li><a href="#{{route('customer.update', ['list' => $row->id])}}"
                                    data-code="{{$row->code}}"
                                    data-name="{{$row->name}}"
                                    data-contact="{{$row->contact}}"
@@ -59,9 +62,16 @@
                                    data-balance="{{$row->balance}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('customer.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Customer Transaction</a></li>
-                            <li><a href="{{route('customer.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Payment</a></li>
-                            <li><a href="{{route('customer.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Customer Transaction')
+                                <li><a href="{{route('customer.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Customer Transaction</a></li>
+                            @endcan
+                            @can('Customer Payment')
+                                <li><a href="{{route('customer.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Payment</a></li>
+                            @endcan
+                            @can('Customer Delete')
+                                <li><a href="{{route('customer.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

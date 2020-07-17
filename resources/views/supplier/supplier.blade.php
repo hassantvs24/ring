@@ -11,7 +11,9 @@
     <x-site name="Supplier List">
 
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Supplier</button>
+            @can('Supplier Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Supplier</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -45,7 +47,8 @@
                     <td class="p-td">{{$row->dueBalance()}}</td>
                     <td class="text-right p-td">
                         <x-actions>
-                            <li><a href="#{{route('supplier.update', ['list' => $row->id])}}"
+                            @can('Supplier Edit')
+                                <li><a href="#{{route('supplier.update', ['list' => $row->id])}}"
                                    data-category="{{$row->supplier_categories_id}}"
                                    data-warehouses="{{$row->warehouses_id}}"
                                    data-name="{{$row->name}}"
@@ -57,11 +60,18 @@
                                    data-contacttwo="{{$row->alternate_contact}}"
                                    data-description="{{$row->description}}"
                                    class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                            <li><a href="{{route('supplier.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Payment Transaction</a></li>
+                            @endcan
+                            @can('Supplier Transaction')
+                                <li><a href="{{route('supplier.show', ['list' => $row->id])}}"><i class="icon-shuffle text-primary"></i> Payment Transaction</a></li>
+                            @endcan
+                            @can('Supplier Payment')
                             @if($row->dueBalance() != 0)
                                 <li><a href="{{route('supplier.payment', ['id' => $row->id])}}" class="payment" data-balance="{{$row->dueBalance()}}" data-toggle="modal" data-target="#payModal"><i class="icon-wallet text-purple"></i> Due Payment</a></li>
                             @endif
-                            <li><a href="{{route('supplier.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
+                            @can('Supplier Delete')
+                                <li><a href="{{route('supplier.destroy', ['list' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                            @endcan
                         </x-actions>
                     </td>
                 </tr>

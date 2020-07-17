@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
          //$this->call(ZillaSeeder::class);
          //$this->call(UpaZillaSeeder::class);
          //$this->call(UnionSeeder::class);
-        //$this->call(PermissionTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
     }
 }

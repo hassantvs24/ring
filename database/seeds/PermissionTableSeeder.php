@@ -59,10 +59,10 @@ class PermissionTableSeeder extends Seeder
             'Product Company Delete',
             'Product Transaction',
 
-            'Product-Brand List',
-            'Product-Brand Create',
-            'Product-Brand Edit',
-            'Product-Brand Delete',
+            'Product Brand List',
+            'Product Brand Create',
+            'Product Brand Edit',
+            'Product Brand Delete',
 
             'Customer List',
             'Customer Transaction',

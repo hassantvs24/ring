@@ -14,14 +14,30 @@
 
             <div class="heading-elements">
                 <div class="heading-btn-group">
-                    <a href="{{route('sales.index')}}" class="btn btn-link btn-float has-text"><i class="icon-cart5 text-success"></i><span>New Sale</span></a>
-                    <a href="{{route('purchase.index')}}" class="btn btn-link btn-float has-text"><i class="icon-cart text-primary"></i> <span>Purchase</span></a>
-                    <a href="{{route('purchase.index')}}" class="btn btn-link btn-float has-text"><i class="icon-box-remove text-warning"></i> <span>Expense</span></a>
-                    <a href="{{route('accounts.index')}}" class="btn btn-link btn-float has-text"><i class="icon-coin-dollar text-info"></i> <span>Accounts</span></a>
-                    <a href="{{route('products.index')}}" class="btn btn-link btn-float has-text"><i class="icon-truck text-indigo"></i> <span>Stock</span></a>
-                    <a href="{{route('customer.index')}}" class="btn btn-link btn-float has-text"><i class="icon-users4 text-green"></i> <span>Customer</span></a>
-                    <a href="{{route('supplier.index')}}" class="btn btn-link btn-float has-text"><i class="icon-user-plus text-purple"></i> <span>Supplier</span></a>
-                    <a href="{{route('users.index')}}" class="btn btn-link btn-float has-text"><i class="icon-users text-pink"></i> <span>Users</span></a>
+                    @can('Sales Create')
+                        <a href="{{route('sales.index')}}" class="btn btn-link btn-float has-text"><i class="icon-cart5 text-success"></i><span>New Sale</span></a>
+                    @endcan
+                    @can('Purchase Create')
+                        <a href="{{route('purchase.index')}}" class="btn btn-link btn-float has-text"><i class="icon-cart text-primary"></i> <span>Purchase</span></a>
+                    @endcan
+                    @can('Expense List')
+                        <a href="{{route('expenses.index')}}" class="btn btn-link btn-float has-text"><i class="icon-box-remove text-warning"></i> <span>Expense</span></a>
+                    @endcan
+                    @can('Accounts List')
+                        <a href="{{route('accounts.index')}}" class="btn btn-link btn-float has-text"><i class="icon-coin-dollar text-info"></i> <span>Accounts</span></a>
+                    @endcan
+                    @can('Product List')
+                        <a href="{{route('products.index')}}" class="btn btn-link btn-float has-text"><i class="icon-truck text-indigo"></i> <span>Stock</span></a>
+                    @endcan
+                    @can('Customer List')
+                        <a href="{{route('customer.index')}}" class="btn btn-link btn-float has-text"><i class="icon-users4 text-green"></i> <span>Customer</span></a>
+                    @endcan
+                    @can('Supplier List')
+                        <a href="{{route('supplier.index')}}" class="btn btn-link btn-float has-text"><i class="icon-user-plus text-purple"></i> <span>Supplier</span></a>
+                    @endcan
+                    @can('User List')
+                        <a href="{{route('users.index')}}" class="btn btn-link btn-float has-text"><i class="icon-users text-pink"></i> <span>Users</span></a>
+                    @endcan
                 </div>
             </div>
         </div>

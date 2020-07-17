@@ -7,7 +7,9 @@
 
     <x-site name="Warehouse Setup">
         <x-slot name="header">
-            <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Warehouse</button>
+            @can('Warehouse Create')
+                <button id="headerBtn" type="button" class="btn btn-primary heading-btn btn-labeled btn-labeled-left" data-toggle="modal" data-target="#myModal"><b><i class="icon-add-to-list"></i></b> Add New Warehouse</button>
+            @endcan
         </x-slot>
 
         <table class="table table-striped table-condensed table-hover datatable-basic">
@@ -33,7 +35,8 @@
                         <td class="p-td">{{$row->phone}}</td>
                         <td class="text-right p-td">
                             <x-actions>
-                                <li><a href="{{route('warehouse.update', ['warehouse' => $row->id])}}"
+                                @can('Warehouse Edit')
+                                    <li><a href="{{route('warehouse.update', ['warehouse' => $row->id])}}"
                                        data-name="{{$row->name}}"
                                        data-contact="{{$row->contact}}"
                                        data-email="{{$row->email}}"
@@ -41,7 +44,10 @@
                                        data-phone="{{$row->phone}}"
                                        data-logo="{{$row->logo}}"
                                        class="ediItem" data-toggle="modal" data-target="#ediModal"><i class="icon-pencil6 text-success"></i> Edit</a></li>
-                                <li><a href="{{route('warehouse.destroy', ['warehouse' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                @endcan
+                                @can('Warehouse Delete')
+                                    <li><a href="{{route('warehouse.destroy', ['warehouse' => $row->id])}}" class="delItem"><i class="icon-bin text-danger"></i> Delete</a></li>
+                                @endcan
                             </x-actions>
                         </td>
                     </tr>
