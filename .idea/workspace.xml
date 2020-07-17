@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2645d6cd-1c9b-4ae5-9099-e1539926e151" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/reports/print/account_book.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/reports/print/due_sales_invoice.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/reports/print/profit_lose.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/reports/print/single_customer_ledger.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Custom/DbDate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Custom/DbDate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Customer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/AccountsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/AccountsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/ReportsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/ReportsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Report/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Report/SalesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SellInvoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SellInvoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reports/accounts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reports/accounts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reports/customer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reports/customer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reports/profit_loss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reports/profit_loss.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reports/sales.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reports/sales.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/shared/aside.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shared/aside.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +19,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="true" current-in-tab="true">
+      <file pinned="true" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="239">
-              <caret line="96" column="89" lean-forward="true" selection-start-line="96" selection-start-column="89" selection-end-line="96" selection-end-column="89" />
+              <caret line="96" column="89" selection-start-line="96" selection-start-column="89" selection-end-line="96" selection-end-column="89" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="817">
+              <caret line="75" selection-start-line="75" selection-end-line="75" />
+              <folding>
+                <element signature="e#47#69#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Customer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4">
+              <caret line="191" column="24" selection-start-line="191" selection-start-column="24" selection-end-line="191" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -108,9 +120,7 @@
         <option value="$PROJECT_DIR$/resources/views/reports/print/single_customer_ledger.blade.php" />
         <option value="$PROJECT_DIR$/app/Customer.php" />
         <option value="$PROJECT_DIR$/app/SellInvoice.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" />
-        <option value="$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/reports/print/sales.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Report/SalesController.php" />
         <option value="$PROJECT_DIR$/resources/views/reports/sales.blade.php" />
@@ -123,6 +133,8 @@
         <option value="$PROJECT_DIR$/resources/views/reports/profit_loss.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Report/ReportsController.php" />
         <option value="$PROJECT_DIR$/resources/views/reports/print/profit_lose.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php" />
+        <option value="$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php" />
       </list>
     </option>
   </component>
@@ -242,7 +254,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="26" />
     <option name="y" value="-17" />
     <option name="width" value="1400" />
@@ -286,17 +298,6 @@
               <item name="Http" type="462c0819:PsiDirectoryNode" />
               <item name="Controllers" type="462c0819:PsiDirectoryNode" />
               <item name="Report" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ring" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ring" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ring" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ring" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ring" type="b2602c69:ProjectViewProjectNode" />
@@ -513,16 +514,18 @@
       <workItem from="1594897242197" duration="599000" />
       <workItem from="1594901953784" duration="20703000" />
       <workItem from="1594959970715" duration="4966000" />
+      <workItem from="1594966726568" duration="2302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="803290000" />
+    <option name="totallyTimeSpent" value="805592000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28144988" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28464818" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -712,24 +715,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Customer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="165" column="32" selection-start-line="165" selection-start-column="20" selection-end-line="165" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -782,16 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="138" />
-          <folding>
-            <element signature="e#47#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Report/SalesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -806,13 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="39" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Transaction.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="70" column="31" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -868,13 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/SellInvoice.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="256" column="31" selection-start-line="256" selection-start-column="23" selection-end-line="256" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Expense.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
@@ -916,7 +881,45 @@
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
-          <caret line="96" column="89" lean-forward="true" selection-start-line="96" selection-start-column="89" selection-end-line="96" selection-end-column="89" />
+          <caret line="96" column="89" selection-start-line="96" selection-start-column="89" selection-end-line="96" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Customer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4">
+          <caret line="191" column="24" selection-start-line="191" selection-start-column="24" selection-end-line="191" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Report/CustomerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="e#47#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/SellInvoice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="256" column="31" lean-forward="true" selection-start-line="256" selection-start-column="23" selection-end-line="256" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Transaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1526">
+          <caret line="70" column="31" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/reports/print/all_customer_ledger.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
         </state>
       </provider>
     </entry>

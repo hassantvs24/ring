@@ -18,19 +18,63 @@
                 <th>Qty</th>
                 <th>Delivery Amount</th>
                 <th>Collection</th>
+                <th>Opening Balance</th>
+                <th>Closing Balance</th>
                 <th>Last Collection</th>
                 <th>Cr. Limit</th>
-                <th>Balance</th>
+                <th>Usable Balance</th>
                 <th>Target</th>
                 <th>Agent</th>
             </tr>
             </thead>
             <tbody>
-            @php
-               // $total = 0;
-            @endphp
+            
             @foreach($table as $row)
                 @php
+
+                    $op_collect_in = $row->transactions()
+                     ->whereDate('created_at', '<', $st)
+                     ->where('transaction_type', 'IN')
+                     ->where('status', 'Active')
+                     ->sum('amount');
+
+                     $end_collect_in = $row->transactions()
+                     ->whereDate('created_at', '<=', $end)
+                     ->where('transaction_type', 'IN')
+                     ->where('status', 'Active')
+                     ->sum('amount');
+
+                     $op_collect_out = $row->transactions()
+                     ->whereDate('created_at', '<', $st)
+                     ->where('transaction_type', 'OUT')
+                     ->where('status', 'Active')
+                     ->sum('amount');
+
+                     $end_collect_out = $row->transactions()
+                     ->whereDate('created_at', '<=', $end)
+                     ->where('transaction_type', 'OUT')
+                     ->where('status', 'Active')
+                     ->sum('amount');
+
+                     $op_collect = $op_collect_in - $op_collect_out;
+                     $end_collect = $end_collect_in - $end_collect_out;
+
+                      $op_invoices = $row->sellInvoices()
+                     ->whereDate('created_at', '<', $st)
+                     ->where('status', 'Final')
+                     ->get();
+                     $op_invoices_amount = $op_invoices->sum('SubTotal');
+
+                     $end_invoices = $row->sellInvoices()
+                     ->whereDate('created_at', '<=', $end)
+                     ->where('status', 'Final')
+                     ->get();
+                     $end_invoices_amount = $end_invoices->sum('SubTotal');
+
+                     $op_balance = $op_collect - $op_invoices_amount;
+
+                     $end_balance = $end_collect - $end_invoices_amount;
+
                      $last_collect = $row->transactions()
                      ->whereBetween('created_at', $range)
                      ->where('transaction_type', 'IN')
@@ -57,8 +101,6 @@
                         $amount += $products['amount'];
                      }
 
-                //dd($last_collect->created_at);
-
                 @endphp
                 <tr>
                     <td>{{$row->name}}</td>
@@ -66,20 +108,19 @@
                     <td>{{$qty}}</td>
                     <td>{{money_c($amount)}}</td>
                     <td>{{money_c($collect)}}</td>
+                    <td>{{money_c($op_balance)}}</td>
+                    <td>{{money_c($end_balance)}}</td>
                     @if(isset($last_collect->created_at))
                         <td>{{pub_date($last_collect->created_at)}}</td>
                     @else
                         <td>--</td>
                     @endif
                     <td>{{money_c($row->credit_limit)}}</td>
-                    <td>{{money_c($row->dueBalance())}}</td>
+                    <td>{{money_c($row->credit_limit + $end_balance)}}</td>
                     <td>{{$row->sells_target}}</td>
                     <td>{{$row->agent['name'] ?? ''}}</td>
 
                 </tr>
-                @php
-                   // $total += $row->amount;
-                @endphp
             @endforeach
             </tbody>
         </table>

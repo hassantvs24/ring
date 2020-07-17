@@ -69,6 +69,7 @@ class CustomerController extends Controller
         }
         $table = $tablex->get();
 
-        return view('reports.print.all_customer_ledger')->with(['table' => $table, 'range' => $dt->ftr(), 'request' => $request->all()]);
+
+        return view('reports.print.all_customer_ledger')->with(['table' => $table, 'st' => $dt->form(), 'end' => $dt->to(),  'range' => $dt->ftr(), 'request' => $request->all()]);
     }
 }
