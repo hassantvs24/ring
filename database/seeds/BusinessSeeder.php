@@ -21,7 +21,7 @@ class BusinessSeeder extends Seeder
         $table->website = 'www.infinityflamesoft.com';
         $table->proprietor = 'Nazmul Hossain';
         $table->logo = 'logo.png';
-        $table->software_key = 'ifs-start';
+        $table->software_key = 'START';
         $table->save();
     }
 }

@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         $table->name = 'Admin';
         $table->email = 'admin@admin.com';
         $table->password = bcrypt(12345678);
-        $table->user_type = 'Admin';
+        $table->user_type = 'Super Admin';
         $table->business_id = 1;
         $table->save();
     }
