@@ -76,7 +76,7 @@
             </x-select>
 
             <x-input name="code" label="Serial Number" required="required" />
-            <x-input name="name" label="Supplier Name" required="required" />
+            <x-input name="name" label="Customer Name" required="required" />
             <x-input name="contact" label="Contact Number" required="required"  />
             <x-input type="email" name="email" label="Email Address" />
 

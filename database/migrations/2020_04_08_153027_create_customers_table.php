@@ -28,6 +28,7 @@ class CreateCustomersTable extends Migration
             $table->double('credit_limit')->default(0)->comment('0 for no limit');
             $table->double('balance')->default(0);
             $table->double('sells_target')->default(0)->comment('Monthly Sells Target');
+            $table->foreignId('agent_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('zones_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('unions_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('upa_zillas_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');

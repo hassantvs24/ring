@@ -162,14 +162,14 @@
                                 @foreach($sales as $row)
                                     <td>
                                         <div class="media-left media-middle">
-                                            <a href="{{route('sales.show', ['sale' => $row->id])}}" class="btn {{$colors[mt_rand(0,9)]}} btn-rounded btn-icon btn-xs">
+                                            <a @can('Sales Invoice') href="{{route('sales.show', ['sale' => $row->id])}}" @endcan class="btn {{$colors[mt_rand(0,9)]}} btn-rounded btn-icon btn-xs">
                                                 <span class="letter-icon">{{$row->name[0]}}</span>
                                             </a>
                                         </div>
 
                                         <div class="media-body">
                                             <div class="media-heading">
-                                                <a href="{{route('sales.show', ['sale' => $row->id])}}" class="letter-icon-title">{{$row->name}}</a>
+                                                <a @can('Sales Invoice') href="{{route('sales.show', ['sale' => $row->id])}}" @endcan class="letter-icon-title">{{$row->name}}</a>
                                             </div>
 
                                             <div class="text-muted text-size-small"><i class="icon-hash text-size-mini position-left"></i>{{$row->code}}</div>
@@ -220,14 +220,14 @@
                             @foreach($purchase as $row)
                                 <td>
                                     <div class="media-left media-middle">
-                                        <a href="{{route('purchase.show', ['purchase' => $row->id])}}" class="btn {{$colors[mt_rand(0,9)]}} btn-rounded btn-icon btn-xs">
+                                        <a @can('Purchase Invoice') href="{{route('purchase.show', ['purchase' => $row->id])}}" @endcan class="btn {{$colors[mt_rand(0,9)]}} btn-rounded btn-icon btn-xs">
                                             <span class="letter-icon">{{$row->name[0]}}</span>
                                         </a>
                                     </div>
 
                                     <div class="media-body">
                                         <div class="media-heading">
-                                            <a href="{{route('purchase.show', ['purchase' => $row->id])}}" class="letter-icon-title">{{$row->name}}</a>
+                                            <a @can('Purchase Invoice') href="{{route('purchase.show', ['purchase' => $row->id])}}" @endcan class="letter-icon-title">{{$row->name}}</a>
                                         </div>
 
                                         <div class="text-muted text-size-small"><i class="icon-hash text-size-mini position-left"></i>{{$row->code}}</div>
