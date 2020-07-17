@@ -16,6 +16,11 @@ class PreInstallSeeder extends Seeder
     public function run()
     {
 
+        Role::create([
+            'id' => 1,
+            'name' => 'Super Admin'
+        ]);
+
         $warehouse = new Warehouse();
         $warehouse->id = 1;
         $warehouse->name = 'Infinity Flame Soft';
@@ -44,6 +49,8 @@ class PreInstallSeeder extends Seeder
         $user->account_books_id = 1;
         $user->save();
 
-        Role::create(['name' => 'Super Admin']);
+        $user->assignRole(1);
+
+
     }
 }

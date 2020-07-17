@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
 
 //         $this->call(BusinessSeeder::class);
 //         $this->call(UserSeeder::class);
-//         $this->call(PreInstallSeeder::class);
 //         $this->call(PermissionTableSeeder::class);
+//         $this->call(PreInstallSeeder::class);
 //         $this->call(DivisionSeeder::class);
 
 
