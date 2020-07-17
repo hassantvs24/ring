@@ -241,6 +241,14 @@ class SellInvoice extends Model
 
     }
 
+    public function main_product(){
+        $products = Product::select('id')->where('product_type', 'Main')->pluck('id')->toArray();
+        $quantity = $this->invoiceItems()->whereIn('products_id', $products)->sum('quantity');
+        $amount = $this->invoiceItems()->whereIn('products_id', $products)->sum('amount');
+
+        return array('qty' => $quantity, 'amount' => $amount);
+    }
+
     public function getBalanceDueAttribute()
     {
         return $this->balance_due();

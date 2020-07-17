@@ -218,6 +218,18 @@ class Customer extends Model
         return $total;
     }
 
+
+    public function daily($data){
+        $invoice = $this->sellInvoices()->whereDate('created_at', $data)->where('status', 'Final')->get();
+        $invoice_total = $invoice->sum('SubTotal');
+        $transaction_out = $this->transactions()->whereDate('created_at', $data)->where('transaction_type', 'OUT')->where('status', 'Active')->sum('amount');
+        $out = $invoice_total + $transaction_out;
+        $in = $this->transactions()->whereDate('created_at', $data)->where('transaction_type', 'IN')->where('status', 'Active')->sum('amount');
+
+        return array('in' => $in, 'out' => $out);
+    }
+
+
     public function getSalesAttribute()
     {
         return $this->totalSales();

@@ -47,12 +47,32 @@
 
     </div>
 
+    <div class="row">
+
+
+        <div class="col-md-5">
+            <x-rpnl name="All Due Invoice List" action="{{route('reports.sales_invoice_due')}}">
+                <x-dselect label="Customer" class="customer" name="customers_id" required="">
+                    <option value="">Select Customer (Optional)</option>
+                    @foreach($customer as $row)
+                        <option value="{{$row->id}}">{{$row->name}}</option>
+                    @endforeach
+                </x-dselect>
+                <x-dselect label="Due status" class="due" name="due" required="required">
+                    <option value="Due">Due Invoice List</option>
+                    <option value="Over">Over Due Invoice List</option>
+                </x-dselect>
+            </x-rpnl>
+        </div>
+
+    </div>
+
 @endsection
 
 @section('script')
     <script type="text/javascript">
         $(function () {
-            $('.products, .customer, .agent').select2();
+            $('.products, .customer, .agent, .due').select2();
 
             $('.date_pic').daterangepicker({
                 locale: {

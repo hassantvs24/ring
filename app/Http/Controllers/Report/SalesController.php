@@ -67,4 +67,29 @@ class SalesController extends Controller
         $table = $tablex->get();
         return view('reports.print.sales_item')->with(['table' => $table, 'request' => $request->all()]);
     }
+
+
+    public function due(Request $request){
+        $validator = Validator::make($request->all(), [
+            'due' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $tablex = SellInvoice::where('status','Final')->orderBy('created_at');
+
+        if($request->due == 'Over'){
+            $tablex->where('due_date', '<', date('Y-m-d'));
+        }
+
+        if(!empty($request->customers_id)){
+            $tablex->where('customers_id', $request->customers_id);
+        }
+
+        $table = $tablex->get();
+        return view('reports.print.due_sales_invoice')->with(['table' => $table, 'request' => $request->all()]);
+
+    }
 }

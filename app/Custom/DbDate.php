@@ -128,4 +128,15 @@ class DbDate
         return array($this->db_st(), $this->db_end());
     }
 
+    public function gen_list(){
+        $date_from = strtotime($this->form());
+        $date_to  = strtotime($this->to());
+
+        $list = array();
+        for ($i=$date_from; $i<=$date_to; $i+=86400) {
+            array_push($list, date("Y-m-d", $i));
+        }
+        return $list;
+    }
+
 }

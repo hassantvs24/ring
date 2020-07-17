@@ -75,16 +75,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
 
 
+    Route::post('/reports/profit-loss',  'Report\ReportsController@profit_lose')->name('reports.profit-loss_action');
     Route::get('/reports/profit-loss',  'Report\ReportsController@index')->name('reports.profit-loss');
 
     Route::post('/reports/expense',  'Report\ExpenseController@reports')->name('reports.expense-report');
     Route::get('/reports/expense',  'Report\ExpenseController@index')->name('reports.expense');
 
+    Route::post('/reports/accounts-book',  'Report\AccountsController@reports')->name('reports.accounts_book');
     Route::get('/reports/accounts',  'Report\AccountsController@index')->name('reports.accounts');
+
     Route::get('/reports/supplier',  'Report\SupplierController@index')->name('reports.supplier');
 
+
+    Route::post('/reports/customer-single-ledger',  'Report\CustomerController@single_customer')->name('reports.customer_single');
+    Route::post('/reports/customer-all-ledger',  'Report\CustomerController@all_customer')->name('reports.customer_all');
     Route::get('/reports/customer',  'Report\CustomerController@index')->name('reports.customer');
 
+    Route::post('/reports/sales-invoice-due',  'Report\SalesController@due')->name('reports.sales_invoice_due');
     Route::post('/reports/sales-invoice',  'Report\SalesController@invoice')->name('reports.sales_invoice');
     Route::post('/reports/sales-invoice-item',  'Report\SalesController@items')->name('reports.sales_items');
     Route::get('/reports/sales',  'Report\SalesController@index')->name('reports.sales');
