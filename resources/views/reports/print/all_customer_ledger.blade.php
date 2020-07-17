@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            
+
             @foreach($table as $row)
                 @php
 
