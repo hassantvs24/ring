@@ -10,6 +10,14 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="f37bf074-48f2-4182-99e0-e1709e62c591" name="Kusiara" url="http://wwwmi3-ss35.a2hosting.com">
+        <fileTransfer host="wwwmi3-ss35.a2hosting.com" port="21" rootFolder="/admin.kushiaraseeds.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

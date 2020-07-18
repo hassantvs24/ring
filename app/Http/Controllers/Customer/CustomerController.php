@@ -57,6 +57,7 @@ class CustomerController extends Controller
             $table = new Customer();
             $table->code = $request->code ?? mt_rand();
             $table->name = $request->name;
+            $table->contact_person = $request->contact_person;
             $table->address = $request->address;
             $table->email = $request->email;
             $table->contact = $request->contact;
@@ -107,6 +108,7 @@ class CustomerController extends Controller
             $table = Customer::find($id);
             $table->code = $request->code ?? mt_rand();
             $table->name = $request->name;
+            $table->contact_person = $request->contact_person;
             $table->address = $request->address;
             $table->email = $request->email;
             $table->contact = $request->contact;

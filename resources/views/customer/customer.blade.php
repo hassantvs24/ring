@@ -49,6 +49,7 @@
                                    data-code="{{$row->code}}"
                                    data-name="{{$row->name}}"
                                    data-contact="{{$row->contact}}"
+                                   data-person="{{$row->contact_person}}"
                                    data-email="{{$row->email}}"
                                    data-address="{{$row->address}}"
                                    data-phone="{{$row->phone}}"
@@ -112,6 +113,7 @@
                 var balance = $(this).data('balance');
                 var customer_categories_id = $(this).data('category');
                 var description = $(this).data('description');
+                var contact_person = $(this).data('person');
 
                 $('#ediModal form').attr('action', url);
                 $('#ediModal [name=name]').val(name);
@@ -125,6 +127,7 @@
                 $('#ediModal [name=sells_target]').val(sells_target);
                 $('#ediModal [name=balance]').val(balance);
                 $('#ediModal [name=description]').val(description);
+                $('#ediModal [name=contact_person]').val(contact_person);
 
                 $('#ediModal [name=agent_id]').val(agent_id).select2();
                 $('#ediModal [name=upa_zillas_id]').val(upa_zillas_id).select2();
@@ -191,6 +194,6 @@
             });
         });
 
-        
+
     </script>
 @endsection

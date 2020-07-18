@@ -34,6 +34,7 @@
             </div>
 
             <div class="col-md-6">
+                <x-input name="contact_person" label="Contact person"/>
                 <x-input name="phone" label="Phone Number" />
                 <x-input name="alternate_contact" label="Alternate Contact" />
                 <x-input name="address" label="Address" />
@@ -84,6 +85,7 @@
         </div>
 
         <div class="col-md-6">
+            <x-input name="contact_person" label="Contact person"/>
             <x-input name="phone" label="Phone Number" />
             <x-input name="alternate_contact" label="Alternate Contact" />
             <x-input name="address" label="Address" />

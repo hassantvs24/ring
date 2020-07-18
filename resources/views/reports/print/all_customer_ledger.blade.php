@@ -15,8 +15,8 @@
             <tr>
                 <th>Party Name</th>
                 <th>Address</th>
-                <th>Qty</th>
-                <th>Delivery Amount</th>
+                <!--<th>Qty</th>
+                <th>Delivery Amount</th>-->
                 <th>Collection</th>
                 <th>Opening Balance</th>
                 <th>Closing Balance</th>
@@ -24,7 +24,7 @@
                 <th>Cr. Limit</th>
                 <th>Usable Balance</th>
                 <th>Target</th>
-                <th>Agent</th>
+                <!--<th>Agent</th>-->
             </tr>
             </thead>
             <tbody>
@@ -93,20 +93,20 @@
                      ->where('status', 'Final')
                      ->get();
 
-                     $qty = 0;
+                     /*$qty = 0;
                      $amount = 0;
                      foreach ($invoices as $rows){
                         $products = $rows->main_product();
                         $qty += $products['qty'];
                         $amount += $products['amount'];
-                     }
+                     }*/
 
                 @endphp
                 <tr>
                     <td>{{$row->name}}</td>
                     <td>{{$row->address}}</td>
-                    <td>{{$qty}}</td>
-                    <td>{{money_c($amount)}}</td>
+                    <!--<td>{{--$qty--}}</td>
+                    <td>{{--money_c($amount)--}}</td>-->
                     <td>{{money_c($collect)}}</td>
                     <td>{{money_c($op_balance)}}</td>
                     <td>{{money_c($end_balance)}}</td>
@@ -118,7 +118,7 @@
                     <td>{{money_c($row->credit_limit)}}</td>
                     <td>{{money_c($row->credit_limit + $end_balance)}}</td>
                     <td>{{$row->sells_target}}</td>
-                    <td>{{$row->agent['name'] ?? ''}}</td>
+                    <!--<td>{{--$row->agent['name'] ?? ''--}}</td>-->
 
                 </tr>
             @endforeach

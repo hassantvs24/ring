@@ -62,7 +62,7 @@ class Customer extends Model
     /**
      * @var array
      */
-    protected $fillable = ['zones_id', 'agent_id', 'unions_id', 'upa_zillas_id', 'zillas_id', 'divisions_id', 'vet_texes_id', 'customer_categories_id', 'warehouses_id', 'business_id', 'users_id', 'name', 'code', 'address', 'email', 'contact', 'phone', 'alternate_contact', 'description', 'image', 'pay_term', 'credit_limit', 'balance', 'sells_target', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['zones_id', 'contact_person', 'agent_id', 'unions_id', 'upa_zillas_id', 'zillas_id', 'divisions_id', 'vet_texes_id', 'customer_categories_id', 'warehouses_id', 'business_id', 'users_id', 'name', 'code', 'address', 'email', 'contact', 'phone', 'alternate_contact', 'description', 'image', 'pay_term', 'credit_limit', 'balance', 'sells_target', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -214,6 +214,15 @@ class Customer extends Model
         $total_amount = $this->totalSales();
 
         $total = $total_paid - $total_amount;
+
+        return $total;
+    }
+
+    public function dueBalancex(){
+        $total_paid = $this->totalPayment();
+        $total_amount = $this->totalSales();
+
+        $total = $total_amount - $total_paid;
 
         return $total;
     }

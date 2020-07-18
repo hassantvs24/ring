@@ -26,7 +26,7 @@
             <p>
                 <strong>{{$table->warehouse['name'] ?? $table->business['name']}}</strong><br />
                 {{$table->warehouse['address'] ?? $table->business['address']}}<br />
-                Cell: {{$table->warehouse['contact'] ?? $table->business['contact']}} <br />
+                Mobile: {{$table->warehouse['contact'] ?? $table->business['contact']}} <br />
                 Email: {{$table->warehouse['email'] ?? $table->business['email']}} <br />
                 Web: {{$table->warehouse['website'] ?? $table->business['website']}}
             </p>
@@ -36,10 +36,10 @@
                 <strong>{{$table->name}}</strong><br />
                 {{$table->address}}<br />
                 Cell: {{$table->contact}}<br />
-                Email: {{$table->email}}
+                Customer ID: {{$table->code}}
                 <hr />
                 <p><strong>Invoice Due: {{money_c($table->invoice_due())}}</strong></p>
-                <p><strong>Due Adjustment: {{money_c($table->balance_due())}}</strong></p>
+                <p><strong>Total Due: {{money_c($table->customer->dueBalancex() ?? 0)}}</strong></p>
 
             </p>
         </div>

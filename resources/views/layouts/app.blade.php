@@ -10,7 +10,7 @@
 
 
 
-    <title>{{ config('app.name', 'Ring') }}</title>
+    <title>Ring</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
