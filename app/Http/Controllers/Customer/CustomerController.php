@@ -195,4 +195,32 @@ class CustomerController extends Controller
         return view('customer.transaction')->with(['table' => $table, 'warehouse' => $warehouse, 'customer' => $customer, 'ac_book' => $ac_book]);
     }
 
+    public function customer_api(Request $request){
+        $search = $request->search;
+
+        $table = Customer::orderBy('name')
+            ->orderBy('name')
+            ->where('name', 'like', $search.'%')
+            ->orWhere('contact', 'like', $search.'%')
+            ->take(15)
+            ->get();
+
+        $data = array();
+
+        foreach ($table as $row){
+              $rowData['id'] = $row->id;
+              $rowData['text'] = $row->name.' ♦ '.$row->contact;
+              array_push($data, $rowData);
+        }
+
+        return response()->json(['results' => $data]);
+    }
+
+    public function get_cr_bl(Request $request){
+        $id = $request->id;
+        $table = Customer::find($id);
+
+        return response()->json(array($table->credit_limit, $table->dueBalance()));
+    }
+
 }

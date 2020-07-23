@@ -18,6 +18,14 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="df741840-6742-4c2e-9e1e-c3c1c4da8396" name="nne" url="http://premium22.web-hosting.com">
+        <fileTransfer host="premium22.web-hosting.com" port="21" rootFolder="/nne.sodaighor.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

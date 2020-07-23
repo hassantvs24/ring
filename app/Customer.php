@@ -212,9 +212,7 @@ class Customer extends Model
     public function dueBalance(){
         $total_paid = $this->totalPayment();
         $total_amount = $this->totalSales();
-
         $total = $total_paid - $total_amount;
-
         return $total;
     }
 

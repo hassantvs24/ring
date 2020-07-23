@@ -5,6 +5,7 @@
     Sales Edit
 @endsection
 @section('content')
+    <a href="{{route('sales-list.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left mb-15"><b><i class="icon-arrow-left5"></i></b> Back to invoice list</a>
 
     <x-panel name="Sales Edit">
         <form action="{{route('sales.update', ['sale' => $table->id])}}" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -30,9 +31,6 @@
                         <span class="input-group-addon" id="basic-addon1">Add Item</span>
                         <select name="products" class="form-control products">
                             <option value="">Select Product</option>
-                            @foreach($products as $row)
-                                <option value="{{$row->id}} -x- {{$row->sku}} -x- {{$row->name}} -x- {{$row->sell_price}}">{{$row->sku}} - {{$row->name}} &diams; ${{money_c($row->sell_price)}} &sim; ({{$row->currentStock()}} {{$row->unit['name']}})</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -360,7 +358,19 @@
             });
 
 
-            $('.customer, .status, .warehouses, .vat_tax, .discount, .shipment, .products, .accounts, .payment_method').select2();
+            $('.products').select2({
+                ajax: {
+                    url: "{{route('product.api')}}",
+                    delay: 250,
+                    data: function (params) {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {search: params.term, type: 'sales' };
+                    }
+                }
+            });
+
+
+            $('.customer, .status, .warehouses, .vat_tax, .discount, .shipment, .accounts, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

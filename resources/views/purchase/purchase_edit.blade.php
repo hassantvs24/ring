@@ -6,6 +6,8 @@
 @endsection
 @section('content')
 
+    <a href="{{route('purchase-list.index')}}" class="btn btn-danger heading-btn btn-labeled btn-labeled-left mb-15"><b><i class="icon-arrow-left5"></i></b> Back to purchase list</a>
+
     <x-panel name="Purchase Edit">
         <form action="{{route('purchase.update',['purchase' => $table->id])}}" method="post" class="form-horizontal" enctype="multipart/form-data">
             @csrf
@@ -29,9 +31,6 @@
                         <span class="input-group-addon" id="basic-addon1">Add Item</span>
                         <select name="products" class="form-control products">
                             <option value="">Select Product</option>
-                            @foreach($products as $row)
-                                <option value="{{$row->id}} -x- {{$row->sku}} -x- {{$row->name}} -x- {{$row->purchase_price}}">{{$row->sku}} - {{$row->name}} &diams; ${{money_c($row->purchase_price)}} &sim; ({{$row->currentStock()}} {{$row->unit['name']}})</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -334,8 +333,18 @@
                 // alert(due);
             });
 
+            $('.products').select2({
+                ajax: {
+                    url: "{{route('product.api')}}",
+                    delay: 250,
+                    data: function (params) {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {search: params.term, type: 'purchase' };
+                    }
+                }
+            });
 
-            $('.supplier, .status, .warehouses, .vat_tax, .discount, .shipment, .products, .accounts, .payment_method').select2();
+            $('.supplier, .status, .warehouses, .vat_tax, .discount, .shipment, .accounts, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

@@ -50,9 +50,9 @@
                     <div class="heading-elements">
                         <i class="icon-cart5"></i>
                     </div>
-                    <h3 class="no-margin">{{money_c($today_sale)}}</h3>
+                    <h3 class="no-margin"><span id="today_sale"><i class="icon-spinner2 spinner"></i></span></h3>
                     Sales Today
-                    <div class="text-muted text-size-small">{{money_c($customer_due)}} Total Sales Due</div>
+                    <div class="text-muted text-size-small"><span id="customer_due"></span> Total Sales Due</div>
                 </div>
             </div>
         </div>
@@ -63,9 +63,9 @@
                     <div class="heading-elements">
                         <i class="icon-cart"></i>
                     </div>
-                    <h3 class="no-margin">{{money_c($today_purchase)}}</h3>
+                    <h3 class="no-margin"><span id="today_purchase"><i class="icon-spinner2 spinner"></i></span></h3>
                     Purchase Today
-                    <div class="text-muted text-size-small">{{money_c($supplier_due)}} Total Purchase Due</div>
+                    <div class="text-muted text-size-small"><span id="supplier_due"></span> Total Purchase Due</div>
                 </div>
             </div>
         </div>
@@ -76,9 +76,9 @@
                     <div class="heading-elements">
                         <i class="icon-box-remove"></i>
                     </div>
-                    <h3 class="no-margin">{{money_c($today_expance)}}</h3>
+                    <h3 class="no-margin"><span id="today_expance"><i class="icon-spinner2 spinner"></i></span></h3>
                     Expense Today
-                    <div class="text-muted text-size-small">{{money_c($monthly_expance)}} Expanse this month</div>
+                    <div class="text-muted text-size-small"><span id="monthly_expance"></span> Expanse this month</div>
                 </div>
             </div>
         </div>
@@ -89,9 +89,9 @@
                     <div class="heading-elements">
                         <i class="icon-truck"></i>
                     </div>
-                    <h3 class="no-margin">{{money_c($stock_value)}}</h3>
+                    <h3 class="no-margin"><span id="stock_value"><i class="icon-spinner2 spinner"></i></span></h3>
                     Current Stock Value
-                    <div class="text-muted text-size-small">{{$stock_lower}} Lower stock item</div>
+                    <div class="text-muted text-size-small"><span id="stock_lower"></span> Lower stock item</div>
                 </div>
             </div>
         </div>
@@ -102,9 +102,9 @@
                     <div class="heading-elements">
                         <i class="icon-calculator3"></i>
                     </div>
-                    <h3 class="no-margin">{{money_c($ac_balance)}}</h3>
+                    <h3 class="no-margin"><span id="ac_balance"><i class="icon-spinner2 spinner"></i></span></h3>
                     Account Balance
-                    <div class="text-muted text-size-small">{{money_c($today_balance)}} Today balance</div>
+                    <div class="text-muted text-size-small"><span id="today_balance"></span> Today balance</div>
                 </div>
             </div>
         </div>
@@ -115,9 +115,9 @@
                     <div class="heading-elements">
                         <i class="icon-users4"></i>
                     </div>
-                    <h3 class="no-margin">{{$total_customer}}</h3>
+                    <h3 class="no-margin"><span id="total_customer"><i class="icon-spinner2 spinner"></i></span></h3>
                     Total Customer
-                    <div class="text-muted text-size-small">{{$new_customer}} New Customer</div>
+                    <div class="text-muted text-size-small"><span id="new_customer"></span> New Customer</div>
                 </div>
             </div>
         </div>
@@ -287,62 +287,80 @@
 
     <script type="text/javascript">
 
-        $.getJSON( "{{route('api.graph')}}", function( data ) {
-            var product_names = [];
-            var customer_names = [];
+        $(function () {
 
-            var op_date = [];
-            var sales = [];
-            var purchase = [];
+            $.getJSON( "{{route('api.graph')}}", function( data ) {
+                var product_names = [];
+                var customer_names = [];
 
-            var op_month = [];
-            var mo_sales = [];
-            var mo_purchase = [];
+                var op_date = [];
+                var sales = [];
+                var purchase = [];
 
-            $.each( data.stock, function( key, val ) {
-                product_names.push(val.name);
+                var op_month = [];
+                var mo_sales = [];
+                var mo_purchase = [];
+
+                $.each( data.stock, function( key, val ) {
+                    product_names.push(val.name);
+                });
+
+                $.each( data.customer, function( key, val ) {
+                    customer_names.push(val.name);
+                });
+
+                $.each( data.invoice, function( key, val ) {
+                    op_date.push(val.date);
+                    sales.push(val.sales);
+                    purchase.push(val.purchase);
+                });
+
+
+                $.each( data.yearly, function( key, val ) {
+                    op_month.push(val.month);
+                    mo_sales.push(val.sales);
+                    mo_purchase.push(val.purchase);
+                });
+
+                $('.spin').hide();
+
+                var pie_stock_element = document.getElementById('pie_stock');
+                var pie_stock = echarts.init(pie_stock_element);
+
+                var pie_sales_element = document.getElementById('pie_customer');
+                var pie_sales = echarts.init(pie_sales_element);
+
+                var area_zoom_element = document.getElementById('area_zoom');
+                var area_zoom = echarts.init(area_zoom_element);
+
+                var columns_basic_element = document.getElementById('columns_basic');
+                var columns_basic = echarts.init(columns_basic_element);
+
+                pie_stock.setOption(pie(data.stock, product_names, 'Top 10 products', 'Top product by current stock', 'Stock'));
+                pie_sales.setOption(pie(data.customer, customer_names, 'Top 10 Customers', 'Top customer by Sales', 'Sales'));
+                area_zoom.setOption(zoom_area(op_date, sales, purchase));
+                columns_basic.setOption(column_chart(op_month, mo_sales, mo_purchase));
+
             });
 
-            $.each( data.customer, function( key, val ) {
-                customer_names.push(val.name);
+
+
+            $.getJSON( "{{route('api.info')}}", function( data ){
+                console.log(data);
+                $('#today_sale').html(Number(data.today_sale).toFixed(2));
+                $('#today_purchase').html(Number(data.today_purchase).toFixed(2));
+                $('#today_expance').html(Number(data.today_expance).toFixed(2));
+                $('#stock_value').html(Number(data.stock_value).toFixed(2));
+                $('#total_customer').html(data.total_customer);
+                $('#ac_balance').html(Number(data.ac_balance).toFixed(2));
+                $('#customer_due').html(Number(data.customer_due).toFixed(2));
+                $('#supplier_due').html(Number(data.supplier_due).toFixed(2));
+                $('#monthly_expance').html(Number(data.monthly_expance).toFixed(2));
+                $('#stock_lower').html(data.stock_lower);
+                $('#today_balance').html(Number(data.today_balance).toFixed(2));
+                $('#new_customer').html(data.new_customer);
             });
-
-            $.each( data.invoice, function( key, val ) {
-                op_date.push(val.date);
-                sales.push(val.sales);
-                purchase.push(val.purchase);
-            });
-
-
-            $.each( data.yearly, function( key, val ) {
-                op_month.push(val.month);
-                mo_sales.push(val.sales);
-                mo_purchase.push(val.purchase);
-            });
-
-            $('.spin').hide();
-
-            var pie_stock_element = document.getElementById('pie_stock');
-            var pie_stock = echarts.init(pie_stock_element);
-
-            var pie_sales_element = document.getElementById('pie_customer');
-            var pie_sales = echarts.init(pie_sales_element);
-
-            var area_zoom_element = document.getElementById('area_zoom');
-            var area_zoom = echarts.init(area_zoom_element);
-
-            var columns_basic_element = document.getElementById('columns_basic');
-            var columns_basic = echarts.init(columns_basic_element);
-
-            pie_stock.setOption(pie(data.stock, product_names, 'Top 10 products', 'Top product by current stock', 'Stock'));
-            pie_sales.setOption(pie(data.customer, customer_names, 'Top 10 Customers', 'Top customer by Sales', 'Sales'));
-            area_zoom.setOption(zoom_area(op_date, sales, purchase));
-            columns_basic.setOption(column_chart(op_month, mo_sales, mo_purchase));
-
         });
-
-
-
 
     </script>
 @endsection

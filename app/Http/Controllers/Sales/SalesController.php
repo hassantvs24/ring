@@ -21,15 +21,13 @@ class SalesController extends Controller
 {
     public function index()
     {
-        $products = Product::with('brand', 'company', 'productCategory', 'unit')->orderBy('name')->get();
-        $customer = Customer::orderBy('name')->get();
         $warehouse = Warehouse::orderBy('name')->get();
         $discount = Discount::orderBy('name')->get();
         $shipment = Shipment::orderBy('name')->get();
         $vat_tax = VetTex::orderBy('name')->get();
         $ac_book = AccountBook::orderBy('name')->get();
 
-        return view('sales.sales')->with(['customer' => $customer, 'products' => $products, 'warehouse' => $warehouse, 'discount' => $discount, 'shipment' => $shipment, 'vat_tax' => $vat_tax, 'ac_book' => $ac_book]);
+        return view('sales.sales')->with(['warehouse' => $warehouse, 'discount' => $discount, 'shipment' => $shipment, 'vat_tax' => $vat_tax, 'ac_book' => $ac_book]);
     }
 
     public function store(Request $request)

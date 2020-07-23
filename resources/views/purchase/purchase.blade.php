@@ -29,9 +29,6 @@
                         <span class="input-group-addon" id="basic-addon1">Add Item</span>
                         <select name="products" class="form-control products">
                             <option value="">Select Product</option>
-                            @foreach($products as $row)
-                                <option value="{{$row->id}} -x- {{$row->sku}} -x- {{$row->name}} -x- {{$row->purchase_price}}">{{$row->sku}} - {{$row->name}} &diams; ${{money_c($row->purchase_price)}} &sim; ({{$row->currentStock()}} {{$row->unit['name']}})</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -320,7 +317,19 @@
 
             $('.warehouses').val("{{auth()->user()->warehouses_id}}").select2();
             $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
-            $('.supplier, .status, .vat_tax, .discount, .shipment, .products, .payment_method').select2();
+
+            $('.products').select2({
+                ajax: {
+                    url: "{{route('product.api')}}",
+                    delay: 250,
+                    data: function (params) {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {search: params.term, type: 'purchase' };
+                    }
+                }
+            });
+
+            $('.supplier, .status, .vat_tax, .discount, .shipment, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

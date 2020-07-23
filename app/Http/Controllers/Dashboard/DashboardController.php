@@ -21,53 +21,13 @@ class DashboardController extends Controller
         $sales = SellInvoice::orderBy('id', 'DESC')->where('status', 'Final')->take(10)->get();
         $purchase = PurchaseInvoice::orderBy('id', 'DESC')->where('status', '<>', 'Pending')->take(10)->get();
         $transaction = Transaction::orderBy('id', 'DESC')->where('status', 'Active')->take(10)->get();
-        $product= Product::all();
-        $stock_value = $product->sum('StockValue');
-        $stock_lower = $product->sum('StockLower');
-        $customer = Customer::all();
-        $customer_due = $customer->sum('SalesDue');
-        $total_customer = $customer->count();
-        $supplier_due = Supplier::all()->sum('PurchaseDue');
-
-        $ac_balance = AccountBook::all()->sum('TotalBalance');
         $colors = ['bg-primary-400', 'bg-danger-400', 'bg-indigo-400', 'bg-success-400', 'bg-info-400', 'bg-pink-400', 'bg-purple-400', 'bg-brown-400', 'bg-teal-400', 'bg-slate-400'];
-
-        $today = date('Y-m-d');
-
-        $today_sales = SellInvoice::whereDate('created_at', $today)->where('status', 'Final')->get();
-        $today_sale = $today_sales->sum('SubTotal');
-
-        $today_purchases = PurchaseInvoice::whereDate('created_at', $today)->where('status', '<>', 'Pending')->get();
-        $today_purchase = $today_purchases->sum('SubTotal');
-
-        $today_expance = Expense::whereDate('created_at', $today)->sum('amount');
-
-        $monthly_expance = Expense::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('amount');
-
-        $in_balance = Transaction::whereDate('created_at', $today)->where('transaction_type', 'IN')->sum('amount');
-        $out_balance = Transaction::whereDate('created_at', $today)->where('transaction_type', 'OUT')->sum('amount');
-        $today_balance = $in_balance - $out_balance;
-
-        $customer_today = Customer::whereDate('created_at', $today)->get();
-        $new_customer = $customer_today->count();
 
         return view('dashboard.dashboard')->with([
             'sales' => $sales,
             'purchase' => $purchase,
             'transaction' => $transaction,
-            'colors' => $colors,
-            'today_sale' => $today_sale,
-            'today_purchase' => $today_purchase,
-            'today_expance' => $today_expance,
-            'stock_value' => $stock_value,
-            'total_customer' => $total_customer,
-            'ac_balance' => $ac_balance,
-            'customer_due' => $customer_due,
-            'supplier_due' => $supplier_due,
-            'monthly_expance' => $monthly_expance,
-            'stock_lower' => $stock_lower,
-            'today_balance' => $today_balance,
-            'new_customer' => $new_customer
+            'colors' => $colors
         ]);
     }
 
@@ -125,6 +85,54 @@ class DashboardController extends Controller
 
         return response()->json(array('stock' => $product_data, 'customer' => $customer_data, 'invoice' => $sl_ps_data, 'yearly' => $year_data));
     }
+
+
+    public function info_data(){
+        $product= Product::all();
+        $stock_value = $product->sum('StockValue');
+        $stock_lower = $product->sum('StockLower');
+        $customer = Customer::all();
+        $customer_due = $customer->sum('SalesDue');
+        $total_customer = $customer->count();
+        $supplier_due = Supplier::all()->sum('PurchaseDue');
+
+        $ac_balance = AccountBook::all()->sum('TotalBalance');
+
+        $today = date('Y-m-d');
+
+        $today_sales = SellInvoice::whereDate('created_at', $today)->where('status', 'Final')->get();
+        $today_sale = $today_sales->sum('SubTotal');
+
+        $today_purchases = PurchaseInvoice::whereDate('created_at', $today)->where('status', '<>', 'Pending')->get();
+        $today_purchase = $today_purchases->sum('SubTotal');
+
+        $today_expance = Expense::whereDate('created_at', $today)->sum('amount');
+
+        $monthly_expance = Expense::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('amount');
+
+        $in_balance = Transaction::whereDate('created_at', $today)->where('transaction_type', 'IN')->sum('amount');
+        $out_balance = Transaction::whereDate('created_at', $today)->where('transaction_type', 'OUT')->sum('amount');
+        $today_balance = $in_balance - $out_balance;
+
+        $customer_today = Customer::whereDate('created_at', $today)->get();
+        $new_customer = $customer_today->count();
+
+        return response()->json([
+            'today_sale' => $today_sale,
+            'today_purchase' => $today_purchase,
+            'today_expance' => $today_expance,
+            'stock_value' => $stock_value,
+            'total_customer' => $total_customer,
+            'ac_balance' => $ac_balance,
+            'customer_due' => $customer_due,
+            'supplier_due' => $supplier_due,
+            'monthly_expance' => $monthly_expance,
+            'stock_lower' => $stock_lower,
+            'today_balance' => $today_balance,
+            'new_customer' => $new_customer
+        ]);
+    }
+
 
 
 

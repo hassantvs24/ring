@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/', 'Dashboard\DashboardController@index')->name('index');
         Route::get('/api/graph', 'Dashboard\DashboardController@fixed_data')->name('api.graph');
+        Route::get('/api/info', 'Dashboard\DashboardController@info_data')->name('api.info');
 
         Route::get('/purchase/list',  'Purchase\PurchaseListController@index')->name('purchase-list.index');
         Route::get('/purchase/pending',  'Purchase\PurchaseListController@pending')->name('purchase.pending');
@@ -29,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/sales/draft',  'Sales\SalesListController@draft')->name('sales.draft');
         Route::resource('/sales',  'Sales\SalesController')->except(['create']);
 
+        Route::get('/api/customer/info',  'Customer\CustomerController@get_cr_bl')->name('customer_bl.api');
+        Route::get('/api/customer',  'Customer\CustomerController@customer_api')->name('customer.api');
         Route::put('/customer/payment/{id}',  'Customer\CustomerController@due_payment')->name('customer.payment');
         Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'edit']);
 
@@ -38,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/customer/agent',  'Customer\AgentController')->except(['create', 'show', 'edit']);
         Route::resource('/customer/category',  'Customer\CustomerCategoryController',['names' => 'customer-category'])->except(['create', 'show', 'edit']);
 
+        Route::get('/api/product',  'Stock\ProductController@product_api')->name('product.api');
         Route::get('/stock/transaction/{id}',  'Stock\ProductController@transaction')->name('stock.transaction');
         Route::resource('/stock/products',  'Stock\ProductController')->except(['create', 'show', 'edit']);
         Route::resource('/stock/category',  'Stock\ProductCategoryController',['names' => 'product-category'])->except(['create', 'show', 'edit']);

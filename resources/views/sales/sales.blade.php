@@ -15,9 +15,10 @@
                 </div>
                 <div class="col-md-6">
                     <x-select class="customer" name="customers_id" label="Customer" required="required" >
-                        @foreach($customer as $row)
-                            <option value="{{$row->id}}" data-crlimit="{{$row->credit_limit}}" data-balance="{{$row->dueBalance()}}">{{$row->code}} - {{$row->name}} &diams; {{$row->contact}}</option>
-                        @endforeach
+                        <option value="">Select Customer</option>
+{{--                        @foreach($customer as $row)--}}
+{{--                            <option value="{{$row->id}}" data-crlimit="{{$row->credit_limit}}" data-balance="{{$row->dueBalance()}}">{{$row->code}} - {{$row->name}} &diams; {{$row->contact}}</option>--}}
+{{--                        @endforeach--}}
                     </x-select>
                 </div>
             </div>
@@ -29,9 +30,6 @@
                         <span class="input-group-addon" id="basic-addon1">Add Item</span>
                         <select name="products" class="form-control products">
                             <option value="">Select Product</option>
-                            @foreach($products as $row)
-                                <option value="{{$row->id}} -x- {{$row->sku}} -x- {{$row->name}} -x- {{$row->sell_price}}">{{$row->sku}} - {{$row->name}} &diams; ${{money_c($row->sell_price)}} &sim; ({{$row->currentStock()}} {{$row->unit['name']}})</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -245,13 +243,6 @@
                 var account_name = $('#myModal [name=account_books_id]').find('option:selected').data('name');
 
                 var due = Number($('.due_show').attr('data-due'));
-                var methods = $('.payment_method').val();
-                var balance = Number($('.customer').find('option:selected').data('balance'));
-
-                if(methods == 'Customer Account' && amount > balance){
-                    alert('Inefficient Customer Account Balance.');
-                    return false;
-                }
 
                 if(amount > 0 && amount <= due){
                     all_payment.push({
@@ -287,14 +278,6 @@
 
             $('.payment_method').change(function () {
                 var methods = $(this).val();
-                var balance = Number($('.customer').find('option:selected').data('balance'));
-                var due = Number($('.due_show').attr('data-due'));
-
-                if(methods == 'Customer Account' && due > balance){
-                    $('#myModal [type=submit]').prop('disabled', true);
-                }else{
-                    $('#myModal [type=submit]').prop('disabled', false);
-                }
 
                 switch(methods) {
                     case "Cheque":
@@ -311,11 +294,6 @@
                         $('.cheque_number').hide();
                         $('.bank_account_no').hide();
                         $('.transaction_no').show();
-                        break;
-                    case "Customer Account":
-                        $('.cheque_number').hide();
-                        $('.bank_account_no').hide();
-                        $('.transaction_no').hide();
                         break;
                     default:
                         $('.cheque_number').hide();
@@ -342,7 +320,30 @@
             $('.warehouses').val("{{auth()->user()->warehouses_id}}").select2();
             $('.accounts').val("{{auth()->user()->account_books_id}}").select2();
 
-            $('.customer, .status, .vat_tax, .discount, .shipment, .products, .payment_method').select2();
+            $('.customer').select2({
+                ajax: {
+                    url: "{{route('customer.api')}}",
+                    delay: 250,
+                    data: function (params) {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {search: params.term};
+                    }
+                }
+            });
+
+
+            $('.products').select2({
+                ajax: {
+                    url: "{{route('product.api')}}",
+                    delay: 250,
+                    data: function (params) {
+                        // Query parameters will be ?search=[term]&type=public
+                        return {search: params.term, type: 'sales' };
+                    }
+                }
+            });
+
+            $('.status, .vat_tax, .discount, .shipment, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,
@@ -553,12 +554,19 @@
          * Customer Credit Limit
          */
         function cr_limit() {
-            var balance = Number($('.customer').find('option:selected').data('balance'));
-            var crlimit = Number($('.customer').find('option:selected').data('crlimit'));
+            var id = $('.customer').val();
+
+            var balance = 0;
+            var crlimit = 0;
+
+            $.getJSON( "{{route('customer_bl.api')}}?id="+id, function( data ){
+                 balance = data[1];
+                 crlimit = data[0];
+            });
+
             var due = Number($('.due_show').attr('data-due'));
             var crbalance = balance - due;
             var cr_abs = Math.abs(crbalance);
-
 
             if(crlimit == 0){
                 $('#credit_limit').hide();
@@ -577,6 +585,7 @@
         /**
          * Customer Credit Limit
          */
+
 
     </script>
 @endsection

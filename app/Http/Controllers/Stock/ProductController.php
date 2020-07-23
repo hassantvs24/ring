@@ -146,6 +146,28 @@ class ProductController extends Controller
         return view('stock.stock_transaction')->with(['table' => $table]);
     }
 
+    public function product_api(Request $request){
+        $search = $request->search;
+        $type = $request->type;
+
+        $table = Product::orderBy('name')
+            ->where('name', 'like', $search.'%')
+//            ->with(['productCategory' => function ($query)  use ($search) {
+//                $query->orWhere('name', 'like', $search.'%');
+//            }])
+            ->take(15)
+            ->get();
+
+        $data = array();
+        foreach ($table as $row){
+            $rowData['id'] = $row->id.' -x- '.$row->sku.' -x- '.$row->name.' -x- '.($type == 'sales' ? $row->sell_price : $row->purchase_price);
+            $rowData['text'] = $row->name.' ♦ '.$row->productCategory['name'].' ♦ $'.money_c($type == 'sales' ? $row->sell_price : $row->purchase_price).' ♦ '.$row->currentStock().''.$row->unit['name'];
+            array_push($data, $rowData);
+        }
+
+        return response()->json(['results' => $data]);
+    }
+
 
 
 }
