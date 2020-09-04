@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Sales;
 
 use App\AccountBook;
+use App\Agent;
 use App\Customer;
+use App\CustomerCategory;
 use App\Discount;
 use App\Http\Controllers\Controller;
 use App\InvoiceItem;
@@ -11,8 +13,10 @@ use App\Product;
 use App\SellInvoice;
 use App\Shipment;
 use App\Transaction;
+use App\UpaZilla;
 use App\VetTex;
 use App\Warehouse;
+use App\Zilla;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +31,12 @@ class SalesController extends Controller
         $vat_tax = VetTex::orderBy('name')->get();
         $ac_book = AccountBook::orderBy('name')->get();
 
-        return view('sales.sales')->with(['warehouse' => $warehouse, 'discount' => $discount, 'shipment' => $shipment, 'vat_tax' => $vat_tax, 'ac_book' => $ac_book]);
+        $upa_zilla = UpaZilla::orderBy('name', 'ASC')->get();
+        $zilla  = Zilla::orderBy('name', 'ASC')->get();
+        $category = CustomerCategory::orderBy('name', 'ASC')->get();
+        $agent = Agent::orderBy('name', 'ASC')->get();
+
+        return view('sales.sales')->with(['zilla' => $zilla, 'category' => $category, 'agent' => $agent, 'upa_zilla' => $upa_zilla, 'warehouse' => $warehouse, 'discount' => $discount, 'shipment' => $shipment, 'vat_tax' => $vat_tax, 'ac_book' => $ac_book]);
     }
 
     public function store(Request $request)

@@ -39,7 +39,7 @@ class CreateSellInvoicesTable extends Migration
             $table->string('delivery_description')->nullable();
             $table->enum('delivery_status', ['Pending Delivery', 'On The Way', 'Delivered'])->nullable();
             $table->string('documents')->nullable()->comment('Attach Document Upload');
-            $table->foreignId('customers_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
+            $table->foreignId('customers_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('shipments_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('discounts_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('vet_texes_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');

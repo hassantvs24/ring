@@ -69,12 +69,37 @@ class ReportsController extends Controller
         }
 
 
-        //dd($table);
-
-
-       // dd($dt->gen_list());
-
         return view('reports.print.profit_lose')->with(['table' => $table, 'request' => $request->all()]);
 
+    }
+
+    public function sales_profit(Request $request){
+        $validator = Validator::make($request->all(), [
+            'date_range' => 'required|string|min:23|max:23',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->orderBy('created_at');
+        }
+
+        $dt = new DbDate($request->date_range);
+        $dates = $dt->gen_list();
+
+        $table = array();
+        foreach($dates as $d) {
+            $rowData['date'] = $d;
+
+            $invoice = SellInvoice::whereDate('created_at', $d)->where('status', 'Final')->get();
+            $rowData['invoice'] = $invoice->count();
+            $rowData['discount_amount'] = $invoice->sum('discount_amount');
+            $rowData['vet_texes_amount'] = $invoice->sum('vet_texes_amount');
+            $rowData['additional_charges'] = $invoice->sum('additional_charges');
+            $rowData['sub_total'] = $invoice->sum('SubTotal');
+            $rowData['invoice_total'] = $invoice->sum('InvoiceTotal');
+            $rowData['purchase_total'] = $invoice->sum('PurchaseTotal');
+
+            array_push($table, $rowData);
+        }
+        return view('reports.print.sales_profit')->with(['table' => $table, 'request' => $request->all()]);
     }
 }

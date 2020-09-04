@@ -18,35 +18,44 @@
                 <th>Product</th>
                 <th>Invoice No</th>
                 <th>Quantity</th>
-                <th>Unit</th>
+                <th>Purchase</th>
                 <th>Rate</th>
                 <th>Total</th>
+                <th>Net Profit</th>
             </tr>
             </thead>
             <tbody>
             @php
                 $total_sales = 0;
+                $total_net_profit = 0;
             @endphp
             @foreach($table as $row)
+                @php
+                    $purchase_amount = ($row->purchase_amount != 0 ? $row->purchase_amount : $row->product['purchase_price']);
+                    $net_profit = ($row->amount * $row->quantity) - ($purchase_amount * $row->quantity);
+                @endphp
                 <tr>
                     <td>{{pub_date($row->created_at)}}</td>
                     <td>{{$row->sku}}</td>
                     <td>{{$row->name}}</td>
                     <td>{{$row->sellInvoice['code']}}</td>
-                    <td>{{$row->quantity}}</td>
-                    <td>{{$row->unit}}</td>
+                    <td>{{$row->quantity}} {{$row->unit}}</td>
+                    <td>{{money_c($purchase_amount)}}</td>
                     <td>{{money_c($row->amount)}}</td>
                     <td>{{money_c($row->amount * $row->quantity)}}</td>
+                    <td>{{money_c($net_profit)}}</td>
                 </tr>
                 @php
                     $total_sales += ($row->amount * $row->quantity);
+                    $total_net_profit += $net_profit;
                 @endphp
             @endforeach
             </tbody>
             <tfoot>
             <tr>
-                <th class="text-right" colspan="7">Total Sales</th>
+                <th class="text-right" colspan="7">Total</th>
                 <th>{{money_c($total_sales)}}</th>
+                <th>{{money_c($total_net_profit)}}</th>
             </tr>
             </tfoot>
         </table>

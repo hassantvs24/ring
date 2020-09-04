@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/api/customer/info',  'Customer\CustomerController@get_cr_bl')->name('customer_bl.api');
         Route::get('/api/customer',  'Customer\CustomerController@customer_api')->name('customer.api');
+        Route::get('/api/customer-table',  'Customer\CustomerController@customer_table_api')->name('customer-table.api');
         Route::put('/customer/payment/{id}',  'Customer\CustomerController@due_payment')->name('customer.payment');
         Route::resource('/customer/list',  'Customer\CustomerController',['names' => 'customer'])->except(['create', 'edit']);
 
@@ -79,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/users/roles',  'User\RolesController')->except(['create', 'show', 'edit']);
         Route::resource('/users',  'User\UserController')->except(['create', 'show', 'edit']);
 
-
+        Route::post('/reports/sales-profit',  'Report\ReportsController@sales_profit')->name('reports.sales-profit');
         Route::post('/reports/profit-loss',  'Report\ReportsController@profit_lose')->name('reports.profit-loss_action');
         Route::get('/reports/profit-loss',  'Report\ReportsController@index')->name('reports.profit-loss');
 
@@ -128,6 +129,10 @@ Route::get('/backup', 'MainController@backup')->name('backup');
 Route::get('/savestate', 'MainController@saveState')->name('sidebar');
 //Route::get('key', 'MainController@key');
 //==================== /Toggle Sidebar =======================
+
+//==================== Testing Option =======================
+Route::get('/testing', 'MainController@test')->name('testing');
+//==================== /Testing Option =======================
 
 Auth::routes();
 

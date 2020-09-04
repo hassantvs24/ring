@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Custom\KeyCheck;
+use App\Customer;
+use App\SellInvoice;
+use App\Transaction;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -70,5 +73,55 @@ class MainController extends Controller
         Artisan::call('config:cache');
         Artisan::call('view:cache');
         return 'Catch Successfully Cleared. Go back and try to access your software.';
+    }
+
+
+    public function test(){
+
+        /*$table = SellInvoice::all();
+
+        $data = array();
+        foreach ($table as $row){
+            $row_data['id'] = $row->id;
+            $row_data['name'] = $row->customer['name'];
+
+            array_push($data, $row_data);
+        }
+
+        dd($data);*/
+
+        /*$csvFile = asset('public/customer4.csv');
+        $file_handle = fopen($csvFile, 'r');
+
+
+
+        $data = array();
+        $i = 1;
+        while(! feof($file_handle))
+        {
+            $row = fgetcsv($file_handle);
+            $rowData['name'] = $row[1];
+            $rowData['address'] = $row[2];
+            $rowData['propietor'] = $row[3];
+            $rowData['contact'] = $row[4];
+
+            $table = new Customer();
+            $table->code = 2396 + $i;
+            $table->name =  $row[1];
+            $table->contact_person =  $row[3];
+            $table->address =  $row[2];
+            $table->contact =  '0'.$row[4];
+            $table->customer_categories_id =  1;
+            $table->warehouses_id =  1;
+            $table->save();
+
+            array_push($data, $rowData);
+
+            $i++;
+        }
+
+        fclose($file_handle);
+
+        dd($data);*/
     }
 }

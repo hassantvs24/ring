@@ -10,7 +10,7 @@
         <form action="{{route('sales.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <x-input name="code" label="Serial Number" value="{{mt_rand()}}" required="required" />
                 </div>
                 <div class="col-md-6">
@@ -20,6 +20,9 @@
 {{--                            <option value="{{$row->id}}" data-crlimit="{{$row->credit_limit}}" data-balance="{{$row->dueBalance()}}">{{$row->code}} - {{$row->name}} &diams; {{$row->contact}}</option>--}}
 {{--                        @endforeach--}}
                     </x-select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success btn-labeled btn-labeled-left" data-toggle="modal" data-target="#customerModal"><b><i class="icon-plus2"></i></b> New Customer</button>
                 </div>
             </div>
 
@@ -219,7 +222,7 @@
                     var productArr = products.split(' -x- ');
                     const single_item = all_items.filter(all_item => all_item.id == productArr[0]);
                     if(single_item.length === 0){
-                        all_items.push({
+                        all_items.unshift({
                             id: productArr[0],
                             sku: productArr[1],
                             name: productArr[2],
@@ -343,7 +346,7 @@
                 }
             });
 
-            $('.status, .vat_tax, .discount, .shipment, .payment_method').select2();
+            $('.category, .zilla, .agent, .warehouse, .status, .vat_tax, .discount, .shipment, .payment_method').select2();
 
             $('.date_pic').daterangepicker({
                 singleDatePicker: true,

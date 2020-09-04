@@ -29,7 +29,7 @@ class CreatePurchaseInvoicesTable extends Migration
             $table->double('due_date')->nullable();
             $table->string('description')->nullable();
             $table->string('documents')->nullable()->comment('Attach Document Upload');
-            $table->foreignId('suppliers_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
+            $table->foreignId('suppliers_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('No Action');
             $table->foreignId('shipments_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('discounts_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');
             $table->foreignId('vet_texes_id')->nullable()->constrained()->onDelete('SET NULL')->onUpdate('No Action');

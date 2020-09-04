@@ -172,6 +172,11 @@ class SellInvoice extends Model
         return $total;
     }
 
+    public function purchase_total(){
+        $total = $this->invoiceItems()->sum(DB::raw('quantity * purchase_amount'));
+        return $total;
+    }
+
     public function invoice_paid(){
         $total = $this->transactions()->sum('amount');
         return $total;
@@ -257,6 +262,17 @@ class SellInvoice extends Model
     public function getSubTotalAttribute()
     {
         return $this->invoice_sub_total();
+    }
+
+
+    public function getInvoiceTotalAttribute()
+    {
+        return $this->invoice_total();
+    }
+
+    public function getPurchaseTotalAttribute()
+    {
+        return $this->purchase_total();
     }
 
 

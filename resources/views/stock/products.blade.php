@@ -19,10 +19,10 @@
             <tr>
                 <th class="p-th">S/N</th>
                 <th class="p-th">Name</th>
-                <th class="p-th">Type</th>
+{{--                <th class="p-th">Type</th>--}}
                 <th class="p-th">Category</th>
                 <th class="p-th">Brand</th>
-                <th class="p-th">Company</th>
+{{--                <th class="p-th">Company</th>--}}
                 <th title="Sales Price" class="p-th">S.Price</th>
                 <th title="Purchase Price" class="p-th">P.Price</th>
                 <th title="Alert Quantity" class="p-th">A.Qty</th>
@@ -36,10 +36,10 @@
                 <tr>
                     <td class="p-td">{{$row->sku}}</td>
                     <td class="p-td">{{$row->name}}</td>
-                    <td class="p-td">{{$row->product_type}}</td>
+{{--                    <td class="p-td">{{$row->product_type}}</td>--}}
                     <td class="p-td">{{$row->productCategory['name']}}</td>
                     <td class="p-td">{{$row->brand['name']}}</td>
-                    <td class="p-td">{{$row->company['name']}}</td>
+{{--                    <td class="p-td">{{$row->company['name']}}</td>--}}
                     <td class="p-td">{{money_c($row->sell_price)}}</td>
                     <td class="p-td">{{money_c($row->purchase_price)}}</td>
                     <td class="p-td">{{$row->alert_quantity}}</td>
@@ -121,7 +121,7 @@
 
             $('.datatable-basic').DataTable({
                 columnDefs: [
-                    { orderable: false, "targets": [11] }
+                    { orderable: false, "targets": [9] }
                 ]
             });
         });

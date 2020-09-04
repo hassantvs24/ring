@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Customer;
+use App\SellInvoice;
 use App\Transaction;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +61,7 @@ class CustomerObserver
     public function deleted(Customer $customer)
     {
         Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->delete();
+        SellInvoice::where('customers_id',  $customer->id)->delete();
     }
 
     /**
@@ -71,6 +73,7 @@ class CustomerObserver
     public function restored(Customer $customer)
     {
         Transaction::onlyTrashed()->where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->restore();
+        SellInvoice::onlyTrashed()->where('customers_id',  $customer->id)->restore();
     }
 
     /**
@@ -82,5 +85,6 @@ class CustomerObserver
     public function forceDeleted(Customer $customer)
     {
         Transaction::where('customers_id',  $customer->id)->where('transaction_point', 'Customer Account')->where('transaction_hub', 'Opening')->forceDelete();
+        SellInvoice::where('customers_id',  $customer->id)->forceDelete();
     }
 }

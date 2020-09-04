@@ -215,7 +215,7 @@
                     var productArr = products.split(' -x- ');
                     const single_item = all_items.filter(all_item => all_item.id == productArr[0]);
                     if(single_item.length === 0){
-                        all_items.push({
+                        all_items.unshift({
                             id: productArr[0],
                             sku: productArr[1],
                             name: productArr[2],

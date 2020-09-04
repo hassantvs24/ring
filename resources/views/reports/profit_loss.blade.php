@@ -12,6 +12,14 @@
                 </x-dinput>
             </x-rpnl>
         </div>
+
+        <div class="col-md-5">
+            <x-rpnl name="Daily Sales Profit Calculation" action="{{route('reports.sales-profit')}}">
+                <x-dinput class="date_pic" name="date_range" label="Date Range" required="required">
+                    <x-slot name="addon"><i class="icon-calendar2"></i></x-slot>
+                </x-dinput>
+            </x-rpnl>
+        </div>
     </div>
 
 @endsection

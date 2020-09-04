@@ -10,8 +10,8 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
-      <webServer id="f37bf074-48f2-4182-99e0-e1709e62c591" name="Kusiara" url="http://wwwmi3-ss35.a2hosting.com">
-        <fileTransfer host="wwwmi3-ss35.a2hosting.com" port="21" rootFolder="/admin.kushiaraseeds.com">
+      <webServer id="f37bf074-48f2-4182-99e0-e1709e62c591" name="Kusiara" url="http://premium22.web-hosting.com">
+        <fileTransfer host="premium22.web-hosting.com" port="21" rootFolder="/admin.kushiaraseeds.com">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
@@ -19,7 +19,7 @@
         </fileTransfer>
       </webServer>
       <webServer id="df741840-6742-4c2e-9e1e-c3c1c4da8396" name="nne" url="http://premium22.web-hosting.com">
-        <fileTransfer host="premium22.web-hosting.com" port="21" rootFolder="/nne.sodaighor.com">
+        <fileTransfer host="premium22.web-hosting.com" port="21" rootFolder="/nabilnahinenterprise.com">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

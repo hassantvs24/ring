@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\PurchaseInvoice;
 use App\Supplier;
 use App\Transaction;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,7 @@ class SupplierObserver
     public function deleted(Supplier $supplier)
     {
         Transaction::where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->delete();
+        PurchaseInvoice::where('suppliers_id',  $supplier->id)->delete();
     }
 
     /**
@@ -76,6 +78,7 @@ class SupplierObserver
     public function restored(Supplier $supplier)
     {
         Transaction::onlyTrashed()->where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->restore();
+        PurchaseInvoice::onlyTrashed()->where('suppliers_id',  $supplier->id)->restore();
     }
 
     /**
@@ -88,5 +91,6 @@ class SupplierObserver
     public function forceDeleted(Supplier $supplier)
     {
         Transaction::where('suppliers_id',  $supplier->id)->where('transaction_point', 'Supplier Account')->where('transaction_hub', 'Opening')->forceDelete();
+        PurchaseInvoice::where('suppliers_id',  $supplier->id)->forceDelete();
     }
 }
