@@ -167,9 +167,17 @@ class SellInvoice extends Model
         $this->attributes['due_date'] = db_date($value);
     }
 
+    public function items_discount(){ //Calculate Discount by item
+        $ps_discount = $this->invoiceItems()->where('discount_type', 'Percentage')->sum(DB::raw('quantity * amount * discount_amount / 100'));
+        $fixed_discount = $this->invoiceItems()->where('discount_type', 'Fixed')->sum(DB::raw('discount_amount'));
+
+        return $ps_discount + $fixed_discount;
+    }
+
     public function invoice_total(){
         $total = $this->invoiceItems()->sum(DB::raw('quantity * amount'));
-        return $total;
+
+        return $total - $this->items_discount();
     }
 
     public function purchase_total(){

@@ -161,7 +161,7 @@ class ProductController extends Controller
         $data = array();
         foreach ($table as $row){
             $rowData['id'] = $row->id.' -x- '.$row->sku.' -x- '.$row->name.' -x- '.($type == 'sales' ? $row->sell_price : $row->purchase_price);
-            $rowData['text'] = $row->name.' ♦ '.$row->productCategory['name'].' ♦ $'.money_c($type == 'sales' ? $row->sell_price : $row->purchase_price).' ♦ '.$row->currentStock().''.$row->unit['name'];
+            $rowData['text'] = $row->name.' ♦ '.$row->productCategory['name'].' ♦ $'.money_c($type == 'sales' ? $row->sell_price : $row->purchase_price).' ♦ ($'.money_c($type == 'sales' ? $row->purchase_price : $row->sell_price).') ♦ '.$row->currentStock().''.$row->unit['name'];
             array_push($data, $rowData);
         }
 

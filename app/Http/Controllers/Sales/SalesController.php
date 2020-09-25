@@ -42,6 +42,8 @@ class SalesController extends Controller
     public function store(Request $request)
     {
 
+        //dd($request->all());
+
         $validator = Validator::make($request->all(), [
             'code' => 'required|string|min:4|max:191|unique:purchase_invoices,code',
             'status' => 'required|string|max:10',
@@ -54,7 +56,9 @@ class SalesController extends Controller
             'created_at' => 'required|date_format:d/m/Y',
             'due_date' => 'required|date_format:d/m/Y',
             'qty' => 'required|array',
-            'price' => 'required|array'
+            'price' => 'required|array',
+            'discounts' => 'required|array',
+            'discount_type' => 'required|array'
         ]);
 
         if ($validator->fails()) {
@@ -89,6 +93,8 @@ class SalesController extends Controller
 
             $qtys = $request->qty;
             $price = $request->price;
+            $discount_type = $request->discount_type;
+            $discounts = $request->discounts;
             $ck_status = ck_status($request->status, 'Final');//Change Status
 
             foreach ($qtys as $id => $qty){
@@ -104,6 +110,8 @@ class SalesController extends Controller
                     $trItem->quantity = $qty;
                     $trItem->amount = $price[$id];
                     $trItem->unit = $product->unit['name'];
+                    $trItem->discount_amount = $discounts[$id];
+                    $trItem->discount_type = $discount_type[$id];
                     $trItem->products_id = $id;
                     $trItem->status = $ck_status;
                     $trItem->warehouses_id = $request->warehouses_id;
@@ -204,7 +212,9 @@ class SalesController extends Controller
             'created_at' => 'required|date_format:d/m/Y',
             'due_date' => 'required|date_format:d/m/Y',
             'qty' => 'required|array',
-            'price' => 'required|array'
+            'price' => 'required|array',
+            'discounts' => 'required|array',
+            'discount_type' => 'required|array'
         ]);
 
         if ($validator->fails()) {
@@ -242,6 +252,8 @@ class SalesController extends Controller
             $qtys = $request->qty;
             $price = $request->price;
             $item_id = $request->item_id;
+            $discount_type = $request->discount_type;
+            $discounts = $request->discounts;
             $ck_status = ck_status($request->status, 'Final');//Change Status
 
             InvoiceItem::where('sell_invoices_id', $invoice_id)->delete(); //Delete Purchase Item
@@ -259,6 +271,8 @@ class SalesController extends Controller
                             'batch_no' => $request->code,
                             'quantity' => $qty,
                             'amount' => $price[$pid],
+                            'discount_amount' => $discounts[$pid],
+                            'discount_type' => $discount_type[$pid],
                             'unit' => $product->unit['name'],
                             'products_id' => $pid,
                             'status' => $ck_status,

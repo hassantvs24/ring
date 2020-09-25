@@ -47,6 +47,7 @@
                             <th>Item</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Less(%)</th>
                             <th class="text-right">Total</th>
                             <th class="text-right"><i class="icon-bin"></i></th>
                         </tr>
@@ -56,7 +57,7 @@
                         </tbody>
                         <tfoot class="text-purple">
                         <tr>
-                            <th class="text-right" colspan="4">Total:</th>
+                            <th class="text-right" colspan="5">Total:</th>
                             <th class="text-right total_price" data-prices="0">0.00</th>
                             <th class="text-right"><i class="icon-bin"></i></th>
                         </tr>
@@ -227,6 +228,8 @@
                             sku: productArr[1],
                             name: productArr[2],
                             price: productArr[3],
+                            discount: 0,
+                            discount_type: 'Percentage',
                             qty: 1,
                         });
                     }
@@ -363,16 +366,19 @@
             var tbl_item = '';
             var total_price = 0;
             $.each(all_items, function( index, value ) {
+                var discounts_rate = Number(value.price * value.discount / 100);
                 tbl_item += `<tr>
                         <td>${value.sku}</td>
                         <td>${value.name}</td>
                         <td><input name="qty[${value.id}]" value="${value.qty}" class="form-control qtyItem" data-id="${value.id}" type="number" step="any" min="0.01" placeholder="Quantity" /></td>
                         <td><input name="price[${value.id}]" value="${value.price}" class="form-control priceItem" data-id="${value.id}" type="number" step="any" min="0.01" placeholder="Price" /></td>
-                        <td class="text-right">${Number(value.price * value.qty).toFixed(2)}</td>
+                        <td><input name="discounts[${value.id}]" value="${value.discount}" class="form-control discountItem"  data-id="${value.id}" type="number" step="any" min="0" max="100" placeholder="Discount" /></td>
+                        <td class="text-right">${Number((value.price - discounts_rate) * value.qty).toFixed(2)}</td>
                         <td class="text-right"><button type="button" class="btn btn-danger btn-xs delete_item" value="${value.id}"><i class="icon-bin"></i></button></td>
+                        <input type="hidden" name="discount_type[${value.id}]" value="Percentage" />
                     </tr>`;
 
-                total_price += Number(value.price * value.qty);
+                total_price += Number((value.price - discounts_rate) * value.qty);
             });
             $('.item_list').html(tbl_item);
             $('.total_price').html(total_price.toFixed(2));
@@ -477,6 +483,16 @@
                 all_items[objIndex].price = cu_val;
                 render_item();
             });
+
+            $('.discountItem').change(function () {
+                var id = $(this).data('id');
+                var cu_val = $(this).val();
+                var objIndex = all_items.findIndex((obj => obj.id == id));
+                all_items[objIndex].discount = cu_val;
+                render_item();
+            });
+
+
         }
         /**
          * /Handle Item Information

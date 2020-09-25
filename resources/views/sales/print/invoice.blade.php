@@ -50,6 +50,7 @@
             <tr>
                 <th>Description</th>
                 <th>Rate</th>
+                <th>Less</th>
                 <th>Qty</th>
                 <th>Total</th>
             </tr>
@@ -57,16 +58,18 @@
                 $items = $table->invoiceItems()->get();
             @endphp
             @foreach($items as $row)
+
                 <tr>
                     <td>{{$row->name}}</td>
-                    <td>{{money_c($row->amount)}}</td>
+                    <td>{{money_c($row->getAttributes()['amount'])}}</td>
+                    <td>{{$row->discount_amount}}{{$row->discount_type == 'Percentage' ? '%':''}}</td>
                     <td>{{$row->quantity}} {{$row->unit}}</td>
                     <td>{{money_c($row->amount * $row->quantity)}}</td>
                 </tr>
             @endforeach
             <tfoot>
             <tr>
-                <th colspan="3" style="text-align: right;">Total </th>
+                <th colspan="4" style="text-align: right;">Total </th>
                 <th>{{money_c($table->invoice_total())}}</th>
             </tr>
             </tfoot>

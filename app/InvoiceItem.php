@@ -100,6 +100,16 @@ class InvoiceItem extends Model
         $this->attributes['created_at'] = db_date($value);
     }
 
+
+    public function getAmountAttribute($value){
+        $less = $this->discount_amount;
+        if($this->discount_type == 'Percentage'){
+            $less = $value * $this->discount_amount / 100;
+        }
+
+        return $value - $less;
+    }
+
     protected static function boot()
     {
         parent::boot();
