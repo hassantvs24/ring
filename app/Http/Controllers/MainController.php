@@ -34,7 +34,6 @@ class MainController extends Controller
         }catch (\Exception $ex) {
             return redirect()->back()->with(['message' => 'Database Backup Failed!!',  'alert-type' => 'error']);
         }
-
         $files = Storage::disk('local')->files('Laravel');
         return Storage::disk('local')->download(end($files));
     }

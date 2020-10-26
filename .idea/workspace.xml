@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2645d6cd-1c9b-4ae5-9099-e1539926e151" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Expense/ExpenseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Expense/ExpenseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Stock/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Stock/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/InvoiceItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/InvoiceItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SellInvoice.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SellInvoice.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/print.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/print.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/print/invoice.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/print/invoice.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/sales.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/sales.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sales/sales_edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/sales_edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_04_08_152122_create_unions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_04_08_152122_create_unions_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +21,20 @@
     </execution>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="678">
+              <caret line="169" column="17" selection-start-line="169" selection-start-column="17" selection-end-line="169" selection-end-column="17" />
+              <folding>
+                <element signature="e#46#66#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -104,8 +113,8 @@
         <option value="$PROJECT_DIR$/resources/views/sales/print/invoice.blade.php" />
         <option value="$PROJECT_DIR$/app/SellInvoice.php" />
         <option value="$PROJECT_DIR$/resources/views/sales/sales_edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" />
         <option value="$PROJECT_DIR$/app/InvoiceItem.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php" />
       </list>
     </option>
   </component>
@@ -226,10 +235,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="186" />
-    <option name="y" value="-22" />
+    <option name="x" value="378" />
+    <option name="y" value="-12" />
     <option name="width" value="1400" />
-    <option name="height" value="997" />
+    <option name="height" value="995" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -237,6 +246,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -247,19 +257,39 @@
             <path>
               <item name="ring" type="b2602c69:ProjectViewProjectNode" />
               <item name="ring" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ring" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ring" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ring" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ring" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Sales" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tester" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -498,16 +528,21 @@
       <workItem from="1599765639371" duration="40000" />
       <workItem from="1601015969616" duration="4545000" />
       <workItem from="1601063408030" duration="8807000" />
+      <workItem from="1601379555778" duration="4000" />
+      <workItem from="1601399572519" duration="3000" />
+      <workItem from="1601471716133" duration="15000" />
+      <workItem from="1603257800988" duration="569000" />
+      <workItem from="1603260665320" duration="32000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="902819000" />
+    <option name="totallyTimeSpent" value="903442000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2739872" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28997868" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -611,18 +646,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php</url>
-          <line>95</line>
+          <line>96</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php</url>
-          <line>111</line>
+          <line>112</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php</url>
-          <line>253</line>
+          <line>274</line>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php</url>
+          <line>159</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -958,13 +998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="250" lean-forward="true" selection-start-line="250" selection-end-line="250" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/sales/print/invoice.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -983,6 +1016,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1547">
           <caret line="364" column="32" selection-start-line="364" selection-start-column="32" selection-end-line="364" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sales/SalesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="169" column="17" selection-start-line="169" selection-start-column="17" selection-end-line="169" selection-end-column="17" />
+          <folding>
+            <element signature="e#46#66#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -17,6 +17,7 @@ use App\UpaZilla;
 use App\VetTex;
 use App\Warehouse;
 use App\Zilla;
+use App\Custom\BdPhone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -130,6 +131,7 @@ class SalesController extends Controller
             $account_books_id = $request->account_books_id;
 
             if($request->total_all_pay > 0){
+				$t_amount = 0;
                 foreach ($amounts as $i => $amount){
                     $payment = new Transaction();
                     $payment->amount = $amount;
@@ -148,13 +150,32 @@ class SalesController extends Controller
                     $payment->sell_invoices_id = $invoice_id;
                     $payment->created_at  = $request->created_at;
                     $payment->save();
+					
+					$t_amount += $amount;
                 }
+				
+				
+			
+			//SMS
+//			$mobile_number = new BdPhone($customer->contact);
+//			if($mobile_number->check()){
+//				$user_name = 'nne';
+//				$password = 'Abcd@123';
+//				$from = '8801834748739';
+//				$contact = '8801675870047';//"88".$customer->contact;
+//				$sms = urlencode("Dear ".$customer->name.". Your Payment of tk. ".$t_amount." is received. Thank you from NNE");
+//
+//				file_get_contents("https://api.mobireach.com.bd/SendTextMessage?Username=".$user_name."&Password=".$password."&From=".$from."&To=".$contact."&Message=".$sms);
+//			}
+            //SMS
+			
+			
             }
 
             DB::commit();
         }catch (\Exception $ex) {
             DB::rollback();
-            //dd($ex);
+            dd($ex);
             return redirect()->back()->with(config('naz.error'));
         }
 
